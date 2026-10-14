@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v18.1</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v18.2</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -38,7 +38,7 @@
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
-                    <p class="text-sm text-slate-500 mt-1">Versão 18.1 — Acesso Restrito por Login e Senha</p>
+                    <p class="text-sm text-slate-500 mt-1">Versão 18.2 — Acesso Restrito por Login e Senha</p>
                 </div>
 
                 <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
@@ -64,7 +64,12 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
-                        <input type="password" id="login-password" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
+                        <div class="relative">
+                            <input type="password" id="login-password" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
+                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer" title="Visualizar senha">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm">Entrar no Sistema</button>
                 </form>
@@ -103,11 +108,11 @@
                         <p id="user-display-name" class="text-sm font-semibold text-slate-800"></p>
                         <p id="user-display-email" class="text-xs text-slate-500"></p>
                     </div>
-                    <button onclick="openChangePasswordModal()" class="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all flex items-center space-x-1 text-xs font-semibold border border-slate-200" title="Alterar Minha Senha">
+                    <button onclick="openChangePasswordModal()" class="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all flex items-center space-x-1 text-xs font-semibold border border-slate-200 cursor-pointer" title="Alterar Minha Senha">
                         <i class="fa-solid fa-key"></i>
                         <span class="hidden md:inline">Alterar Senha</span>
                     </button>
-                    <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
+                    <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
                 </div>
             </header>
 
@@ -301,7 +306,7 @@
                         </div>
                     </div>
 
-                    <!-- ABA DE RENOVAÇÃO (ATUALIZADA COM AGRUPAMENTO E PDF POR USUÁRIO SEPARADO) -->
+                    <!-- ABA DE RENOVAÇÃO -->
                     <div id="tab-renewals" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
@@ -491,15 +496,30 @@
             <form id="change-password-form" onsubmit="handleChangePassword(event)" class="p-6 space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Atual</label>
-                    <input type="password" id="current-password" required class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua senha atual">
+                    <div class="relative">
+                        <input type="password" id="current-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua senha atual">
+                        <button type="button" onclick="togglePasswordVisibility('current-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
-                    <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
+                    <div class="relative">
+                        <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
+                        <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
-                    <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                    <div class="relative">
+                        <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                        <button type="button" onclick="togglePasswordVisibility('confirm-new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeChangePasswordModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
@@ -673,7 +693,12 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Pré-Determinada</label>
-                    <input type="text" id="invite-pass" required value="mudar123" class="w-full px-4 py-2.5 border rounded-xl text-sm font-mono">
+                    <div class="relative">
+                        <input type="text" id="invite-pass" required value="mudar123" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm font-mono outline-none">
+                        <button type="button" onclick="togglePasswordVisibility('invite-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeInviteModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
@@ -683,9 +708,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 18.1 COM AGRUPAMENTO E PDF POR USUÁRIO SEPARADO) -->
+    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 18.2) -->
     <script>
-        const CURRENT_VERSION = "18.1";
+        const CURRENT_VERSION = "18.2";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
@@ -703,6 +728,19 @@
             e.returnValue = 'Lembre-se de baixar o seu backup atualizado para o Google Drive antes de sair!';
             return e.returnValue;
         });
+
+        // Função universal para alternar visibilidade de senha (olho)
+        function togglePasswordVisibility(inputId, btnEl) {
+            let input = document.getElementById(inputId);
+            let icon = btnEl.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fa-solid fa-eye-slash";
+            } else {
+                input.type = "password";
+                icon.className = "fa-solid fa-eye";
+            }
+        }
 
         function formatDateBR(dateStr) {
             if (!dateStr) return '';
@@ -1442,9 +1480,6 @@
             doc.save(`lista_pacientes_${Date.now()}.pdf`);
         }
 
-        // ==========================================
-        // RENDERIZAÇÃO DA ABA DE RENOVAÇÃO (AGRUPADA POR PACIENTE + DATA)
-        // ==========================================
         function renderRenewals() {
             let tbody = document.getElementById('renewals-table-body');
             let empty = document.getElementById('empty-renewal-state');
@@ -1453,7 +1488,6 @@
             let term = getSearchTerm();
             let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             
-            // Agrupa por Chave: "revId_dataRenovacao"
             let groupsMap = {};
 
             list.forEach(rev => {
@@ -1490,7 +1524,6 @@
                 groupsList = groupsList.filter(g => (g.paciente || '').toLowerCase().includes(term) || g.medications.some(m => (m.name || '').toLowerCase().includes(term)));
             }
 
-            // Ordena por data de renovação (mais próxima primeiro)
             groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
 
             if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
@@ -1502,7 +1535,7 @@
                         <div>
                             • <b>${m.name}</b> (${m.cycleDays} dias) | Conf: ${formatDateBR(m.baseDate)} ${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''}
                         </div>
-                        <button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold hover:bg-blue-100" title="Renovar apenas este medicamento"><i class="fa-solid fa-rotate-right mr-1"></i>Renovar só este</button>
+                        <button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold hover:bg-blue-100 cursor-pointer" title="Renovar apenas este medicamento"><i class="fa-solid fa-rotate-right mr-1"></i>Renovar só este</button>
                     </div>
                 `).join('');
 
@@ -1517,8 +1550,8 @@
                         <td class="p-4 text-slate-600">${g.gestor}</td>
                         <td class="p-4 text-slate-500 text-xs">${g.medico}</td>
                         <td class="p-4 text-center space-y-1">
-                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 shadow" title="Renovar todos os medicamentos deste grupo para esta data"><i class="fa-solid fa-rotate-right mr-1"></i> Renovar Grupo</button>
-                            <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold hover:bg-slate-800 shadow"><i class="fa-solid fa-file-pdf mr-1"></i> PDF Desta Data</button>
+                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 shadow cursor-pointer" title="Renovar todos os medicamentos deste grupo"><i class="fa-solid fa-rotate-right mr-1"></i> Renovar Grupo</button>
+                            <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold hover:bg-slate-800 shadow cursor-pointer"><i class="fa-solid fa-file-pdf mr-1"></i> PDF Desta Data</button>
                         </td>
                     </tr>`;
             });
@@ -1584,7 +1617,6 @@
             alert(`${count} medicamento(s) do grupo renovado(s) com sucesso para mais ${newDays} dias!`);
         }
 
-        // Gera PDF estrito para a data específica (sem misturar datas)
         function downloadGroupPDF(revId, targetDate) {
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev) return;
@@ -1622,7 +1654,6 @@
             doc.save(`renovacao_${rev.paciente.replace(/\s+/g, '_')}_${targetDate}.pdf`);
         }
 
-        // Exporta a lista de renovações separada por usuário em um único PDF (com quebra de página por usuário)
         function exportRenewalsSeparatedByUserPDF() {
             let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             if (list.length === 0) {
@@ -2013,9 +2044,9 @@
                         <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
                         <td class="p-4">${statusBadge}</td>
                         <td class="p-4 text-center space-x-2">
-                            <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold hover:bg-blue-100"><i class="fa-solid fa-key mr-1"></i>Redefinir Senha</button>
+                            <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold hover:bg-blue-100 cursor-pointer"><i class="fa-solid fa-key mr-1"></i>Redefinir Senha</button>
                             ${!isPrimaryMaster ? `
-                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 ${u.status === 'inactive' ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-700 hover:bg-red-100'} rounded text-xs font-semibold">${u.status === 'inactive' ? 'Desbloquear / Ativar' : 'Bloquear / Inativar'}</button>
+                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 ${u.status === 'inactive' ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-700 hover:bg-red-100'} rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear / Ativar' : 'Bloquear / Inativar'}</button>
                             ` : '<span class="text-xs text-slate-400 italic">ADM Master Principal</span>'}
                         </td>
                     </tr>`;
@@ -2067,7 +2098,7 @@
 
         function exportBackupJSON() {
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
-            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v18.1_${Date.now()}.json`;
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v18.2_${Date.now()}.json`;
             document.body.appendChild(a); a.click(); a.remove();
         }
 
@@ -2086,7 +2117,7 @@
         function exportPDF(type) {
             const { jsPDF } = window.jspdf;
             let doc = new jsPDF();
-            doc.text("Relatório Geral - Gestão Segura ACS Marcelo 90/01 (v18.1)", 14, 20);
+            doc.text("Relatório Geral - Gestão Segura ACS Marcelo 90/01 (v18.2)", 14, 20);
             let rows = (type === 'individual') ? db.items.filter(i => i.userEmail === currentUser.email).map(i => [i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]) : db.items.map(i => [i.userEmail, i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]);
             let headers = (type === 'individual') ? [["Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]] : [["Usuário", "Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]];
             doc.autoTable({ startY: 30, head: headers, body: rows });
