@@ -1,0 +1,1049 @@
+{
+  "version": "16.2",
+  "users": [
+    {
+      "email": "esf90micro01@gmail.com",
+      "name": "Gestor Administrador Master",
+      "password": "0limpic0",
+      "role": "admin",
+      "status": "active"
+    },
+    {
+      "email": "vitorvianaacs@gmail.com",
+      "name": "vitorvianaacs",
+      "password": "vitor123",
+      "role": "user",
+      "status": "active"
+    }
+  ],
+  "items": [
+    {
+      "id": "1",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "Enf. Ana",
+      "name": "Maria Oliveira",
+      "value": 7,
+      "profile": "90",
+      "nextDate": "2027-01-07",
+      "createdAt": "2026-04-09"
+    }
+  ],
+  "revenues": [
+    {
+      "id": "1791566418556",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "137984",
+      "paciente": "ADENILSE FERNANDES SENA",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-10-09",
+      "status": "active",
+      "medications": [
+        {
+          "name": "DIOSMINA 450 MG+ HESPERIDINA 50MG 1CP 12/12",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        },
+        {
+          "name": "LOSARTAN 50MG  1CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-06"
+        },
+        {
+          "name": "ATORVASTATINA 40 MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-06"
+        },
+        {
+          "name": "DAPAGLIFLOZINA 10 MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-06"
+        },
+        {
+          "name": "LACTULOSE 667MG/ML 30 ML DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-06"
+        },
+        {
+          "name": "CARVEDILOL 6,25MG  1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-06"
+        }
+      ]
+    },
+    {
+      "id": "1791568215983",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "357611",
+      "paciente": "ADRIANA DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "VENLAFAXINA SAL CLORIDRATO  150MG",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-29"
+        },
+        {
+          "name": "ACIDO ACETIL SALICILICO 100MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        },
+        {
+          "name": "DIOSMINA 450 MG+ HESPERIDINA 50MG",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        },
+        {
+          "name": "ENALAPRIL MALEATO 10 MG 1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-27"
+        }
+      ]
+    },
+    {
+      "id": "1791570980802",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "43253",
+      "paciente": "ALCIDIO PELOZATO",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "LOSARTAN 50MG 1CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "HIDROCLOROTIAZIDA 25MG 1 CP MANHA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "ACIDO ACETIL SALICILICO 100MG 1 CP APOS ALMOCO",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "OMEPRAZOL 20 MG 1 CP MANHA EM JEJUM",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "ANLODIPINO 5MG 1 CP MANHA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "DOXAZOSINA MESILATO 2MG 1 CP NOITE",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        },
+        {
+          "name": "VALERIANA OFFICINALIS 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-05-12"
+        }
+      ]
+    },
+    {
+      "id": "1791568324684",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1259996",
+      "paciente": "AMIR PEREIRA DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "SERTRALINA 100 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        },
+        {
+          "name": "QUETIAPINA 25MG 2 CP A NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "id": "1791568371252",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "185674",
+      "paciente": "ANA PAULA FERRARINI",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ESCITALOPRAM 10 MG 1 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "TIAMAZOL 10 MG 1 CP DIA",
+          "cycleDays": 90,
+          "obs": "",
+          "baseDate": "2026-09-29"
+        },
+        {
+          "name": "DIOSMINA 450 MG+ HESPERIDINA 50MG 1 CP 12/12",
+          "cycleDays": 90,
+          "obs": "",
+          "baseDate": "2026-08-24"
+        }
+      ]
+    },
+    {
+      "id": "1791570635584",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "579483",
+      "paciente": "ANAILTON DOS SANTOS",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "SINVASTATINA 20MG 1 CP DIA",
+          "cycleDays": 90,
+          "obs": "",
+          "baseDate": "2026-07-30"
+        },
+        {
+          "name": "LOSARTAN 50MG 1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-30"
+        },
+        {
+          "name": "INSULINA HUMANA REGULAR 100U/ML, APLICAR 10 UI 1X DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-30"
+        },
+        {
+          "name": "METFORMINA 500MG XR",
+          "cycleDays": 30,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791568454697",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "319471",
+      "paciente": "ANTONIA DA SILVA LARANJEIRA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "NORTRIPTILINA CLORIDRATO 25MG 1 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-17"
+        },
+        {
+          "name": "FLUOXETINA 20 MG  1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-17"
+        },
+        {
+          "name": "LACTULOSE 667MG/ML 10 ML 3X DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-17"
+        },
+        {
+          "name": "HIDROCLOROTIAZIDA 25MG 1 CP MANHA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-25"
+        },
+        {
+          "name": "ACIDO ACETIL SALICILICO 100MG 1 CP ALMOCO",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-25"
+        },
+        {
+          "name": "LEVOTIROXINA  SODICA 25MCG  1 CP JEJUM",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-25"
+        },
+        {
+          "name": "OLMESARTANA MEDOXOMILA 20 MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-07-25"
+        }
+      ]
+    },
+    {
+      "id": "1791571214755",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "509683",
+      "paciente": "ANTONIO CARLOS DIAS LEITE",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ESPIRONOLACTONA 25MG 1 CP MANHA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        },
+        {
+          "name": "HIDROCLOROTIAZIDA 25MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        },
+        {
+          "name": "METFORMINA 500 MG XR 2 CP ALMOCO",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        },
+        {
+          "name": "SINVASTATINA 20MG 1 CP NOITE",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        },
+        {
+          "name": "FLUOXETINA 20 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        }
+      ]
+    },
+    {
+      "id": "1791571308092",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "50037",
+      "paciente": "ANTONIO RICARDO DE OLIVEIRA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ENALAPRIL 10MG 1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        },
+        {
+          "name": "AAS 100 MG 1 CP POS ALMOCO",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        },
+        {
+          "name": "METFORMINA 850 MG 1 CP APOS CAFE, ALMOÇO, JANTA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        },
+        {
+          "name": "SINVASTATINA 40 MG 1 CP NOITE",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        },
+        {
+          "name": "ALOUPURINOL 300 MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791568570621",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "163698",
+      "paciente": "CLEUZA MARQUES VALE",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "CLONAZEPAM 2,5 MG/ML 5GT DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-01"
+        },
+        {
+          "name": "AMITRIPTILINA 25 3 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-01"
+        },
+        {
+          "name": "HALOPERIDOL 1MG 1 CP 12/12 HORAS",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-01"
+        },
+        {
+          "name": "VENLIFT 75 MG CP APOS CAFE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-01"
+        }
+      ]
+    },
+    {
+      "id": "1791571575853",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "124213",
+      "paciente": "DANIELA LONARDONI ALVES",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "medroxiprogesterona acetato 150 mg/ml 1 amp a cada 3 m",
+          "cycleDays": 270,
+          "obs": "",
+          "baseDate": "2026-10-07"
+        }
+      ]
+    },
+    {
+      "id": "1791568693408",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "309724",
+      "paciente": "DOMINGAS COSTA DIAS LEITE",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "FLUOXETINA 20 MG 1 cp DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-05"
+        },
+        {
+          "name": "VALERIANA OFFICINALIS1 CP NOITE",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        },
+        {
+          "name": "LEVOTIROXINA  SODICA 25MCG  1CP EM JEJUM",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        },
+        {
+          "name": "LEVOTIROXINA  SODICA 100MCG  1CP EM JEJUM",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        },
+        {
+          "name": "HIDROCLOROTIAZIDA 25MG  1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        },
+        {
+          "name": "METFORMINA 500 MG XR  1 CP ALMOÇO 1 CP JANTAR",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-01"
+        }
+      ]
+    },
+    {
+      "id": "1791571389492",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "429031",
+      "paciente": "EDSON APARECIDO DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "LEVOID 100 MCG 1 CP JEJUM",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        },
+        {
+          "name": "ANLODIPINO 5 MG 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        },
+        {
+          "name": "HIDROCLOROTIAZIDA  25 MG 1 CP MANHA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        },
+        {
+          "name": "LOSARTAN 50 MG 1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        }
+      ]
+    },
+    {
+      "id": "1791568757666",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "547032",
+      "paciente": "ELIANA KELI FERREIRA TEODORO LOPES",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "NORTRIPTILINA 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        },
+        {
+          "name": "VENLIFT 75 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "1791568813195",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1008783",
+      "paciente": "ELIANE LOPES DE OLIVEIRA PRESTES",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "TOPIRAMATO 50 MG 1CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-23"
+        },
+        {
+          "name": "CLONAZEPAM 2MG 1 CP A NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-23"
+        }
+      ]
+    },
+    {
+      "id": "1791568850924",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "618438",
+      "paciente": "ELISANGELA PAULINO DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "DESVENLAFAXINA 100MG.1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "id": "1791568906590",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "985854",
+      "paciente": "FREDDY ANTONIO ROJAS SANCHEZ",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "NORTRIPTILINA 25 MG 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-15"
+        }
+      ]
+    },
+    {
+      "id": "1791568946288",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1165235",
+      "paciente": "HEITOR MARTINS CHUERI",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ARIPIPRAZOL 1MG/ML. 2ML NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        }
+      ]
+    },
+    {
+      "id": "1791565224430",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1189892",
+      "paciente": "IDAIR DE LIMA",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-09-21",
+      "status": "active",
+      "medications": [
+        {
+          "name": "GABAPENTINA 300MG 2 CAPSULA A NOITE",
+          "cycleDays": 30,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        },
+        {
+          "name": "AMITRIPTILINA 25MG COMPRIMIDO 3 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "id": "1791571620181",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "934276",
+      "paciente": "ISABELLE NASCIMENTO E SOUZA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "MEDROZIPROGESTERONA 150 MG/ML 1 AMP DE 90/90 DIAS = 270 DIAS",
+          "cycleDays": 270,
+          "obs": "",
+          "baseDate": "2026-09-17"
+        }
+      ]
+    },
+    {
+      "id": "1791569433599",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "133968",
+      "paciente": "IZAURI GODY LUIZ",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "SERTRALINA 100 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791569486288",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "550103",
+      "paciente": "JULIANA  LARISSA  DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "DESDUO 100MG 1CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-29"
+        },
+        {
+          "name": "DESDUO 50MG 1CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-29"
+        }
+      ]
+    },
+    {
+      "id": "1791569550370",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "657976",
+      "paciente": "LIDIANE RODRIGUES SILVA DOS SANTOS",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "SERTRALINA 75 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-28"
+        }
+      ]
+    },
+    {
+      "id": "1791569580850",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "726360",
+      "paciente": "LUIZ HENRIQUE DOS SANTOS ARAUJO",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "CARBAZEPINA 200MG TOMAR 1CP 12/12H",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-17"
+        }
+      ]
+    },
+    {
+      "id": "1791569697700",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "667398",
+      "paciente": "LUSIA PAULINO DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "VENLIFT 75 MG 1CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        },
+        {
+          "name": "VALERIANA 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        },
+        {
+          "name": "DIOSMINA 450 MG + HESPERIDINA  50 MG 1 CP 12/12 H",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        }
+      ]
+    },
+    {
+      "id": "1791565546950",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "107905",
+      "paciente": "MARIA APARECIDA CORREA DE OLIVEIRA",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-09-21",
+      "status": "active",
+      "medications": [
+        {
+          "name": "LAMOTRIGINA  100MG. 1CP1/2 DE 12/12H.",
+          "cycleDays": 30,
+          "obs": ""
+        },
+        {
+          "name": "CLOBAZAM 10 MG",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        },
+        {
+          "name": "CARBAMAZEPINA 200 3,5 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-01"
+        }
+      ]
+    },
+    {
+      "id": "1791565637919",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "383365",
+      "paciente": "MARIA APARECIDA PEREIRA DOS SANTOS",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-10-07",
+      "status": "active",
+      "medications": [
+        {
+          "name": "CODEINA 30 1 CP 6/6 H SE DOR FORTE",
+          "cycleDays": 30,
+          "obs": ""
+        },
+        {
+          "name": "AMITRIPTILINA 25 MG 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": ""
+        },
+        {
+          "name": "GABAPENTINA 300 MG 1 CP 8/8 HORAS",
+          "cycleDays": 60,
+          "obs": ""
+        }
+      ]
+    },
+    {
+      "id": "1791571533573",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "43257",
+      "paciente": "MARIA DOS SANTOS PELOZATO",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "LOSARTAN 50 12/12 H",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "ANLODIPINO 1 CP",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "AAS 1 CP DIA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "LEVOID  25 1 CP DIA CADA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "LEVOID  50 1 CP DIA CADA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "VALERIANA",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        },
+        {
+          "name": "CARBONATO DE CALCIO COM VIT D. 1 CP 12/12",
+          "cycleDays": 180,
+          "obs": "",
+          "baseDate": "2026-09-14"
+        }
+      ]
+    },
+    {
+      "id": "1791570062898",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1034310",
+      "paciente": "MARIA MADALENA DA SILVA TAVARES",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "PONDERA 12,5 1CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791570106722",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "240313",
+      "paciente": "NADIR GOMES DA CRUZ DE SOUZA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "VENLIFT 150 1CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        }
+      ]
+    },
+    {
+      "id": "1791570143315",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "1067767",
+      "paciente": "RODRIGO DA SILVA OLIVEIRA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ESCITALOPRAM 15 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        }
+      ]
+    },
+    {
+      "id": "1791570178292",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "101711",
+      "paciente": "ROSANGELA MARIA CUSTODIO",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "FLUOXETINA 20 MG. 2 CP 1X DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791570266124",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "331439",
+      "paciente": "ROSILENE INES LANG",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "BROMAZEPAM 3 MG 1CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        },
+        {
+          "name": "CLOMIPRAMINA 25 MG 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        },
+        {
+          "name": "FLUOXETINA 20 MG 1 CP 12/12 H",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        },
+        {
+          "name": "VENLIFT 75 MG 1 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "1791566274126",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "238516",
+      "paciente": "SANDRA REGINA DAS NEVES",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-10-01",
+      "status": "active",
+      "medications": [
+        {
+          "name": "ZOLPIDEM 5 MG 1 CP NOITE",
+          "cycleDays": 30,
+          "obs": ""
+        }
+      ]
+    },
+    {
+      "id": "1791570305709",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "256757",
+      "paciente": "SOLANGE RODRIGUES DA SILVA",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "SERTRALINA 100 MG 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-03"
+        }
+      ]
+    },
+    {
+      "id": "1791570338173",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "619662",
+      "paciente": "TEREZINHA FERREIRA TEODORO",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "VENLIFT 150 MG 1 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-28"
+        }
+      ]
+    },
+    {
+      "id": "1791570376165",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "242806",
+      "paciente": "ZENILDA PROENCIA KOPECKI",
+      "medico": "Dr. Andrey",
+      "status": "active",
+      "medications": [
+        {
+          "name": "AMITRIPTILINA 25 MG 1 CP NOITE",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-10-06"
+        }
+      ]
+    },
+    {
+      "id": "1791566324464",
+      "userEmail": "esf90micro01@gmail.com",
+      "gestor": "161785",
+      "paciente": "ZULMIRA SANTANA DA SILVA",
+      "medico": "Dr. Andrey",
+      "baseDate": "2026-09-25",
+      "status": "active",
+      "medications": [
+        {
+          "name": "GABAPENTINA 300 3CP DIA",
+          "cycleDays": 30,
+          "obs": "",
+          "baseDate": "2026-10-09"
+        },
+        {
+          "name": "VENLIF 150 1 CP MANHA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        },
+        {
+          "name": "TRAZODONA 150 1 CP DIA",
+          "cycleDays": 60,
+          "obs": "",
+          "baseDate": "2026-09-21"
+        }
+      ]
+    }
+  ],
+  "history": [
+    {
+      "id": "h1",
+      "userEmail": "esf90micro01@gmail.com",
+      "name": "Maria Oliveira",
+      "value": 7,
+      "date": "2026-04-09"
+    }
+  ],
+  "holidays": [],
+  "vacations": []
+}
