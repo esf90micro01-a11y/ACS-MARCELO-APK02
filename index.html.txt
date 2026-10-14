@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Segura ACS Marcelo 90/01 - v16.0</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF & AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 h-full flex flex-col font-sans">
+
+    <!-- Toast de Salvamento -->
+    <div id="save-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Dados salvos e sincronizados com segurança!</span>
+    </div>
+
+    <!-- App Container -->
+    <div id="app" class="flex-1 flex flex-col h-full overflow-hidden">
+        
+        <!-- LOGIN SCREEN -->
+        <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200">
+            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-4">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
+                    <p class="text-sm text-slate-500 mt-1">Versão 16.0 — Acesso Restrito e Autorizado</p>
+                </div>
+
+                <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
+                    <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                    Entrar com conta Google
+                </button>
+
+                <div class="relative flex py-2 items-center mb-5">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Ou e-mail e senha</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail</label>
+                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@exemplo.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha</label>
+                        <input type="password" id="login-password" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm">Entrar no Sistema</button>
+                </form>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+                    <p class="text-xs text-slate-500">Administrador Master Exclusivo: <span class="font-mono font-bold text-blue-600">esf90micro01@gmail.com</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN SCREEN -->
+        <div id="main-screen" class="hidden flex-1 flex flex-col h-full overflow-hidden">
+            <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">Gestão Segura ACS Marcelo 90/01</h2>
+                        <span id="badge-role" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"></span>
+                    </div>
+                </div>
+                
+                <!-- BARRA DE BUSCA GLOBAL -->
+                <div class="flex-1 max-w-md mx-6">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Pesquisar por paciente ou medicamento..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="text-right hidden sm:block">
+                        <p id="user-display-name" class="text-sm font-semibold text-slate-800"></p>
+                        <p id="user-display-email" class="text-xs text-slate-500"></p>
+                    </div>
+                    <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
+                </div>
+            </header>
+
+            <div class="flex-1 flex overflow-hidden">
+                <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex p-4 space-y-1.5">
+                    <div class="space-y-1.5">
+                        <button onclick="switchTab('evaluations')" id="tab-btn-evaluations" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700">
+                            <i class="fa-solid fa-clipboard-list w-5"></i><span>IVCF-20 / IVSF-20</span>
+                        </button>
+                        <button onclick="switchTab('revenues')" id="tab-btn-revenues" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-wallet w-5"></i><span>Receitas & Afins</span>
+                        </button>
+                        <button onclick="switchTab('patients')" id="tab-btn-patients" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-users w-5 text-indigo-600"></i><span>Pacientes & Meds</span>
+                        </button>
+                        <button onclick="switchTab('cycles')" id="tab-btn-cycles" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-layer-group w-5 text-amber-600"></i><span>Por Dias de Prescrição</span>
+                        </button>
+                        <button onclick="switchTab('renewals')" id="tab-btn-renewals" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-calendar-days w-5 text-emerald-600"></i><span>Aba de Renovação</span>
+                        </button>
+                        <button onclick="switchTab('history')" id="tab-btn-history" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-chart-line w-5"></i><span>Históricos & Gráficos</span>
+                        </button>
+                        <button onclick="switchTab('reports')" id="tab-btn-reports" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-file-pdf w-5"></i><span>Relatórios em PDF</span>
+                        </button>
+                        <button onclick="switchTab('backup')" id="tab-btn-backup" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-database w-5"></i><span>Backup JSON</span>
+                        </button>
+                        <button id="admin-tab-btn" onclick="switchTab('admin')" class="w-full hidden items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                            <i class="fa-solid fa-shield-halved w-5 text-indigo-600"></i><span>Painel Master & Acessos</span>
+                        </button>
+                    </div>
+                </aside>
+
+                <main class="flex-1 bg-slate-100 overflow-y-auto p-6">
+                    <!-- ABA IVCF-20 / IVSF-20 -->
+                    <div id="tab-evaluations" class="space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Avaliações IVCF-20 & IVSF-20</h3>
+                                <p class="text-xs text-slate-500">Cadastre gestores, nomes, pontuações e prazos de 90, 180 ou 360 dias.</p>
+                            </div>
+                            <button id="btn-new-item" onclick="openItemModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all">
+                                <i class="fa-solid fa-plus mr-2"></i>Adicionar Avaliação
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Nome / Paciente</th>
+                                        <th class="p-4">Valor / Pontuação</th>
+                                        <th class="p-4">Perfil / Reagendamento</th>
+                                        <th class="p-4">Próxima Data</th>
+                                        <th class="p-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-state" class="hidden text-center py-12 text-slate-400">Nenhum registro encontrado.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA RECEITAS & AFINS -->
+                    <div id="tab-revenues" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Gestão de Receitas & Medicamentos (Dr. Andrey)</h3>
+                                <p class="text-xs text-slate-500">Adicione receitas completas com múltiplos medicamentos.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="exportRevenuesPDF()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Receitas
+                                </button>
+                                <button onclick="openRevenueModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all">
+                                    <i class="fa-solid fa-plus mr-2"></i>Nova Receita
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Paciente</th>
+                                        <th class="p-4">Médico</th>
+                                        <th class="p-4">Qtd. Medicamentos</th>
+                                        <th class="p-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="revenues-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-revenue-state" class="hidden text-center py-12 text-slate-400">Nenhuma receita cadastrada.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA PACIENTES & MEDICAMENTOS -->
+                    <div id="tab-patients" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Lista de Pacientes Cadastrados</h3>
+                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Gerencie status e baixe relatórios.</p>
+                            </div>
+                            <button onclick="exportAllPatientsPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all">
+                                <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Lista de Pacientes
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-indigo-50 border-b border-indigo-200 text-indigo-800 text-xs font-bold uppercase">
+                                        <th class="p-4">Paciente</th>
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Medicamentos, Ciclos & Observações</th>
+                                        <th class="p-4">Status</th>
+                                        <th class="p-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patients-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-patient-state" class="hidden text-center py-12 text-slate-400">Nenhum paciente cadastrado.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA: POR DIAS DE PRESCRIÇÃO -->
+                    <div id="tab-cycles" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">Pacientes Separados por Dias de Prescrição</h3>
+                                <p class="text-xs text-slate-500">Clique no nome do paciente para visualizar os detalhes da medicação. Use a busca ou baixe por período.</p>
+                            </div>
+                            <div class="w-full md:w-72">
+                                <input type="text" id="cycle-search" oninput="renderCycles()" placeholder="Filtrar nesta aba..." class="w-full px-3 py-2 border rounded-xl text-sm bg-slate-50 outline-none focus:ring-2 focus:ring-amber-500">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                            <!-- 30 Dias -->
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center bg-blue-50 text-blue-700 px-3 py-2 rounded-xl font-bold text-sm">
+                                        <span>30 Dias</span>
+                                        <button onclick="exportCyclePDF('30')" title="Baixar PDF Ciclo 30 Dias" class="text-xs hover:text-blue-900"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </div>
+                                    <div id="cycle-list-30" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
+                                </div>
+                            </div>
+                            <!-- 60 Dias -->
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center bg-emerald-50 text-emerald-700 px-3 py-2 rounded-xl font-bold text-sm">
+                                        <span>60 Dias</span>
+                                        <button onclick="exportCyclePDF('60')" title="Baixar PDF Ciclo 60 Dias" class="text-xs hover:text-emerald-900"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </div>
+                                    <div id="cycle-list-60" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
+                                </div>
+                            </div>
+                            <!-- 90 Dias -->
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center bg-amber-50 text-amber-700 px-3 py-2 rounded-xl font-bold text-sm">
+                                        <span>90 Dias</span>
+                                        <button onclick="exportCyclePDF('90')" title="Baixar PDF Ciclo 90 Dias" class="text-xs hover:text-amber-900"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </div>
+                                    <div id="cycle-list-90" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
+                                </div>
+                            </div>
+                            <!-- 180 Dias -->
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center bg-purple-50 text-purple-700 px-3 py-2 rounded-xl font-bold text-sm">
+                                        <span>180 Dias</span>
+                                        <button onclick="exportCyclePDF('180')" title="Baixar PDF Ciclo 180 Dias" class="text-xs hover:text-purple-900"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </div>
+                                    <div id="cycle-list-180" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
+                                </div>
+                            </div>
+                            <!-- Outros -->
+                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center bg-slate-100 text-slate-700 px-3 py-2 rounded-xl font-bold text-sm">
+                                        <span>Outros (Manual)</span>
+                                        <button onclick="exportCyclePDF('outros')" title="Baixar PDF Outros Ciclos" class="text-xs hover:text-slate-900"><i class="fa-solid fa-file-pdf"></i></button>
+                                    </div>
+                                    <div id="cycle-list-outros" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA DE RENOVAÇÃO -->
+                    <div id="tab-renewals" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Aba de Renovação de Medicamentos</h3>
+                                <p class="text-xs text-slate-500">Renove por medicamento individualmente definindo o período ou utilize a renovação em lote.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="exportRenewalsPDF()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF da Renovação
+                                </button>
+                                <button onclick="renewSelectedMedications()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow transition-all flex items-center space-x-2">
+                                    <i class="fa-solid fa-check-double"></i>
+                                    <span>Renovar Selecionados</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-emerald-50 border-b border-emerald-200 text-emerald-800 text-xs font-bold uppercase">
+                                        <th class="p-4 text-center w-12"><input type="checkbox" id="select-all-renewals" onclick="toggleSelectAllRenewals(this)" title="Selecionar Todos"></th>
+                                        <th class="p-4">Data de Renovação</th>
+                                        <th class="p-4">Paciente</th>
+                                        <th class="p-4">Medicamento, Confecção & Obs</th>
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Médico</th>
+                                        <th class="p-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="renewals-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-renewal-state" class="hidden text-center py-12 text-slate-400">Nenhum medicamento pendente de renovação.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA HISTÓRICOS & GRÁFICOS -->
+                    <div id="tab-history" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">Central de Históricos e Gráficos</h3>
+                                <p class="text-xs text-slate-500">Acompanhe a evolução gráfica tanto das pontuações quanto do volume de receitas e medicamentos.</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                    <h4 class="font-bold text-slate-700 text-sm">Evolução de Pontuações (IVCF / IVSF)</h4>
+                                    <div class="h-72 relative">
+                                        <canvas id="scoreChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                    <h4 class="font-bold text-slate-700 text-sm">Volume de Medicamentos por Ciclo</h4>
+                                    <div class="h-72 relative">
+                                        <canvas id="revenueChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA RELATÓRIOS PDF -->
+                    <div id="tab-reports" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-blue-900 text-base mb-1">Relatório Pacientes</h4>
+                                    <p class="text-xs text-blue-700 mb-4">Exporta a listagem alfabética de pacientes e medicamentos.</p>
+                                </div>
+                                <button onclick="exportAllPatientsPDF()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-sm">Baixar PDF Pacientes</button>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-emerald-900 text-base mb-1">Relatório Renovação</h4>
+                                    <p class="text-xs text-blue-700 mb-4">Exporta a agenda de renovações pendentes.</p>
+                                </div>
+                                <button onclick="exportRenewalsPDF()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm">Baixar PDF Renovação</button>
+                            </div>
+                            <div id="admin-report-card" class="bg-indigo-50 border border-indigo-200 p-6 rounded-2xl flex flex-col justify-between hidden">
+                                <div>
+                                    <h4 class="font-bold text-indigo-900 text-base mb-1">Relatório Consolidado (Admin)</h4>
+                                    <p class="text-xs text-indigo-700 mb-4">Exporta o consolidado geral de todos os usuários.</p>
+                                </div>
+                                <button onclick="exportPDF('group')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm">Baixar PDF Geral</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA BACKUP -->
+                    <div id="tab-backup" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Backup</h4>
+                                    <p class="text-xs text-emerald-700 mb-4">Baixa um arquivo .json para portabilidade entre computadores.</p>
+                                </div>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm">Baixar Backup (.json)</button>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
+                                <div>
+                                    <h4 class="font-bold text-amber-900 text-base mb-1">Restaurar Backup</h4>
+                                    <p class="text-xs text-amber-700 mb-4">Carrega um arquivo de backup salvo anteriormente.</p>
+                                </div>
+                                <label class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm text-center cursor-pointer">
+                                    Selecionar Arquivo (.json)
+                                    <input type="file" accept=".json" onchange="importBackupJSON(event)" class="hidden">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE USUÁRIOS -->
+                    <div id="tab-admin" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800">Painel de Autorização & Segurança Master</h3>
+                                    <p class="text-xs text-slate-500">Apenas você (Master) pode autorizar, inativar ou convidar novos usuários.</p>
+                                </div>
+                                <button onclick="openInviteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow">Autorizar / Convidar Usuário</button>
+                            </div>
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b text-xs font-bold uppercase">
+                                        <th class="p-4">E-mail</th>
+                                        <th class="p-4">Função</th>
+                                        <th class="p-4">Status de Autorização</th>
+                                        <th class="p-4 text-center">Ações Master</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body" class="divide-y text-sm"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Configuração de Feriados e Férias do Médico -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                                <h3 class="font-bold text-slate-800">Gerenciar Feriados / Recessos</h3>
+                                <div class="flex space-x-2">
+                                    <input type="date" id="holiday-date" class="px-3 py-2 border rounded-xl text-sm">
+                                    <input type="text" id="holiday-desc" placeholder="Descrição" class="flex-1 px-3 py-2 border rounded-xl text-sm">
+                                    <button onclick="addHoliday()" class="bg-slate-800 text-white px-4 py-2 rounded-xl text-sm font-semibold">Adicionar</button>
+                                </div>
+                                <div id="holiday-list" class="space-y-1 max-h-40 overflow-y-auto text-xs font-mono"></div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                                <h3 class="font-bold text-slate-800">Férias do Dr. Andrey (Até 4 Períodos)</h3>
+                                <div class="space-y-2">
+                                    <div class="flex space-x-2 items-center">
+                                        <span class="text-xs font-semibold w-16">Início:</span> <input type="date" id="vac-start-1" class="px-3 py-2 border rounded-xl text-sm flex-1">
+                                        <span class="text-xs font-semibold w-16">Fim:</span> <input type="date" id="vac-end-1" class="px-3 py-2 border rounded-xl text-sm flex-1">
+                                    </div>
+                                    <div class="flex space-x-2 items-center">
+                                        <span class="text-xs font-semibold w-16">Início 2:</span> <input type="date" id="vac-start-2" class="px-3 py-2 border rounded-xl text-sm flex-1">
+                                        <span class="text-xs font-semibold w-16">Fim 2:</span> <input type="date" id="vac-end-2" class="px-3 py-2 border rounded-xl text-sm flex-1">
+                                    </div>
+                                    <button onclick="saveVacations()" class="w-full bg-emerald-600 text-white py-2 rounded-xl text-sm font-semibold">Salvar Férias</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALHES DO PACIENTE -->
+    <div id="patient-detail-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 id="modal-patient-name" class="font-bold text-slate-800">Detalhes do Paciente</h3>
+                <button onclick="closePatientDetailModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="modal-patient-content" class="p-6 space-y-3 text-sm"></div>
+            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
+                <button onclick="closePatientDetailModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE -->
+    <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
+            <div class="p-6 text-center border-b border-slate-100">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
+                <p class="text-xs text-slate-500 mt-1">Selecione a conta autorizada</p>
+            </div>
+            <div class="p-4 space-y-2">
+                <button onclick="loginGoogleAs('esf90micro01@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">E</div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">Administrador Master</p>
+                        <p class="text-xs text-slate-500">esf90micro01@gmail.com</p>
+                    </div>
+                </button>
+                <button onclick="loginGooglePromptCustom()" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-plus"></i></div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-800">Outra conta autorizada</p>
+                        <p class="text-xs text-slate-500">Entrar com e-mail cadastrado</p>
+                    </div>
+                </button>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-100 text-center">
+                <button onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL IVCF / IVSF -->
+    <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="font-bold">Avaliação IVCF-20 / IVSF-20</h3>
+                <button onclick="closeItemModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveItem(event)" class="p-6 space-y-4">
+                <input type="hidden" id="item-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
+                    <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente / Item</label>
+                    <input type="text" id="item-name" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Valor / Pontuação</label>
+                    <input type="number" id="item-value" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: 7">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Reagendamento / Perfil</label>
+                    <select id="item-profile" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-white">
+                        <option value="90">90 dias — IDOSO FRÁGIL</option>
+                        <option value="180">180 dias — IDOSO MÉDIO</option>
+                        <option value="360">360 dias — IDOSO ROBUSTO</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeItemModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL RECEITAS COM DETECÇÃO DE DUPLICIDADE E REMOÇÃO DE SIMILARES -->
+    <div id="revenue-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 id="revenue-modal-title" class="font-bold">Nova Receita / Múltiplos Medicamentos</h3>
+                <button onclick="closeRevenueModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="revenue-form" onsubmit="saveRevenue(event)" class="p-6 space-y-4 overflow-y-auto flex-1">
+                <input type="hidden" id="revenue-id">
+                
+                <div id="ivcf-alert-box" class="hidden p-4 rounded-xl border text-sm flex items-center justify-between">
+                    <div id="ivcf-alert-text" class="font-medium"></div>
+                    <button type="button" id="apply-ivcf-btn" onclick="applyIvcfProfile()" class="px-3 py-1.5 bg-white border rounded-lg text-xs font-bold shadow-sm hover:bg-slate-50">Aplicar Ciclo Sugerido</button>
+                </div>
+
+                <!-- ALERTA DE PACIENTE/GESTOR DUPLICADO -->
+                <div id="duplicate-alert-box" class="hidden p-4 rounded-xl border text-sm bg-amber-50 border-amber-300 text-amber-900 space-y-2">
+                    <div class="font-bold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-amber-600"></i> Paciente/Gestor já cadastrado!</div>
+                    <p id="duplicate-alert-msg" class="text-xs"></p>
+                    <div class="flex space-x-2 pt-1">
+                        <button type="button" onclick="resolveDuplicate(true)" class="px-3 py-1 bg-amber-600 text-white rounded-lg text-xs font-semibold shadow hover:bg-amber-700">Unificar com Existente</button>
+                        <button type="button" onclick="resolveDuplicate(false)" class="px-3 py-1 bg-white border border-amber-400 text-amber-900 rounded-lg text-xs font-semibold hover:bg-amber-100">Criar Separado</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
+                        <input type="text" id="revenue-gestor" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
+                        <input type="text" id="revenue-paciente" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Paciente">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Médico</label>
+                    <input type="text" id="revenue-medico" required value="Dr. Andrey" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-50 font-semibold text-emerald-700">
+                </div>
+
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-xs font-semibold uppercase text-slate-700">Lista de Medicamentos da Receita</label>
+                        <button type="button" onclick="addMedicationRow()" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold hover:bg-emerald-200"><i class="fa-solid fa-plus mr-1"></i> Adicionar Remédio</button>
+                    </div>
+                    <div id="medication-rows-container" class="space-y-3"></div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeRevenueModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-semibold">Salvar Receita</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONVITE / AUTORIZAÇÃO EXCLUSIVA MASTER -->
+    <div id="invite-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 class="font-bold">Autorizar ou Convidar Usuário</h3>
+                <button onclick="closeInviteModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="sendInvite(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail do Novo Usuário</label>
+                    <input type="email" id="invite-email" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="email@exemplo.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Função de Acesso</label>
+                    <select id="invite-role" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-white">
+                        <option value="user">Gestor Comum</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial Provisória</label>
+                    <input type="text" id="invite-pass" required value="mudar123" class="w-full px-4 py-2.5 border rounded-xl text-sm font-mono">
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeInviteModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">Autorizar & Convidar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE EXECUÇÃO -->
+    <script>
+        const CURRENT_VERSION = "16.0";
+        const MASTER_EMAIL = "esf90micro01@gmail.com";
+
+        let db = { version: CURRENT_VERSION, users: [], items: [], revenues: [], history: [], holidays: [], vacations: [] };
+        let currentUser = null;
+        let scoreChartInstance = null;
+        let revenueChartInstance = null;
+        let suggestedIvcfProfile = null;
+        let duplicateMatchId = null;
+        let shouldUnify = false;
+
+        function formatDateBR(dateStr) {
+            if (!dateStr) return '';
+            let parts = dateStr.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+            return dateStr;
+        }
+
+        function initDB() {
+            let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
+            if (saved) {
+                try {
+                    let parsed = JSON.parse(saved);
+                    db.users = parsed.users || [];
+                    db.items = parsed.items || [];
+                    db.revenues = parsed.revenues || [];
+                    db.history = parsed.history || [];
+                    db.holidays = parsed.holidays || [];
+                    db.vacations = parsed.vacations || [];
+                } catch(e) {}
+            }
+            
+            let master = db.users.find(u => u.email.toLowerCase() === MASTER_EMAIL);
+            if (!master) {
+                db.users.push({ email: MASTER_EMAIL, name: "Master Admin", password: "123", role: "admin", status: "active" });
+            } else {
+                master.role = 'admin';
+                master.status = 'active';
+            }
+            persistDB();
+        }
+
+        function persistDB() {
+            db.version = CURRENT_VERSION;
+            localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+            let toast = document.getElementById('save-toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000);
+        }
+
+        function openGoogleAuthModal() {
+            document.getElementById('google-modal').classList.remove('hidden');
+        }
+
+        function closeGoogleAuthModal() {
+            document.getElementById('google-modal').classList.add('hidden');
+        }
+
+        function loginGoogleAs(email) {
+            closeGoogleAuthModal();
+            let targetEmail = email.toLowerCase();
+            let user = db.users.find(u => u.email.toLowerCase() === targetEmail);
+
+            if (targetEmail !== MASTER_EMAIL && (!user || user.status === 'inactive')) {
+                alert("ACESSO NEGADO: Este e-mail não possui autorização do Administrador Master para ingressar no sistema.");
+                return;
+            }
+
+            if (!user) {
+                alert("ACESSO BLOQUEADO: Contas novas exigem prévia autorização e convite do Administrador Master.");
+                return;
+            }
+
+            if (user.status === 'inactive') {
+                alert("ACESSO BLOQUEADO: Sua conta está inativa ou foi bloqueada pelo Administrador Master.");
+                return;
+            }
+
+            if (targetEmail === MASTER_EMAIL) { user.role = 'admin'; }
+
+            currentUser = user;
+            initSession();
+        }
+
+        function loginGooglePromptCustom() {
+            closeGoogleAuthModal();
+            let customEmail = prompt("Digite o seu e-mail cadastrado:");
+            if (customEmail && customEmail.includes('@')) {
+                loginGoogleAs(customEmail.trim().toLowerCase());
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            let email = document.getElementById('login-email').value.trim().toLowerCase();
+            let pass = document.getElementById('login-password').value;
+
+            let user = db.users.find(u => u.email.toLowerCase() === email && u.password === pass);
+
+            if (email === MASTER_EMAIL && pass === "123") {
+                if (!user) {
+                    user = { email: MASTER_EMAIL, name: "Master Admin", password: "123", role: "admin", status: "active" };
+                    db.users.push(user);
+                }
+                user.role = 'admin';
+                user.status = 'active';
+            } else if (!user || user.status === 'inactive') {
+                alert("ACESSO BLOQUEADO: Credenciais inválidas ou usuário não autorizado pelo Administrador Master.");
+                return;
+            }
+
+            currentUser = user;
+            initSession();
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        function initSession() {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+            document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
+            document.getElementById('user-display-email').innerText = currentUser.email;
+
+            let badge = document.getElementById('badge-role');
+            let adminTab = document.getElementById('admin-tab-btn');
+            let adminRep = document.getElementById('admin-report-card');
+            let btnNewItem = document.getElementById('btn-new-item');
+
+            if (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') {
+                badge.innerText = "Administrador Master";
+                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
+                adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
+                adminRep.classList.add('hidden');
+            } else {
+                badge.innerText = "Gestor Autorizado";
+                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
+                adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
+            }
+
+            switchTab('evaluations');
+            renderItems();
+            renderRevenues();
+            renderPatients();
+            renderCycles();
+            renderRenewals();
+            renderUsers();
+            renderHolidays();
+            renderVacationsInputs();
+            renderCharts();
+        }
+
+        function switchTab(tab) {
+            ['evaluations', 'revenues', 'patients', 'cycles', 'renewals', 'history', 'reports', 'backup', 'admin'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                let btn = document.getElementById(`tab-btn-${t}`);
+                if(btn) btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100";
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            let activeBtn = document.getElementById(`tab-btn-${tab}`);
+            if(activeBtn) activeBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700";
+            
+            if(tab === 'patients') renderPatients();
+            if(tab === 'cycles') renderCycles();
+            if(tab === 'renewals') renderRenewals();
+            if(tab === 'evaluations') renderItems();
+            if(tab === 'revenues') renderRevenues();
+            if(tab === 'history') renderCharts();
+            if(tab === 'admin') { renderUsers(); renderHolidays(); }
+        }
+
+        function handleGlobalSearch() {
+            renderItems();
+            renderRevenues();
+            renderPatients();
+            renderCycles();
+            renderRenewals();
+        }
+
+        function getSearchTerm() {
+            let el = document.getElementById('global-search');
+            return el ? el.value.trim().toLowerCase() : '';
+        }
+
+        function getCycleSearchTerm() {
+            let el = document.getElementById('cycle-search');
+            return el ? el.value.trim().toLowerCase() : '';
+        }
+
+        // Função unificada para checar duplicidade de Paciente/Gestor e Alerta IVCF
+        function checkDuplicateAndIvcf() {
+            let pName = document.getElementById('revenue-paciente').value.trim().toLowerCase();
+            let gName = document.getElementById('revenue-gestor').value.trim().toLowerCase();
+            let currentRevId = document.getElementById('revenue-id').value;
+
+            let alertBox = document.getElementById('ivcf-alert-box');
+            let alertText = document.getElementById('ivcf-alert-text');
+            let dupBox = document.getElementById('duplicate-alert-box');
+            let dupMsg = document.getElementById('duplicate-alert-msg');
+
+            if (!pName || !gName) {
+                alertBox.classList.add('hidden');
+                dupBox.classList.add('hidden');
+                suggestedIvcfProfile = null;
+                duplicateMatchId = null;
+                return;
+            }
+
+            // 1. Checa Alerta IVCF
+            let matchIvcf = db.items.find(i => (i.name || '').trim().toLowerCase() === pName && (i.gestor || '').trim().toLowerCase() === gName);
+            if (matchIvcf) {
+                suggestedIvcfProfile = matchIvcf.profile;
+                alertBox.classList.remove('hidden');
+                if (matchIvcf.profile === "90") {
+                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-red-50 border-red-200 text-red-800";
+                    alertText.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2 text-red-600"></i><b>Alerta IVCF: IDOSO FRÁGIL</b> (90 dias)`;
+                } else if (matchIvcf.profile === "180") {
+                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-amber-50 border-amber-200 text-amber-800";
+                    alertText.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-2 text-amber-600"></i><b>Alerta IVCF: IDOSO MÉDIO</b> (180 dias)`;
+                } else {
+                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-emerald-50 border-emerald-200 text-emerald-800";
+                    alertText.innerHTML = `<i class="fa-solid fa-circle-check mr-2 text-emerald-600"></i><b>Alerta IVCF: IDOSO ROBUSTO</b> (360 dias)`;
+                }
+            } else {
+                alertBox.classList.add('hidden');
+                suggestedIvcfProfile = null;
+            }
+
+            // 2. Checa Duplicidade de Paciente/Gestor nas Receitas
+            let existingRev = db.revenues.find(r => r.id !== currentRevId && (r.paciente || '').trim().toLowerCase() === pName && (r.gestor || '').trim().toLowerCase() === gName);
+            if (existingRev) {
+                duplicateMatchId = existingRev.id;
+                dupBox.classList.remove('hidden');
+                let existingMeds = existingRev.medications.map(m => m.name).join(', ');
+                dupMsg.innerHTML = `Já existe um cadastro para <b>${existingRev.paciente}</b> (Gestor: ${existingRev.gestor}) com os medicamentos: <i>${existingMeds}</i>. Deseja unificar os novos medicamentos neste registro?`;
+            } else {
+                dupBox.classList.add('hidden');
+                duplicateMatchId = null;
+            }
+        }
+
+        function resolveDuplicate(choice) {
+            shouldUnify = choice;
+            let dupBox = document.getElementById('duplicate-alert-box');
+            if (choice) {
+                dupBox.className = "p-4 rounded-xl border text-sm bg-emerald-50 border-emerald-300 text-emerald-900";
+                dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Ao salvar, as medicações serão agrupadas.</div>`;
+            } else {
+                dupBox.classList.add('hidden');
+                duplicateMatchId = null;
+            }
+        }
+
+        function applyIvcfProfile() {
+            if (!suggestedIvcfProfile) return;
+            let selects = document.querySelectorAll('select[name="med_cycle"]');
+            selects.forEach(sel => {
+                if (["30", "60", "90", "180", "360"].includes(suggestedIvcfProfile)) {
+                    sel.value = suggestedIvcfProfile;
+                } else {
+                    sel.value = "manual";
+                    let manualInput = sel.nextElementSibling;
+                    if(manualInput) { manualInput.classList.remove('hidden'); manualInput.value = suggestedIvcfProfile; }
+                }
+            });
+            alert("Ciclo sugerido aplicado aos medicamentos com sucesso!");
+        }
+
+        function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '') {
+            let container = document.getElementById('medication-rows-container');
+            let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2,5);
+            let todayStr = new Date().toISOString().split('T')[0];
+            let dateVal = baseDateStr || todayStr;
+
+            let html = `
+                <div id="${rowId}" class="bg-slate-50 p-3 rounded-xl border space-y-2">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <div class="md:col-span-2 flex items-center space-x-2">
+                            <input type="text" name="med_name" required value="${medName}" placeholder="Nome do Medicamento" class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)">
+                        </div>
+                        <div>
+                            <input type="date" name="med_date" required value="${dateVal}" class="w-full px-3 py-2 border rounded-lg text-sm bg-white" title="Data de Confecção do Medicamento">
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <select name="med_cycle" onchange="checkCustomCycle(this)" class="px-3 py-2 border rounded-lg text-sm bg-white flex-1">
+                            <option value="30" ${cycleDays=='30'?'selected':''}>30 dias</option>
+                            <option value="60" ${cycleDays=='60'?'selected':''}>60 dias</option>
+                            <option value="90" ${cycleDays=='90'?'selected':''}>90 dias</option>
+                            <option value="180" ${cycleDays=='180'?'selected':''}>180 dias</option>
+                            <option value="360" ${cycleDays=='360'?'selected':''}>360 dias</option>
+                            <option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option>
+                        </select>
+                        <input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}">
+                        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 hover:text-red-700 px-2 font-bold" title="Remover este medicamento"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <div>
+                        <input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Observação (máx. 100 caracteres)" class="w-full px-3 py-1.5 border rounded-lg text-xs bg-white text-slate-600">
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        // Alerta visual caso o usuário adicione medicamentos com nomes semelhantes na mesma receita
+        function checkSimilarMedicaments(inputEl) {
+            let val = inputEl.value.trim().toLowerCase();
+            if (val.length < 3) return;
+
+            let allInputs = document.querySelectorAll('input[name="med_name"]');
+            let count = 0;
+            allInputs.forEach(inp => {
+                if (inp.value.trim().toLowerCase() === val) count++;
+            });
+
+            if (count > 1) {
+                inputEl.classList.add('border-red-500', 'bg-red-50');
+                inputEl.title = "Atenção: Este medicamento parece estar duplicado nesta receita!";
+            } else {
+                inputEl.classList.remove('border-red-500', 'bg-red-50');
+                inputEl.title = "";
+            }
+        }
+
+        function checkCustomCycle(selectEl) {
+            let manualInput = selectEl.nextElementSibling;
+            if (selectEl.value === 'manual') manualInput.classList.remove('hidden');
+            else manualInput.classList.add('hidden');
+        }
+
+        function calculateValidDate(baseDateStr, addDays) {
+            let targetDate = baseDateStr ? new Date(baseDateStr + 'T00:00:00') : new Date();
+            targetDate.setDate(targetDate.getDate() + parseInt(addDays));
+
+            const isHoliday = (dateObj) => {
+                let str = dateObj.toISOString().split('T')[0];
+                return db.holidays.some(h => h.date === str);
+            };
+
+            const isVacation = (dateObj) => {
+                return db.vacations.some(v => {
+                    let start = new Date(v.start + 'T00:00:00');
+                    let end = new Date(v.end + 'T00:00:00');
+                    return dateObj >= start && dateObj <= end;
+                });
+            };
+
+            while (true) {
+                let dayOfWeek = targetDate.getDay();
+                if ((dayOfWeek === 1 || dayOfWeek === 2) && !isHoliday(targetDate) && !isVacation(targetDate)) {
+                    break;
+                }
+                targetDate.setDate(targetDate.getDate() - 1);
+            }
+
+            return targetDate.toISOString().split('T')[0];
+        }
+
+        function renderItems() {
+            let tbody = document.getElementById('items-table-body');
+            let empty = document.getElementById('empty-state');
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email);
+            
+            if (term) {
+                list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
+            }
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            list.forEach(i => {
+                let profileLabel = i.profile === "90" ? "90 dias — IDOSO FRÁGIL" : i.profile === "180" ? "180 dias — IDOSO MÉDIO" : "360 dias — IDOSO ROBUSTO";
+                let profileColor = i.profile === "90" ? "bg-red-100 text-red-700" : i.profile === "180" ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700";
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-medium">${i.gestor}</td>
+                        <td class="p-4 text-slate-600">${i.name}</td>
+                        <td class="p-4 font-semibold text-blue-600">${i.value}</td>
+                        <td class="p-4"><span class="text-xs px-2.5 py-1 rounded-full border ${profileColor}">${profileLabel}</span></td>
+                        <td class="p-4 font-mono text-xs">${formatDateBR(i.nextDate)}</td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderRevenues() {
+            let tbody = document.getElementById('revenues-table-body');
+            let empty = document.getElementById('empty-revenue-state');
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            
+            if (term) {
+                list = list.filter(rev => {
+                    let matchPac = (rev.paciente || '').toLowerCase().includes(term);
+                    let matchGestor = (rev.gestor || '').toLowerCase().includes(term);
+                    let matchMed = rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term));
+                    return matchPac || matchGestor || matchMed;
+                });
+            }
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            list.forEach(i => {
+                let medsCount = i.medications ? i.medications.length : 0;
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-medium">${i.gestor}</td>
+                        <td class="p-4 font-semibold text-slate-800">${i.paciente || 'N/D'}</td>
+                        <td class="p-4 text-emerald-700 font-medium">${i.medico || 'Dr. Andrey'}</td>
+                        <td class="p-4 text-slate-600 font-bold">${medsCount} medicamento(s)</td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg" title="Editar Receita"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteRevenue('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg" title="Excluir Receita"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderPatients() {
+            let tbody = document.getElementById('patients-table-body');
+            let empty = document.getElementById('empty-patient-state');
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            
+            if (term) {
+                list = list.filter(rev => {
+                    let matchPac = (rev.paciente || '').toLowerCase().includes(term);
+                    let matchMed = rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term));
+                    return matchPac || matchMed;
+                });
+            }
+
+            list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            list.forEach(rev => {
+                let status = rev.status || 'active';
+                let statusBadge = status === 'inactive' 
+                    ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
+
+                let medsHtml = rev.medications.map(m => `<div>• ${m.name} (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)} ${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''} - <span class="text-xs font-mono text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-semibold text-slate-800">${rev.paciente}</td>
+                        <td class="p-4 text-slate-600">${rev.gestor}</td>
+                        <td class="p-4 text-xs text-slate-700 space-y-1">${medsHtml}</td>
+                        <td class="p-4">${statusBadge}</td>
+                        <td class="p-4 text-center space-x-1">
+                            <button onclick="togglePatientStatus('${rev.id}')" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold hover:bg-amber-100">${status === 'inactive' ? 'Ativar' : 'Inativar'}</button>
+                            <button onclick="downloadPatientPDF('${rev.id}')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-semibold hover:bg-indigo-700 shadow"><i class="fa-solid fa-file-pdf mr-1"></i> PDF</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderCycles() {
+            let container30 = document.getElementById('cycle-list-30');
+            let container60 = document.getElementById('cycle-list-60');
+            let container90 = document.getElementById('cycle-list-90');
+            let container180 = document.getElementById('cycle-list-180');
+            let containerOutros = document.getElementById('cycle-list-outros');
+
+            container30.innerHTML = '';
+            container60.innerHTML = '';
+            container90.innerHTML = '';
+            container180.innerHTML = '';
+            containerOutros.innerHTML = '';
+
+            let term = getSearchTerm();
+            let cycleTerm = getCycleSearchTerm();
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+
+                let cyclesPresent = new Set(rev.medications.map(m => String(m.cycleDays)));
+
+                cyclesPresent.forEach(cycle => {
+                    let medsInCycle = rev.medications.filter(m => String(m.cycleDays) === cycle);
+                    
+                    let matchesGlobal = !term || (rev.paciente || '').toLowerCase().includes(term) || medsInCycle.some(m => (m.name || '').toLowerCase().includes(term));
+                    let matchesCycle = !cycleTerm || (rev.paciente || '').toLowerCase().includes(cycleTerm) || medsInCycle.some(m => (m.name || '').toLowerCase().includes(cycleTerm));
+
+                    if (matchesGlobal && matchesCycle) {
+                        let htmlCard = `<div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 hover:border-amber-400 transition-all cursor-pointer" onclick='showPatientDetail("${rev.id}")'>
+                            <p class="font-bold text-slate-800 underline decoration-indigo-400">${rev.paciente}</p>
+                            <p class="text-[11px] text-slate-500">Gestor: ${rev.gestor}</p>
+                            <p class="text-[11px] text-emerald-700 font-medium mt-1">Qtd Meds: ${medsInCycle.length}</p>
+                        </div>`;
+
+                        if (cycle === '30') container30.innerHTML += htmlCard;
+                        else if (cycle === '60') container60.innerHTML += htmlCard;
+                        else if (cycle === '90') container90.innerHTML += htmlCard;
+                        else if (cycle === '180') container180.innerHTML += htmlCard;
+                        else containerOutros.innerHTML += htmlCard;
+                    }
+                });
+            });
+
+            if(!container30.innerHTML) container30.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>';
+            if(!container60.innerHTML) container60.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>';
+            if(!container90.innerHTML) container90.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>';
+            if(!container180.innerHTML) container180.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>';
+            if(!containerOutros.innerHTML) containerOutros.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>';
+        }
+
+        function showPatientDetail(revId) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev) return;
+
+            document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
+            let content = document.getElementById('modal-patient-content');
+            
+            let medsHtml = rev.medications.map(m => `
+                <div class="bg-slate-50 p-3 rounded-xl border space-y-1">
+                    <p class="font-bold text-slate-800">• ${m.name} <span class="text-xs px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded">${m.cycleDays} dias</span></p>
+                    <p class="text-xs text-slate-600">Data de Confecção: <b>${formatDateBR(m.baseDate)}</b></p>
+                    <p class="text-xs text-indigo-600 font-mono font-bold">Próxima Renovação: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</p>
+                    ${m.obs ? '<p class="text-xs text-slate-500 italic">Obs: ' + m.obs + '</p>' : ''}
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor}</p>
+                <p class="text-xs text-slate-600"><b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p>
+                <p class="text-xs text-slate-600 mb-2"><b>Status:</b> ${rev.status === 'inactive' ? 'Inativo' : 'Ativo'}</p>
+                <hr class="my-2">
+                <p class="font-bold text-xs uppercase text-slate-700 mb-2">Medicações Vinculadas:</p>
+                <div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>
+            `;
+
+            document.getElementById('patient-detail-modal').classList.remove('hidden');
+        }
+
+        function closePatientDetailModal() {
+            document.getElementById('patient-detail-modal').classList.add('hidden');
+        }
+
+        function exportCyclePDF(cycleType) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.setTextColor(217, 119, 6);
+            doc.text(`Relatório de Prescrições - Ciclo: ${cycleType === 'outros' ? 'Outros' : cycleType + ' Dias'}`, 14, 20);
+
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let rows = [];
+
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                rev.medications.forEach(m => {
+                    let isMatch = cycleType === 'outros' ? !['30', '60', '90', '180', '360'].includes(String(m.cycleDays)) : String(m.cycleDays) === cycleType;
+                    if (isMatch) {
+                        rows.push([rev.paciente, rev.gestor, m.name, `${m.cycleDays} dias`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
+                    }
+                });
+            });
+
+            doc.autoTable({
+                startY: 28,
+                head: [["Paciente", "Gestor", "Medicamento", "Ciclo", "Confecção", "Vencimento"]],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [217, 119, 6] }
+            });
+
+            doc.save(`relatorio_ciclo_${cycleType}_${Date.now()}.pdf`);
+        }
+
+        function togglePatientStatus(id) {
+            let rev = db.revenues.find(i => i.id === id);
+            if (rev) {
+                rev.status = rev.status === 'inactive' ? 'active' : 'inactive';
+                persistDB();
+                renderPatients();
+                renderRevenues();
+                renderCycles();
+                renderRenewals();
+            }
+        }
+
+        function downloadPatientPDF(id) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            let rev = db.revenues.find(i => i.id === id);
+            if(!rev) return;
+
+            doc.setFontSize(16);
+            doc.setTextColor(79, 70, 229);
+            doc.text("Relatório Completo do Paciente", 14, 20);
+
+            doc.setFontSize(10);
+            doc.setTextColor(80);
+            doc.text(`Paciente: ${rev.paciente}`, 14, 30);
+            doc.text(`Gestor Responsável: ${rev.gestor}`, 14, 36);
+            doc.text(`Médico Responsável: ${rev.medico || 'Dr. Andrey'}`, 14, 42);
+            doc.text(`Status: ${rev.status === 'inactive' ? 'Inativo' : 'Ativo'}`, 14, 48);
+
+            let rows = rev.medications.map(m => [m.name, `${m.cycleDays} dias`, formatDateBR(m.baseDate), m.obs || '-', formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
+
+            doc.autoTable({
+                startY: 56,
+                head: [["Medicamento", "Ciclo", "Confecção", "Observação", "Data de Renovação"]],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [79, 70, 229] }
+            });
+
+            doc.save(`paciente_${rev.paciente.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        function exportAllPatientsPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.setTextColor(79, 70, 229);
+            doc.text("Lista Geral de Pacientes & Medicamentos", 14, 20);
+
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
+
+            let rows = [];
+            list.forEach(rev => {
+                let medsStr = rev.medications.map(m => `${m.name} (${m.cycleDays}d - Conf: ${formatDateBR(m.baseDate)})`).join('; ');
+                rows.push([rev.paciente, rev.gestor, medsStr, rev.status === 'inactive' ? 'Inativo' : 'Ativo']);
+            });
+
+            doc.autoTable({
+                startY: 28,
+                head: [["Paciente", "Gestor", "Medicamentos e Confecções", "Status"]],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [79, 70, 229] }
+            });
+
+            doc.save(`lista_pacientes_${Date.now()}.pdf`);
+        }
+
+        function renderRenewals() {
+            let tbody = document.getElementById('renewals-table-body');
+            let empty = document.getElementById('empty-renewal-state');
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            
+            let allMeds = [];
+            list.forEach(rev => {
+                if (rev.status !== 'inactive' && rev.medications && Array.isArray(rev.medications)) {
+                    rev.medications.forEach((med, mIdx) => {
+                        let medBaseDate = med.baseDate || rev.baseDate;
+                        allMeds.push({
+                            revId: rev.id,
+                            medIndex: mIdx,
+                            gestor: rev.gestor,
+                            paciente: rev.paciente,
+                            medico: rev.medico || 'Dr. Andrey',
+                            medName: med.name,
+                            cycleDays: med.cycleDays,
+                            obs: med.obs || '',
+                            baseDate: medBaseDate,
+                            nextDate: calculateValidDate(medBaseDate, med.cycleDays)
+                        });
+                    });
+                }
+            });
+
+            if (term) {
+                allMeds = allMeds.filter(m => (m.paciente || '').toLowerCase().includes(term) || (m.medName || '').toLowerCase().includes(term));
+            }
+
+            allMeds.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+
+            if (allMeds.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            allMeds.forEach(m => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 text-center">
+                            <input type="checkbox" class="renewal-checkbox w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer" data-revid="${m.revId}" data-medidx="${m.medIndex}">
+                        </td>
+                        <td class="p-4 font-mono font-bold text-emerald-700">${formatDateBR(m.nextDate)}</td>
+                        <td class="p-4 font-semibold text-slate-800">${m.paciente}</td>
+                        <td class="p-4 text-slate-700 font-medium">${m.medName} (${m.cycleDays} dias) | Conf: ${formatDateBR(m.baseDate)} ${m.obs ? '<br><span class="text-xs text-slate-500 italic">Obs: '+m.obs+'</span>' : ''}</td>
+                        <td class="p-4 text-slate-600">${m.gestor}</td>
+                        <td class="p-4 text-slate-500 text-xs">${m.medico}</td>
+                        <td class="p-4 text-center space-x-1">
+                            <button onclick='renewSingleMed("${m.revId}", ${m.medIndex})' class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 shadow" title="Renovar este medicamento individualmente"><i class="fa-solid fa-rotate-right mr-1"></i> Renovar</button>
+                            <button onclick='downloadSingleMedPDF(${JSON.stringify(m)})' class="px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold hover:bg-slate-800 shadow"><i class="fa-solid fa-file-pdf"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renewSingleMed(revId, medIndex) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev || !rev.medications[medIndex]) return;
+
+            let med = rev.medications[medIndex];
+            let newDaysInput = prompt(`Digite o novo período (em dias) para a renovação de "${med.name}" (${rev.paciente}):`, med.cycleDays);
+            
+            if (newDaysInput === null) return;
+            let newDays = parseInt(newDaysInput);
+
+            if (isNaN(newDays) || newDays <= 0) {
+                alert("Por favor, digite uma quantidade válida de dias.");
+                return;
+            }
+
+            let todayStr = new Date().toISOString().split('T')[0];
+            med.cycleDays = newDays;
+            med.baseDate = todayStr;
+
+            persistDB();
+            renderRenewals();
+            renderPatients();
+            renderCycles();
+            renderCharts();
+            alert(`Medicamento "${med.name}" renovado com sucesso para mais ${newDays} dias!`);
+        }
+
+        function exportRenewalsPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.text("Relatório da Aba de Renovação de Medicamentos", 14, 20);
+
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let allMeds = [];
+            list.forEach(rev => {
+                if (rev.status !== 'inactive' && rev.medications) {
+                    rev.medications.forEach(med => {
+                        let medBaseDate = med.baseDate || rev.baseDate;
+                        allMeds.push({
+                            paciente: rev.paciente,
+                            gestor: rev.gestor,
+                            medName: med.name,
+                            cycleDays: med.cycleDays,
+                            baseDate: medBaseDate,
+                            nextDate: calculateValidDate(medBaseDate, med.cycleDays)
+                        });
+                    });
+                }
+            });
+            allMeds.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+
+            let rows = allMeds.map(m => [formatDateBR(m.nextDate), m.paciente, `${m.medName} (${m.cycleDays}d)`, formatDateBR(m.baseDate), m.gestor]);
+
+            doc.autoTable({
+                startY: 28,
+                head: [["Vencimento", "Paciente", "Medicamento", "Confecção", "Gestor"]],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [16, 185, 129] }
+            });
+
+            doc.save(`relatorio_renovacao_${Date.now()}.pdf`);
+        }
+
+        function exportRevenuesPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.text("Relatório de Gestão de Receitas & Medicamentos", 14, 20);
+
+            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let rows = [];
+            list.forEach(rev => {
+                let medsStr = rev.medications.map(m => `${m.name} (${formatDateBR(m.baseDate)})`).join(', ');
+                rows.push([rev.gestor, rev.paciente, rev.medico || 'Dr. Andrey', medsStr]);
+            });
+
+            doc.autoTable({
+                startY: 28,
+                head: [["Gestor", "Paciente", "Médico", "Medicamentos (Confecção)"]],
+                body: rows,
+                theme: 'grid',
+                headStyles: { fillColor: [16, 185, 129] }
+            });
+
+            doc.save(`relatorio_receitas_${Date.now()}.pdf`);
+        }
+
+        function toggleSelectAllRenewals(masterCheckbox) {
+            let checkboxes = document.querySelectorAll('.renewal-checkbox');
+            checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
+        }
+
+        function renewSelectedMedications() {
+            let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked');
+            if (checkedBoxes.length === 0) {
+                alert("Selecione pelo menos um medicamento para renovar.");
+                return;
+            }
+
+            if (!confirm(`Deseja confirmar a renovação de ${checkedBoxes.length} medicamento(s) selecionado(s)?`)) return;
+
+            let todayStr = new Date().toISOString().split('T')[0];
+
+            checkedBoxes.forEach(cb => {
+                let revId = cb.getAttribute('data-revid');
+                let medIdx = parseInt(cb.getAttribute('data-medidx'));
+                let rev = db.revenues.find(r => r.id === revId);
+                if (rev && rev.medications && rev.medications[medIdx]) {
+                    rev.medications[medIdx].baseDate = todayStr;
+                }
+            });
+
+            persistDB();
+            renderRenewals();
+            renderPatients();
+            renderCycles();
+            renderCharts();
+            alert("Medicamentos renovados com sucesso! Os ciclos foram atualizados.");
+        }
+
+        function openItemModal(id = null) {
+            document.getElementById('item-modal').classList.remove('hidden');
+            document.getElementById('item-form').reset();
+            document.getElementById('item-id').value = '';
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    document.getElementById('item-id').value = item.id;
+                    document.getElementById('item-gestor').value = item.gestor;
+                    document.getElementById('item-name').value = item.name;
+                    document.getElementById('item-value').value = item.value;
+                    document.getElementById('item-profile').value = item.profile;
+                }
+            }
+        }
+        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
+
+        function openRevenueModal(id = null) {
+            document.getElementById('revenue-modal').classList.remove('hidden');
+            document.getElementById('revenue-form').reset();
+            document.getElementById('revenue-id').value = '';
+            document.getElementById('revenue-medico').value = 'Dr. Andrey';
+            document.getElementById('medication-rows-container').innerHTML = '';
+            document.getElementById('ivcf-alert-box').classList.add('hidden');
+            document.getElementById('duplicate-alert-box').classList.add('hidden');
+            duplicateMatchId = null;
+            shouldUnify = false;
+
+            let todayStr = new Date().toISOString().split('T')[0];
+
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) {
+                    document.getElementById('revenue-id').value = rev.id;
+                    document.getElementById('revenue-gestor').value = rev.gestor;
+                    document.getElementById('revenue-paciente').value = rev.paciente || '';
+                    document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
+
+                    if (rev.medications && rev.medications.length > 0) {
+                        rev.medications.forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
+                    } else {
+                        addMedicationRow('', '30', '', todayStr);
+                    }
+                    checkDuplicateAndIvcf();
+                }
+            } else {
+                addMedicationRow('', '30', '', todayStr);
+            }
+        }
+
+        function closeRevenueModal() { 
+            document.getElementById('revenue-modal').classList.add('hidden');
+            document.getElementById('revenue-form').reset();
+            document.getElementById('duplicate-alert-box').classList.add('hidden');
+            duplicateMatchId = null;
+            shouldUnify = false;
+        }
+
+        function saveItem(e) {
+            e.preventDefault();
+            let id = document.getElementById('item-id').value;
+            let gestor = document.getElementById('item-gestor').value;
+            let name = document.getElementById('item-name').value;
+            let value = parseInt(document.getElementById('item-value').value);
+            let profile = document.getElementById('item-profile').value;
+
+            let nextStr = calculateValidDate(null, profile);
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) { item.gestor = gestor; item.name = name; item.value = value; item.profile = profile; item.nextDate = nextStr; }
+            } else {
+                db.items.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, name, value, profile, nextDate: nextStr });
+                db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value, date: new Date().toISOString().split('T')[0] });
+            }
+            persistDB(); closeItemModal(); renderItems(); renderCharts();
+        }
+
+        function saveRevenue(e) {
+            e.preventDefault();
+            let id = document.getElementById('revenue-id').value;
+            let gestor = document.getElementById('revenue-gestor').value.trim();
+            let paciente = document.getElementById('revenue-paciente').value.trim();
+            let medico = document.getElementById('revenue-medico').value;
+
+            let medications = [];
+            let rowContainers = document.querySelectorAll('#medication-rows-container > div');
+            rowContainers.forEach(row => {
+                let name = row.querySelector('input[name="med_name"]').value.trim();
+                let medDate = row.querySelector('input[name="med_date"]').value;
+                let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
+                let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
+                let obs = row.querySelector('input[name="med_obs"]').value.trim();
+                if (name && medDate) {
+                    medications.push({ name, cycleDays, obs, baseDate: medDate });
+                }
+            });
+
+            if (medications.length === 0) { alert("Adicione pelo menos um medicamento com nome e data de confecção."); return; }
+
+            // Se for novo cadastro e encontrou duplicidade e o usuário optou por unificar
+            if (!id && duplicateMatchId && shouldUnify) {
+                let existingRev = db.revenues.find(r => r.id === duplicateMatchId);
+                if (existingRev) {
+                    // Adiciona os novos medicamentos ao paciente existente sem duplicar a ficha
+                    existingRev.medications.push(...medications);
+                    persistDB();
+                    closeRevenueModal();
+                    renderRevenues();
+                    renderPatients();
+                    renderCycles();
+                    renderRenewals();
+                    renderCharts();
+                    alert("Medicamentos unificados com sucesso ao paciente existente!");
+                    return;
+                }
+            }
+
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
+            } else {
+                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
+            }
+            
+            persistDB(); 
+            closeRevenueModal(); 
+            renderRevenues(); 
+            renderPatients(); 
+            renderCycles();
+            renderRenewals(); 
+            renderCharts();
+        }
+
+        function editItem(id) { openItemModal(id); }
+        function deleteItem(id) {
+            if (confirm("Excluir item?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); renderItems(); renderCharts(); }
+        }
+
+        function deleteRevenue(id) {
+            if (confirm("Excluir receita e todos os seus medicamentos?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); renderRevenues(); renderPatients(); renderCycles(); renderRenewals(); renderCharts(); }
+        }
+
+        function downloadSingleMedPDF(m) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+
+            doc.setFontSize(16);
+            doc.setTextColor(16, 185, 129);
+            doc.text("Comprovante de Renovação de Medicamento", 14, 20);
+
+            doc.setFontSize(10);
+            doc.setTextColor(80);
+            doc.text(`Paciente: ${m.paciente}`, 14, 30);
+            doc.text(`Gestor Responsável: ${m.gestor}`, 14, 36);
+            doc.text(`Médico Responsável: ${m.medico}`, 14, 42);
+            doc.text(`Data de Confecção: ${formatDateBR(m.baseDate)}`, 14, 48);
+            doc.text(`Data de Renovação: ${formatDateBR(m.nextDate)}`, 14, 54);
+            if(m.obs) doc.text(`Observação: ${m.obs}`, 14, 60);
+
+            doc.autoTable({
+                startY: m.obs ? 66 : 60,
+                head: [["Medicamento / Descrição", "Ciclo", "Confecção", "Observação", "Data de Renovação"]],
+                body: [[m.medName, `${m.cycleDays} dias`, formatDateBR(m.baseDate), m.obs || '-', formatDateBR(m.nextDate)]],
+                theme: 'grid',
+                headStyles: { fillColor: [16, 185, 129] }
+            });
+
+            doc.save(`renovacao_${m.paciente.replace(/\s+/g, '_')}_${m.medName.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        function addHoliday() {
+            let date = document.getElementById('holiday-date').value;
+            let desc = document.getElementById('holiday-desc').value.trim();
+            if(!date || !desc) { alert("Preencha a data e a descrição."); return; }
+            db.holidays.push({ date, desc });
+            persistDB(); renderHolidays();
+        }
+
+        function renderHolidays() {
+            let container = document.getElementById('holiday-list');
+            container.innerHTML = '';
+            db.holidays.forEach((h, idx) => {
+                container.innerHTML += `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} — ${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold">&times;</button></div>`;
+            });
+        }
+
+        function removeHoliday(idx) {
+            db.holidays.splice(idx, 1);
+            persistDB(); renderHolidays();
+        }
+
+        function saveVacations() {
+            db.vacations = [];
+            for(let i=1; i<=2; i++) {
+                let start = document.getElementById(`vac-start-${i}`).value;
+                let end = document.getElementById(`vac-end-${i}`).value;
+                if(start && end) { db.vacations.push({ start, end }); }
+            }
+            persistDB();
+            alert("Férias salvas com sucesso!");
+        }
+
+        function renderVacationsInputs() {
+            if(db.vacations[0]) {
+                document.getElementById('vac-start-1').value = db.vacations[0].start || '';
+                document.getElementById('vac-end-1').value = db.vacations[0].end || '';
+            }
+            if(db.vacations[1]) {
+                document.getElementById('vac-start-2').value = db.vacations[1].start || '';
+                document.getElementById('vac-end-2').value = db.vacations[1].end || '';
+            }
+        }
+
+        function renderCharts() {
+            let ctx1 = document.getElementById('scoreChart').getContext('2d');
+            let hist = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+            if (scoreChartInstance) scoreChartInstance.destroy();
+            scoreChartInstance = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`),
+                    datasets: [{ label: 'Pontuação IVCF/IVSF', data: hist.map(h => h.value), borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.1)', fill: true }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            let ctx2 = document.getElementById('revenueChart').getContext('2d');
+            let revList = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let cycleCounts = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+            revList.forEach(r => {
+                if (r.medications) {
+                    r.medications.forEach(m => {
+                        if (m.cycleDays == 30) cycleCounts['30d']++;
+                        else if (m.cycleDays == 60) cycleCounts['60d']++;
+                        else if (m.cycleDays == 90) cycleCounts['90d']++;
+                        else if (m.cycleDays == 180) cycleCounts['180d']++;
+                        else cycleCounts['Outros']++;
+                    });
+                }
+            });
+
+            if (revenueChartInstance) revenueChartInstance.destroy();
+            revenueChartInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['30 Dias', '60 Dias', '90 Dias', '180 Dias', 'Outros'],
+                    datasets: [{ label: 'Qtd. Medicamentos', data: [cycleCounts['30d'], cycleCounts['60d'], cycleCounts['90d'], cycleCounts['180d'], cycleCounts['Outros']], backgroundColor: '#10b981' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function renderUsers() {
+            let tbody = document.getElementById('users-table-body');
+            tbody.innerHTML = '';
+            db.users.forEach(u => {
+                let isMaster = u.email.toLowerCase() === MASTER_EMAIL;
+                let statusBadge = u.status === 'inactive' 
+                    ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo / Bloqueado</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Autorizado (Ativo)</span>`;
+
+                tbody.innerHTML += `
+                    <tr class="border-b">
+                        <td class="p-4 font-semibold">${u.email}</td>
+                        <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
+                        <td class="p-4">${statusBadge}</td>
+                        <td class="p-4 text-center">
+                            ${!isMaster ? `
+                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 bg-amber-50 text-amber-700 rounded text-xs font-semibold hover:bg-amber-100">${u.status === 'inactive' ? 'Autorizar / Ativar' : 'Bloquear / Inativar'}</button>
+                            ` : '<span class="text-xs text-slate-400 italic">Mestre Exclusivo</span>'}
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function toggleUserStatus(email) {
+            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if(u && u.email.toLowerCase() !== MASTER_EMAIL) {
+                u.status = u.status === 'inactive' ? 'active' : 'inactive';
+                persistDB();
+                renderUsers();
+            }
+        }
+
+        function openInviteModal() { document.getElementById('invite-modal').classList.remove('hidden'); }
+        function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
+
+        function sendInvite(e) {
+            e.preventDefault();
+            let email = document.getElementById('invite-email').value.trim().toLowerCase();
+            let role = document.getElementById('invite-role').value;
+            let password = document.getElementById('invite-pass').value;
+
+            if (db.users.find(u => u.email.toLowerCase() === email)) {
+                alert("Este e-mail já está cadastrado.");
+                return;
+            }
+
+            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
+            persistDB();
+            closeInviteModal();
+            renderUsers();
+            alert(`Usuário ${email} autorizado e cadastrado com sucesso!`);
+        }
+
+        function exportBackupJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v16.0_${Date.now()}.json`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0]; if(!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    let imp = JSON.parse(evt.target.result);
+                    if(imp && imp.users) { db = imp; persistDB(); alert("Restaurado com sucesso!"); location.reload(); }
+                } catch(err) { alert("Arquivo inválido."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportPDF(type) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.text("Relatório Geral - Gestão Avançada (v16.0)", 14, 20);
+            let rows = (type === 'individual') ? db.items.filter(i => i.userEmail === currentUser.email).map(i => [i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]) : db.items.map(i => [i.userEmail, i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]);
+            let headers = (type === 'individual') ? [["Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]] : [["Usuário", "Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]];
+            doc.autoTable({ startY: 30, head: headers, body: rows });
+            doc.save(`relatorio_${type}.pdf`);
+        }
+
+        window.onload = initDB;
+    </script>
+</body>
+</html>
