@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v18.0</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -35,7 +35,7 @@
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
-                    <p class="text-sm text-slate-500 mt-1">Acesso Restrito e Autorizado</p>
+                    <p class="text-sm text-slate-500 mt-1">Versão 18.0 — Acesso Restrito por Login e Senha</p>
                 </div>
 
                 <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
@@ -50,24 +50,24 @@
 
                 <div class="relative flex py-2 items-center mb-5">
                     <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Ou e-mail e senha</span>
+                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Login e Senha Obrigatórios</span>
                     <div class="flex-grow border-t border-slate-200"></div>
                 </div>
 
                 <form onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail</label>
-                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@exemplo.com">
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
+                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha</label>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
                         <input type="password" id="login-password" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
                     </div>
                     <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm">Entrar no Sistema</button>
                 </form>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-xs text-slate-500">Administrador Master Exclusivo: <span class="font-mono font-bold text-blue-600">esf90micro01@gmail.com</span></p>
+                    <p class="text-xs text-slate-500">ADM Master: <span class="font-mono font-bold text-blue-600">marcelo.doetz@gmail.com</span></p>
                 </div>
             </div>
         </div>
@@ -95,11 +95,15 @@
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 sm:space-x-3">
                     <div class="text-right hidden sm:block">
                         <p id="user-display-name" class="text-sm font-semibold text-slate-800"></p>
                         <p id="user-display-email" class="text-xs text-slate-500"></p>
                     </div>
+                    <button onclick="openChangePasswordModal()" class="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all flex items-center space-x-1 text-xs font-semibold border border-slate-200" title="Alterar Minha Senha">
+                        <i class="fa-solid fa-key"></i>
+                        <span class="hidden md:inline">Alterar Senha</span>
+                    </button>
                     <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
                 </div>
             </header>
@@ -387,7 +391,7 @@
                         <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-2xl space-y-3">
                             <h4 class="font-bold text-indigo-900 text-base"><i class="fa-brands fa-google-drive mr-2"></i> Instruções para o Google Drive</h4>
                             <p class="text-xs text-indigo-800 leading-relaxed">
-                                Para manter seus dados sempre sincronizados na pasta oficial do Google Drive da conta <b>esf90micro01@gmail.com</b>:<br>
+                                Para manter seus dados sempre sincronizados na pasta oficial do Google Drive:<br>
                                 1. Clique em <b>"Baixar Backup (.json)"</b> sempre que encerrar suas atividades.<br>
                                 2. Faça o upload do arquivo salvo diretamente na sua pasta designada do Google Drive.<br>
                                 3. Ao acessar de outro dispositivo, basta baixar o arquivo do Drive e usá-lo em <b>"Restaurar Backup"</b>.
@@ -421,14 +425,14 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="text-lg font-bold text-slate-800">Painel de Autorização & Segurança Master</h3>
-                                    <p class="text-xs text-slate-500">Apenas você (Master) pode autorizar, inativar ou convidar novos usuários.</p>
+                                    <p class="text-xs text-slate-500">Apenas você (Master) pode cadastrar logins pré-determinados, redefinir senhas ou bloquear usuários.</p>
                                 </div>
-                                <button onclick="openInviteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow">Autorizar / Convidar Usuário</button>
+                                <button onclick="openInviteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow">Cadastrar Novo Usuário</button>
                             </div>
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-slate-50 border-b text-xs font-bold uppercase">
-                                        <th class="p-4">E-mail</th>
+                                        <th class="p-4">E-mail (Login)</th>
                                         <th class="p-4">Função</th>
                                         <th class="p-4">Status de Autorização</th>
                                         <th class="p-4 text-center">Ações Master</th>
@@ -471,6 +475,34 @@
         </div>
     </div>
 
+    <!-- MODAL DE ALTERAÇÃO DE SENHA PELO PRÓPRIO USUÁRIO -->
+    <div id="change-password-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-key mr-2 text-blue-600"></i>Alterar Minha Senha</h3>
+                <button onclick="closeChangePasswordModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="change-password-form" onsubmit="handleChangePassword(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Atual</label>
+                    <input type="password" id="current-password" required class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua senha atual">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
+                    <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
+                    <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeChangePasswordModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold">Salvar Nova Senha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL DE DETALHES DO PACIENTE -->
     <div id="patient-detail-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
@@ -485,7 +517,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE -->
+    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE COM SENHA OBRIGATÓRIA -->
     <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
             <div class="p-6 text-center border-b border-slate-100">
@@ -498,21 +530,21 @@
                     </svg>
                 </div>
                 <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
-                <p class="text-xs text-slate-500 mt-1">Selecione a conta autorizada</p>
+                <p class="text-xs text-slate-500 mt-1">Selecione a conta autorizada (Requer Senha)</p>
             </div>
             <div class="p-4 space-y-2">
-                <button onclick="loginGoogleAs('esf90micro01@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">E</div>
+                <button onclick="loginGoogleAs('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">M</div>
                     <div>
-                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">Administrador Master</p>
-                        <p class="text-xs text-slate-500">esf90micro01@gmail.com</p>
+                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">ADM Master (Marcelo)</p>
+                        <p class="text-xs text-slate-500">marcelo.doetz@gmail.com</p>
                     </div>
                 </button>
                 <button onclick="loginGooglePromptCustom()" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-plus"></i></div>
+                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-check"></i></div>
                     <div>
-                        <p class="text-sm font-semibold text-slate-800">Outra conta autorizada</p>
-                        <p class="text-xs text-slate-500">Entrar com e-mail cadastrado</p>
+                        <p class="text-sm font-semibold text-slate-800">Outra conta pré-autorizada</p>
+                        <p class="text-xs text-slate-500">Entrar com e-mail e senha</p>
                     </div>
                 </button>
             </div>
@@ -529,7 +561,7 @@
                 <h3 id="modal-title" class="font-bold">Avaliação IVCF-20 / IVSF-20</h3>
                 <button onclick="closeItemModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form onsubmit="saveItem(event)" class="p-6 space-y-4">
+            <form id="item-form" onsubmit="saveItem(event)" class="p-6 space-y-4">
                 <input type="hidden" id="item-id">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
@@ -615,16 +647,16 @@
         </div>
     </div>
 
-    <!-- MODAL CONVITE / AUTORIZAÇÃO EXCLUSIVA MASTER -->
+    <!-- MODAL CONVITE / CADASTRO DE USUÁRIO PRÉ-DETERMINADO PELO MASTER -->
     <div id="invite-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 class="font-bold">Autorizar ou Convidar Usuário</h3>
+                <h3 class="font-bold">Cadastrar Usuário Pré-Determinado</h3>
                 <button onclick="closeInviteModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="sendInvite(event)" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail do Novo Usuário</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail (Login do Usuário)</label>
                     <input type="email" id="invite-email" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="email@exemplo.com">
                 </div>
                 <div>
@@ -635,12 +667,13 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial Provisória</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Pré-Determinada</label>
                     <input type="text" id="invite-pass" required value="mudar123" class="w-full px-4 py-2.5 border rounded-xl text-sm font-mono">
+                    <p class="text-[11px] text-slate-400 mt-1">O usuário poderá alterar esta senha depois que entrar no painel.</p>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeInviteModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">Autorizar & Convidar</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">Autorizar & Cadastrar</button>
                 </div>
             </form>
         </div>
@@ -648,8 +681,10 @@
 
     <!-- SCRIPT DE EXECUÇÃO -->
     <script>
-        const CURRENT_VERSION = "16.2";
-        const MASTER_EMAIL = "esf90micro01@gmail.com";
+        const CURRENT_VERSION = "18.0";
+        const MASTER_EMAIL = "marcelo.doetz@gmail.com";
+        const MASTER_DEFAULT_PASS = "R@ul2011";
+        const SECONDARY_MASTER = "esf90micro01@gmail.com";
 
         let db = { version: CURRENT_VERSION, users: [], items: [], revenues: [], history: [], holidays: [], vacations: [] };
         let currentUser = null;
@@ -672,6 +707,12 @@
                 return `${parts[2]}/${parts[1]}/${parts[0]}`;
             }
             return dateStr;
+        }
+
+        function isMasterAccount(email) {
+            if (!email) return false;
+            let e = email.trim().toLowerCase();
+            return e === MASTER_EMAIL || e === SECONDARY_MASTER;
         }
 
         function cleanExistingDuplicates() {
@@ -710,13 +751,25 @@
             
             cleanExistingDuplicates();
 
+            // Garante o ADM Master principal: marcelo.doetz@gmail.com com senha R@ul2011
             let master = db.users.find(u => u.email.toLowerCase() === MASTER_EMAIL);
             if (!master) {
-                db.users.push({ email: MASTER_EMAIL, name: "Master Admin", password: "123", role: "admin", status: "active" });
+                db.users.push({ email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" });
             } else {
                 master.role = 'admin';
                 master.status = 'active';
+                if (!master.password) master.password = MASTER_DEFAULT_PASS;
             }
+
+            // Mantém conta secundária esf90micro01@gmail.com ativa caso usada
+            let secMaster = db.users.find(u => u.email.toLowerCase() === SECONDARY_MASTER);
+            if (!secMaster) {
+                db.users.push({ email: SECONDARY_MASTER, name: "ESF 90 Master", password: "0limpic0", role: "admin", status: "active" });
+            } else {
+                secMaster.role = 'admin';
+                secMaster.status = 'active';
+            }
+
             persistDB();
         }
 
@@ -736,27 +789,31 @@
             document.getElementById('google-modal').classList.add('hidden');
         }
 
+        // Login via botão Google exige que o usuário exista, esteja ativo e informe sua senha
         function loginGoogleAs(email) {
             closeGoogleAuthModal();
-            let targetEmail = email.toLowerCase();
+            let targetEmail = email.trim().toLowerCase();
             let user = db.users.find(u => u.email.toLowerCase() === targetEmail);
 
-            if (targetEmail !== MASTER_EMAIL && (!user || user.status === 'inactive')) {
-                alert("ACESSO NEGADO: Este e-mail não possui autorização do Administrador Master para ingressar no sistema.");
-                return;
-            }
-
             if (!user) {
-                alert("ACESSO BLOQUEADO: Contas novas exigem prévia autorização e convite do Administrador Master.");
+                alert("ACESSO BLOQUEADO: Este e-mail não está pré-cadastrado pelo ADM Master.");
                 return;
             }
 
-            if (user.status === 'inactive') {
-                alert("ACESSO BLOQUEADO: Sua conta está inativa ou foi bloqueada pelo Administrador Master.");
+            if (user.status === 'inactive' && !isMasterAccount(targetEmail)) {
+                alert("ACESSO BLOQUEADO: Sua conta foi bloqueada ou inativada pelo ADM Master.");
                 return;
             }
 
-            if (targetEmail === MASTER_EMAIL) { user.role = 'admin'; }
+            let passInput = prompt(`Digite a senha de acesso para ${targetEmail}:`);
+            if (passInput === null) return;
+
+            if (passInput !== user.password) {
+                alert("ACESSO NEGADO: Senha incorreta.");
+                return;
+            }
+
+            if (isMasterAccount(targetEmail)) { user.role = 'admin'; user.status = 'active'; }
 
             currentUser = user;
             initSession();
@@ -764,33 +821,83 @@
 
         function loginGooglePromptCustom() {
             closeGoogleAuthModal();
-            let customEmail = prompt("Digite o seu e-mail cadastrado:");
+            let customEmail = prompt("Digite o seu e-mail pré-cadastrado:");
             if (customEmail && customEmail.includes('@')) {
                 loginGoogleAs(customEmail.trim().toLowerCase());
             }
         }
 
+        // Login via formulário padrão (E-mail e Senha)
         function handleLogin(e) {
             e.preventDefault();
             let email = document.getElementById('login-email').value.trim().toLowerCase();
             let pass = document.getElementById('login-password').value;
 
-            let user = db.users.find(u => u.email.toLowerCase() === email && u.password === pass);
+            let user = db.users.find(u => u.email.toLowerCase() === email);
 
-            if (email === MASTER_EMAIL && pass === "123") {
-                if (!user) {
-                    user = { email: MASTER_EMAIL, name: "Master Admin", password: "123", role: "admin", status: "active" };
-                    db.users.push(user);
-                }
-                user.role = 'admin';
-                user.status = 'active';
-            } else if (!user || user.status === 'inactive') {
-                alert("ACESSO BLOQUEADO: Credenciais inválidas ou usuário não autorizado pelo Administrador Master.");
+            if (!user) {
+                alert("ACESSO BLOQUEADO: Usuário não encontrado. Solicite autorização ao ADM Master.");
                 return;
             }
 
+            if (user.status === 'inactive' && !isMasterAccount(email)) {
+                alert("ACESSO BLOQUEADO: Este usuário foi bloqueado pelo ADM Master.");
+                return;
+            }
+
+            if (user.password !== pass) {
+                alert("ACESSO NEGADO: Senha incorreta.");
+                return;
+            }
+
+            if (isMasterAccount(email)) {
+                user.role = 'admin';
+                user.status = 'active';
+            }
+
             currentUser = user;
+            document.getElementById('login-password').value = '';
             initSession();
+        }
+
+        // Funções para o próprio usuário alterar sua senha
+        function openChangePasswordModal() {
+            document.getElementById('change-password-form').reset();
+            document.getElementById('change-password-modal').classList.remove('hidden');
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById('change-password-modal').classList.add('hidden');
+            document.getElementById('change-password-form').reset();
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            let currPass = document.getElementById('current-password').value;
+            let newPass = document.getElementById('new-password').value;
+            let confPass = document.getElementById('confirm-new-password').value;
+
+            if (!currentUser) return;
+
+            if (currPass !== currentUser.password) {
+                alert("A senha atual informada está incorreta.");
+                return;
+            }
+
+            if (newPass !== confPass) {
+                alert("A nova senha e a confirmação não coincidem.");
+                return;
+            }
+
+            // Atualiza na lista do banco
+            let userInDb = db.users.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
+            if (userInDb) {
+                userInDb.password = newPass;
+                currentUser.password = newPass;
+                persistDB();
+                closeChangePasswordModal();
+                alert("Sua senha foi alterada com sucesso!");
+            }
         }
 
         function logout() {
@@ -808,13 +915,12 @@
             let badge = document.getElementById('badge-role');
             let adminTab = document.getElementById('admin-tab-btn');
             let adminRep = document.getElementById('admin-report-card');
-            let btnNewItem = document.getElementById('btn-new-item');
 
-            if (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') {
+            if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
                 badge.innerText = "Administrador Master";
                 badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
                 adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
-                adminRep.classList.add('hidden');
+                adminRep.classList.remove('hidden');
             } else {
                 badge.innerText = "Gestor Autorizado";
                 badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
@@ -1048,7 +1154,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email);
             
             if (term) {
                 list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
@@ -1082,7 +1188,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             
             if (term) {
                 list = list.filter(rev => {
@@ -1118,7 +1224,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             
             if (term) {
                 list = list.filter(rev => {
@@ -1170,7 +1276,7 @@
 
             let term = getSearchTerm();
             let cycleTerm = getCycleSearchTerm();
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             
             list.forEach(rev => {
                 if (rev.status === 'inactive' || !rev.medications) return;
@@ -1245,7 +1351,7 @@
             doc.setTextColor(217, 119, 6);
             doc.text(`Relatório de Prescrições - Ciclo: ${cycleType === 'outros' ? 'Outros' : cycleType + ' Dias'}`, 14, 20);
 
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             let rows = [];
 
             list.forEach(rev => {
@@ -1318,7 +1424,7 @@
             doc.setTextColor(79, 70, 229);
             doc.text("Lista Geral de Pacientes & Medicamentos", 14, 20);
 
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
 
             let rows = [];
@@ -1344,7 +1450,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             
             let allMeds = [];
             list.forEach(rev => {
@@ -1427,7 +1533,7 @@
             let doc = new jsPDF();
             doc.text("Relatório da Aba de Renovação de Medicamentos", 14, 20);
 
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             let allMeds = [];
             list.forEach(rev => {
                 if (rev.status !== 'inactive' && rev.medications) {
@@ -1464,7 +1570,7 @@
             let doc = new jsPDF();
             doc.text("Relatório de Gestão de Receitas & Medicamentos", 14, 20);
 
-            let list = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             let rows = [];
             list.forEach(rev => {
                 let medsStr = rev.medications.map(m => `${m.name} (${formatDateBR(m.baseDate)})`).join(', ');
@@ -1729,7 +1835,7 @@
 
         function renderCharts() {
             let ctx1 = document.getElementById('scoreChart').getContext('2d');
-            let hist = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+            let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
             if (scoreChartInstance) scoreChartInstance.destroy();
             scoreChartInstance = new Chart(ctx1, {
                 type: 'line',
@@ -1741,7 +1847,7 @@
             });
 
             let ctx2 = document.getElementById('revenueChart').getContext('2d');
-            let revList = (currentUser.email.toLowerCase() === MASTER_EMAIL || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
             let cycleCounts = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
             revList.forEach(r => {
                 if (r.medications) {
@@ -1770,7 +1876,7 @@
             let tbody = document.getElementById('users-table-body');
             tbody.innerHTML = '';
             db.users.forEach(u => {
-                let isMaster = u.email.toLowerCase() === MASTER_EMAIL;
+                let isPrimaryMaster = u.email.toLowerCase() === MASTER_EMAIL;
                 let statusBadge = u.status === 'inactive' 
                     ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo / Bloqueado</span>`
                     : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Autorizado (Ativo)</span>`;
@@ -1780,13 +1886,27 @@
                         <td class="p-4 font-semibold">${u.email}</td>
                         <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
                         <td class="p-4">${statusBadge}</td>
-                        <td class="p-4 text-center">
-                            ${!isMaster ? `
-                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 bg-amber-50 text-amber-700 rounded text-xs font-semibold hover:bg-amber-100">${u.status === 'inactive' ? 'Autorizar / Ativar' : 'Bloquear / Inativar'}</button>
-                            ` : '<span class="text-xs text-slate-400 italic">Mestre Exclusivo</span>'}
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold hover:bg-blue-100"><i class="fa-solid fa-key mr-1"></i>Redefinir Senha</button>
+                            ${!isPrimaryMaster ? `
+                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 ${u.status === 'inactive' ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-700 hover:bg-red-100'} rounded text-xs font-semibold">${u.status === 'inactive' ? 'Desbloquear / Ativar' : 'Bloquear / Inativar'}</button>
+                            ` : '<span class="text-xs text-slate-400 italic">ADM Master Principal</span>'}
                         </td>
                     </tr>`;
             });
+        }
+
+        function resetUserPassword(email) {
+            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if (!u) return;
+            let newPass = prompt(`Digite a nova senha pré-determinada para ${u.email}:`, u.password);
+            if (newPass && newPass.trim().length >= 3) {
+                u.password = newPass.trim();
+                persistDB();
+                alert(`Senha de ${u.email} atualizada com sucesso!`);
+            } else if (newPass !== null) {
+                alert("A senha deve ter pelo menos 3 caracteres.");
+            }
         }
 
         function toggleUserStatus(email) {
@@ -1816,12 +1936,12 @@
             persistDB();
             closeInviteModal();
             renderUsers();
-            alert(`Usuário ${email} autorizado e cadastrado com sucesso!`);
+            alert(`Usuário ${email} cadastrado com a senha inicial "${password}"!`);
         }
 
         function exportBackupJSON() {
             let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
-            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v16.2_${Date.now()}.json`;
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v18.0_${Date.now()}.json`;
             document.body.appendChild(a); a.click(); a.remove();
         }
 
@@ -1840,7 +1960,7 @@
         function exportPDF(type) {
             const { jsPDF } = window.jspdf;
             let doc = new jsPDF();
-            doc.text("Relatório Geral - Gestão Avançada (v16.2)", 14, 20);
+            doc.text("Relatório Geral - Gestão Segura ACS Marcelo 90/01 (v18.0)", 14, 20);
             let rows = (type === 'individual') ? db.items.filter(i => i.userEmail === currentUser.email).map(i => [i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]) : db.items.map(i => [i.userEmail, i.gestor, i.name, i.value, i.profile + 'd', formatDateBR(i.nextDate)]);
             let headers = (type === 'individual') ? [["Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]] : [["Usuário", "Gestor", "Paciente", "Valor", "Perfil", "Vencimento"]];
             doc.autoTable({ startY: 30, head: headers, body: rows });
