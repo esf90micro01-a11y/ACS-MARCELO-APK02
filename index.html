@@ -38,7 +38,7 @@
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
-                    <p class="text-sm text-slate-500 mt-1">Versão 19.4 — Segurança e Política de Senha Forte</p>
+                    <p class="text-sm text-slate-500 mt-1">Versão 19.4 — Acesso Restrito por Login e Senha</p>
                 </div>
 
                 <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
@@ -60,13 +60,13 @@
                 <form onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
-                        <input type="email" id="login-email" autocomplete="email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
+                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
                         <div class="relative">
-                            <input type="password" id="login-password" autocomplete="current-password" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
-                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer" title="Visualizar senha">
+                            <input type="password" id="login-password" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
+                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </div>
@@ -486,6 +486,34 @@
         </div>
     </div>
 
+    <!-- MODAL DE SENHA DO GOOGLE CUSTOMIZADA (COM OLHO PARA OCULTAR/MOSTRAR) -->
+    <div id="google-password-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
+            <div class="p-6 text-center border-b border-slate-100">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <i class="fa-solid fa-lock text-xl"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Confirmação de Senha</h3>
+                <p id="google-pass-email-label" class="text-xs text-slate-500 mt-1"></p>
+            </div>
+            <form onsubmit="submitGooglePassword(event)" class="p-4 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
+                    <div class="relative">
+                        <input type="password" id="google-custom-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                        <button type="button" onclick="togglePasswordVisibility('google-custom-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex space-x-2 pt-2">
+                    <button type="button" onclick="closeGooglePasswordModal()" class="flex-1 py-2.5 border rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer">Cancelar</button>
+                    <button type="submit" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
@@ -634,100 +662,9 @@
         </div>
     </div>
 
-    <!-- MODAL RECEITAS -->
-    <div id="revenue-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 id="revenue-modal-title" class="font-bold">Nova Receita / Múltiplos Medicamentos</h3>
-                <button onclick="closeRevenueModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form id="revenue-form" onsubmit="saveRevenue(event)" class="p-6 space-y-4 overflow-y-auto flex-1">
-                <input type="hidden" id="revenue-id">
-                
-                <div id="ivcf-alert-box" class="hidden p-4 rounded-xl border text-sm flex items-center justify-between">
-                    <div id="ivcf-alert-text" class="font-medium"></div>
-                    <button type="button" id="apply-ivcf-btn" onclick="applyIvcfProfile()" class="px-3 py-1.5 bg-white border rounded-lg text-xs font-bold shadow-sm hover:bg-slate-50">Aplicar Ciclo Sugerido</button>
-                </div>
-
-                <div id="duplicate-alert-box" class="hidden p-4 rounded-xl border text-sm bg-amber-50 border-amber-300 text-amber-900 space-y-2">
-                    <div class="font-bold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-amber-600"></i> Nome Similar ou Duplicado Encontrado!</div>
-                    <p id="duplicate-alert-msg" class="text-xs"></p>
-                    <div class="flex space-x-2 pt-1">
-                        <button type="button" onclick="resolveDuplicate(true)" class="px-3 py-1 bg-amber-600 text-white rounded-lg text-xs font-semibold shadow hover:bg-amber-700">Unificar com Existente</button>
-                        <button type="button" onclick="resolveDuplicate(false)" class="px-3 py-1 bg-white border border-amber-400 text-amber-900 rounded-lg text-xs font-semibold hover:bg-amber-100">Criar Separado</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
-                        <input type="text" id="revenue-gestor" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
-                        <input type="text" id="revenue-paciente" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Paciente">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Médico</label>
-                    <input type="text" id="revenue-medico" required value="Dr. Andrey" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-50 font-semibold text-emerald-700">
-                </div>
-
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-semibold uppercase text-slate-700">Lista de Medicamentos da Receita</label>
-                        <button type="button" onclick="addMedicationRow()" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold hover:bg-emerald-200"><i class="fa-solid fa-plus mr-1"></i> Adicionar Remédio</button>
-                    </div>
-                    <div id="medication-rows-container" class="space-y-3"></div>
-                </div>
-
-                <div class="flex justify-end space-x-3 pt-4 border-t">
-                    <button type="button" onclick="closeRevenueModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-semibold">Salvar Receita</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL CADASTRO DE USUÁRIO -->
-    <div id="invite-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 class="font-bold">Cadastrar Usuário Pré-Determinado</h3>
-                <button onclick="closeInviteModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="sendInvite(event)" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail (Login do Usuário)</label>
-                    <input type="email" id="invite-email" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="email@exemplo.com">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Função de Acesso</label>
-                    <select id="invite-role" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-white">
-                        <option value="user">Gestor Comum</option>
-                        <option value="admin">Administrador</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Pré-Determinada</label>
-                    <div class="relative">
-                        <input type="password" id="invite-pass" required value="mudar123" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm font-mono outline-none">
-                        <button type="button" onclick="togglePasswordVisibility('invite-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t">
-                    <button type="button" onclick="closeInviteModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold">Cadastrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 19.3 COMPLETA) -->
+    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 19.4) -->
     <script>
-        const CURRENT_VERSION = "19.3";
+        const CURRENT_VERSION = "19.4";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
@@ -739,6 +676,7 @@
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
+        let pendingGoogleEmail = null;
 
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
@@ -845,6 +783,7 @@
             document.getElementById('google-modal').classList.add('hidden');
         }
 
+        // Utiliza o modal customizado com type="password" em vez do prompt() nativo
         function loginGoogleAs(email) {
             closeGoogleAuthModal();
             let targetEmail = email.trim().toLowerCase();
@@ -860,10 +799,28 @@
                 return;
             }
 
-            let passInput = prompt(`Digite a senha de acesso para ${targetEmail}:`);
-            if (passInput === null) return;
+            pendingGoogleEmail = targetEmail;
+            document.getElementById('google-pass-email-label').innerText = targetEmail;
+            document.getElementById('google-custom-password').value = '';
+            document.getElementById('google-password-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('google-custom-password').focus(), 100);
+        }
 
-            if (passInput !== user.password) {
+        function closeGooglePasswordModal() {
+            document.getElementById('google-password-modal').classList.add('hidden');
+            pendingGoogleEmail = null;
+        }
+
+        function submitGooglePassword(e) {
+            e.preventDefault();
+            let passInput = document.getElementById('google-custom-password').value;
+            let targetEmail = pendingGoogleEmail;
+            closeGooglePasswordModal();
+
+            if (!targetEmail) return;
+
+            let user = db.users.find(u => u.email.toLowerCase() === targetEmail);
+            if (!user || passInput !== user.password) {
                 alert("ACESSO NEGADO: Senha incorreta.");
                 return;
             }
