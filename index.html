@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v19.4</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v19.3</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -38,7 +38,7 @@
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
-                    <p class="text-sm text-slate-500 mt-1">Versão 19.4 — Acesso Restrito por Login e Senha</p>
+                    <p class="text-sm text-slate-500 mt-1">Versão 19.3 — Acesso Restrito por Login e Senha</p>
                 </div>
 
                 <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
@@ -486,185 +486,9 @@
         </div>
     </div>
 
-    <!-- MODAL DE SENHA DO GOOGLE CUSTOMIZADA (COM OLHO PARA OCULTAR/MOSTRAR) -->
-    <div id="google-password-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
-            <div class="p-6 text-center border-b border-slate-100">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <i class="fa-solid fa-lock text-xl"></i>
-                </div>
-                <h3 class="font-bold text-slate-800 text-lg">Confirmação de Senha</h3>
-                <p id="google-pass-email-label" class="text-xs text-slate-500 mt-1"></p>
-            </div>
-            <form onsubmit="submitGooglePassword(event)" class="p-4 space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
-                    <div class="relative">
-                        <input type="password" id="google-custom-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
-                        <button type="button" onclick="togglePasswordVisibility('google-custom-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="flex space-x-2 pt-2">
-                    <button type="button" onclick="closeGooglePasswordModal()" class="flex-1 py-2.5 border rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer">Cancelar</button>
-                    <button type="submit" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Confirmar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES -->
-    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-clock-rotate-left mr-2 text-blue-600"></i>Histórico de Avaliações</h3>
-                <button onclick="closeHistoryModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="history-modal-content" class="p-6 space-y-3 max-h-80 overflow-y-auto text-sm"></div>
-            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
-                <button onclick="closeHistoryModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">Fechar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE ALTERAÇÃO DE SENHA -->
-    <div id="change-password-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-key mr-2 text-blue-600"></i>Alterar Minha Senha</h3>
-                <button onclick="closeChangePasswordModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form id="change-password-form" onsubmit="handleChangePassword(event)" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Atual</label>
-                    <div class="relative">
-                        <input type="password" id="current-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua senha atual">
-                        <button type="button" onclick="togglePasswordVisibility('current-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
-                    <div class="relative">
-                        <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
-                        <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
-                    <div class="relative">
-                        <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
-                        <button type="button" onclick="togglePasswordVisibility('confirm-new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t">
-                    <button type="button" onclick="closeChangePasswordModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold">Salvar Nova Senha</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL DE DETALHES DO PACIENTE -->
-    <div id="patient-detail-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 id="modal-patient-name" class="font-bold text-slate-800">Detalhes do Paciente</h3>
-                <button onclick="closePatientDetailModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="modal-patient-content" class="p-6 space-y-3 text-sm"></div>
-            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
-                <button onclick="closePatientDetailModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">Fechar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE -->
-    <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
-            <div class="p-6 text-center border-b border-slate-100">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
-                <p class="text-xs text-slate-500 mt-1">Selecione a conta autorizada</p>
-            </div>
-            <div class="p-4 space-y-2">
-                <button onclick="loginGoogleAs('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">M</div>
-                    <div>
-                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">ADM Master (Marcelo)</p>
-                        <p class="text-xs text-slate-500">marcelo.doetz@gmail.com</p>
-                    </div>
-                </button>
-                <button onclick="loginGooglePromptCustom()" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-check"></i></div>
-                    <div>
-                        <p class="text-sm font-semibold text-slate-800">Outra conta pré-autorizada</p>
-                        <p class="text-xs text-slate-500">Entrar com e-mail e senha</p>
-                    </div>
-                </button>
-            </div>
-            <div class="p-4 bg-slate-50 border-t border-slate-100 text-center">
-                <button onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 -->
-    <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
-            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 id="modal-title" class="font-bold">Avaliação IVCF-20 & IVSF-10</h3>
-                <button onclick="closeItemModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form id="item-form" onsubmit="saveItem(event)" class="p-6 space-y-4">
-                <input type="hidden" id="item-id">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
-                    <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
-                    <input type="text" id="item-name" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Paciente">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pontuação IVCF-20 (0 a 20)</label>
-                        <input type="number" id="item-ivcf20" required min="0" max="20" oninput="calculateAutoProfileFromIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: 15">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pontuação IVSF-10 (0 a 10)</label>
-                        <input type="number" id="item-ivsf10" required min="0" max="10" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: 5">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Prazo Calculado Automaticamente (Reagendamento)</label>
-                    <input type="text" id="item-profile-display" readonly class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-100 font-bold text-blue-700" value="Calculado pela pontuação IVCF-20">
-                    <input type="hidden" id="item-profile" value="90">
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t">
-                    <button type="button" onclick="closeItemModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">Salvar Avaliação</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 19.4) -->
+    <!-- SCRIPT DE EXECUÇÃO COM CORREÇÃO DAS FÉRIAS E ABA ADMIN -->
     <script>
-        const CURRENT_VERSION = "19.4";
+        const CURRENT_VERSION = "19.3";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
@@ -676,7 +500,6 @@
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
-        let pendingGoogleEmail = null;
 
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
@@ -783,7 +606,6 @@
             document.getElementById('google-modal').classList.add('hidden');
         }
 
-        // Utiliza o modal customizado com type="password" em vez do prompt() nativo
         function loginGoogleAs(email) {
             closeGoogleAuthModal();
             let targetEmail = email.trim().toLowerCase();
@@ -799,28 +621,10 @@
                 return;
             }
 
-            pendingGoogleEmail = targetEmail;
-            document.getElementById('google-pass-email-label').innerText = targetEmail;
-            document.getElementById('google-custom-password').value = '';
-            document.getElementById('google-password-modal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('google-custom-password').focus(), 100);
-        }
+            let passInput = prompt(`Digite a senha de acesso para ${targetEmail}:`);
+            if (passInput === null) return;
 
-        function closeGooglePasswordModal() {
-            document.getElementById('google-password-modal').classList.add('hidden');
-            pendingGoogleEmail = null;
-        }
-
-        function submitGooglePassword(e) {
-            e.preventDefault();
-            let passInput = document.getElementById('google-custom-password').value;
-            let targetEmail = pendingGoogleEmail;
-            closeGooglePasswordModal();
-
-            if (!targetEmail) return;
-
-            let user = db.users.find(u => u.email.toLowerCase() === targetEmail);
-            if (!user || passInput !== user.password) {
+            if (passInput !== user.password) {
                 alert("ACESSO NEGADO: Senha incorreta.");
                 return;
             }
@@ -964,7 +768,7 @@
             if(tab === 'evaluations') renderItems();
             if(tab === 'revenues') renderRevenues();
             if(tab === 'history') renderCharts();
-            if(tab === 'admin') { renderUsers(); renderHolidays(); }
+            if(tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); }
         }
 
         function handleGlobalSearch() {
@@ -1850,30 +1654,6 @@
             renderCharts();
             alert("Grupos selecionados renovados com sucesso!");
         }
-
-        function openItemModal(id = null) {
-            document.getElementById('item-modal').classList.remove('hidden');
-            document.getElementById('item-form').reset();
-            document.getElementById('item-id').value = '';
-            document.getElementById('item-ivcf20').value = '';
-            document.getElementById('item-ivsf10').value = '';
-            document.getElementById('item-profile').value = '90';
-            document.getElementById('item-profile-display').value = 'Calculado pela pontuação IVCF-20';
-
-            if (id) {
-                let item = db.items.find(i => i.id === id);
-                if (item) {
-                    document.getElementById('item-id').value = item.id;
-                    document.getElementById('item-gestor').value = item.gestor;
-                    document.getElementById('item-name').value = item.name;
-                    document.getElementById('item-ivcf20').value = item.ivcf20 !== undefined ? item.ivcf20 : (item.value || 0);
-                    document.getElementById('item-ivsf10').value = item.ivsf10 !== undefined ? item.ivsf10 : 0;
-                    document.getElementById('item-profile').value = item.profile || 90;
-                    calculateAutoProfileFromIvcf();
-                }
-            }
-        }
-        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
 
         window.onload = initDB;
 
