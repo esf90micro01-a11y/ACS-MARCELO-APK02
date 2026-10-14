@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v19.3</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v19.5</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -38,7 +38,7 @@
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">Gestão Segura ACS Marcelo 90/01</h1>
-                    <p class="text-sm text-slate-500 mt-1">Versão 19.3 — Acesso Restrito por Login e Senha</p>
+                    <p class="text-sm text-slate-500 mt-1">Versão 19.5 — Acesso Restrito por Login e Senha</p>
                 </div>
 
                 <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
@@ -476,7 +476,7 @@
                                         <span class="text-xs font-semibold w-16">Início 2:</span> <input type="date" id="vac-start-2" class="px-3 py-2 border rounded-xl text-sm flex-1">
                                         <span class="text-xs font-semibold w-16">Fim 2:</span> <input type="date" id="vac-end-2" class="px-3 py-2 border rounded-xl text-sm flex-1">
                                     </div>
-                                    <button onclick="saveVacations()" class="w-full bg-emerald-600 text-white py-2 rounded-xl text-sm font-semibold">Salvar Férias</button>
+                                    <button onclick="saveVacations()" class="w-full bg-emerald-600 text-white py-2 rounded-xl text-sm font-semibold cursor-pointer">Salvar Férias</button>
                                 </div>
                             </div>
                         </div>
@@ -486,9 +486,185 @@
         </div>
     </div>
 
-    <!-- SCRIPT DE EXECUÇÃO COM CORREÇÃO DAS FÉRIAS E ABA ADMIN -->
+    <!-- MODAL DE SENHA DO GOOGLE CUSTOMIZADA (COM OLHO) -->
+    <div id="google-password-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
+            <div class="p-6 text-center border-b border-slate-100">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <i class="fa-solid fa-lock text-xl"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Confirmação de Senha</h3>
+                <p id="google-pass-email-label" class="text-xs text-slate-500 mt-1"></p>
+            </div>
+            <form onsubmit="submitGooglePassword(event)" class="p-4 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
+                    <div class="relative">
+                        <input type="password" id="google-custom-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••">
+                        <button type="button" onclick="togglePasswordVisibility('google-custom-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex space-x-2 pt-2">
+                    <button type="button" onclick="closeGooglePasswordModal()" class="flex-1 py-2.5 border rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-50 cursor-pointer">Cancelar</button>
+                    <button type="submit" class="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-clock-rotate-left mr-2 text-blue-600"></i>Histórico de Avaliações</h3>
+                <button onclick="closeHistoryModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="history-modal-content" class="p-6 space-y-3 max-h-80 overflow-y-auto text-sm"></div>
+            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
+                <button onclick="closeHistoryModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE ALTERAÇÃO DE SENHA -->
+    <div id="change-password-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-key mr-2 text-blue-600"></i>Alterar Minha Senha</h3>
+                <button onclick="closeChangePasswordModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="change-password-form" onsubmit="handleChangePassword(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Atual</label>
+                    <div class="relative">
+                        <input type="password" id="current-password" required class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite sua senha atual">
+                        <button type="button" onclick="togglePasswordVisibility('current-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
+                    <div class="relative">
+                        <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
+                        <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
+                    <div class="relative">
+                        <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                        <button type="button" onclick="togglePasswordVisibility('confirm-new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeChangePasswordModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold">Salvar Nova Senha</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE DETALHES DO PACIENTE -->
+    <div id="patient-detail-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 id="modal-patient-name" class="font-bold text-slate-800">Detalhes do Paciente</h3>
+                <button onclick="closePatientDetailModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="modal-patient-content" class="p-6 space-y-3 text-sm"></div>
+            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
+                <button onclick="closePatientDetailModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE -->
+    <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
+            <div class="p-6 text-center border-b border-slate-100">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
+                <p class="text-xs text-slate-500 mt-1">Selecione a conta autorizada</p>
+            </div>
+            <div class="p-4 space-y-2">
+                <button onclick="loginGoogleAs('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">M</div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">ADM Master (Marcelo)</p>
+                        <p class="text-xs text-slate-500">marcelo.doetz@gmail.com</p>
+                    </div>
+                </button>
+                <button onclick="loginGooglePromptCustom()" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-check"></i></div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-800">Outra conta pré-autorizada</p>
+                        <p class="text-xs text-slate-500">Entrar com e-mail e senha</p>
+                    </div>
+                </button>
+            </div>
+            <div class="p-4 bg-slate-50 border-t border-slate-100 text-center">
+                <button onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 -->
+    <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="font-bold">Avaliação IVCF-20 & IVSF-10</h3>
+                <button onclick="closeItemModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="item-form" onsubmit="saveItem(event)" class="p-6 space-y-4">
+                <input type="hidden" id="item-id">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
+                    <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
+                    <input type="text" id="item-name" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Paciente">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pontuação IVCF-20 (0 a 20)</label>
+                        <input type="number" id="item-ivcf20" required min="0" max="20" oninput="calculateAutoProfileFromIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: 15">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Pontuação IVSF-10 (0 a 10)</label>
+                        <input type="number" id="item-ivsf10" required min="0" max="10" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: 5">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Prazo Calculado Automaticamente (Reagendamento)</label>
+                    <input type="text" id="item-profile-display" readonly class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-100 font-bold text-blue-700" value="Calculado pela pontuação IVCF-20">
+                    <input type="hidden" id="item-profile" value="90">
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" onclick="closeItemModal()" class="px-4 py-2 border rounded-xl text-sm">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold">Salvar Avaliação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE EXECUÇÃO (VERSÃO 19.5 ROBUSTA) -->
     <script>
-        const CURRENT_VERSION = "19.3";
+        const CURRENT_VERSION = "19.5";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
@@ -500,6 +676,7 @@
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
+        let pendingGoogleEmail = null;
 
         window.addEventListener('beforeunload', function (e) {
             e.preventDefault();
@@ -510,12 +687,13 @@
         function togglePasswordVisibility(inputId, btnEl) {
             let input = document.getElementById(inputId);
             let icon = btnEl.querySelector('i');
+            if (!input) return;
             if (input.type === "password") {
                 input.type = "text";
-                icon.className = "fa-solid fa-eye-slash";
+                if(icon) icon.className = "fa-solid fa-eye-slash";
             } else {
                 input.type = "password";
-                icon.className = "fa-solid fa-eye";
+                if(icon) icon.className = "fa-solid fa-eye";
             }
         }
 
@@ -594,16 +772,20 @@
             db.version = CURRENT_VERSION;
             localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
             let toast = document.getElementById('save-toast');
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000);
+            if (toast) {
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000);
+            }
         }
 
         function openGoogleAuthModal() {
-            document.getElementById('google-modal').classList.remove('hidden');
+            let m = document.getElementById('google-modal');
+            if(m) m.classList.remove('hidden');
         }
 
         function closeGoogleAuthModal() {
-            document.getElementById('google-modal').classList.add('hidden');
+            let m = document.getElementById('google-modal');
+            if(m) m.classList.add('hidden');
         }
 
         function loginGoogleAs(email) {
@@ -621,10 +803,34 @@
                 return;
             }
 
-            let passInput = prompt(`Digite a senha de acesso para ${targetEmail}:`);
-            if (passInput === null) return;
+            pendingGoogleEmail = targetEmail;
+            let label = document.getElementById('google-pass-email-label');
+            if (label) label.innerText = targetEmail;
+            let passInput = document.getElementById('google-custom-password');
+            if (passInput) passInput.value = '';
+            let modal = document.getElementById('google-password-modal');
+            if (modal) modal.classList.remove('hidden');
+            setTimeout(() => { if (passInput) passInput.focus(); }, 100);
+        }
 
-            if (passInput !== user.password) {
+        function closeGooglePasswordModal() {
+            let modal = document.getElementById('google-password-modal');
+            if (modal) modal.classList.add('hidden');
+            pendingGoogleEmail = null;
+        }
+
+        function submitGooglePassword(e) {
+            e.preventDefault();
+            let passInputEl = document.getElementById('google-custom-password');
+            if (!passInputEl) return;
+            let passInput = passInputEl.value;
+            let targetEmail = pendingGoogleEmail;
+            closeGooglePasswordModal();
+
+            if (!targetEmail) return;
+
+            let user = db.users.find(u => u.email.toLowerCase() === targetEmail);
+            if (!user || passInput !== user.password) {
                 alert("ACESSO NEGADO: Senha incorreta.");
                 return;
             }
@@ -645,8 +851,12 @@
 
         function handleLogin(e) {
             e.preventDefault();
-            let email = document.getElementById('login-email').value.trim().toLowerCase();
-            let pass = document.getElementById('login-password').value;
+            let emailEl = document.getElementById('login-email');
+            let passEl = document.getElementById('login-password');
+            if (!emailEl || !passEl) return;
+
+            let email = emailEl.value.trim().toLowerCase();
+            let pass = passEl.value;
 
             let user = db.users.find(u => u.email.toLowerCase() === email);
 
@@ -671,18 +881,22 @@
             }
 
             currentUser = user;
-            document.getElementById('login-password').value = '';
+            passEl.value = '';
             initSession();
         }
 
         function openChangePasswordModal() {
-            document.getElementById('change-password-form').reset();
-            document.getElementById('change-password-modal').classList.remove('hidden');
+            let f = document.getElementById('change-password-form');
+            if(f) f.reset();
+            let m = document.getElementById('change-password-modal');
+            if(m) m.classList.remove('hidden');
         }
 
         function closeChangePasswordModal() {
-            document.getElementById('change-password-modal').classList.add('hidden');
-            document.getElementById('change-password-form').reset();
+            let m = document.getElementById('change-password-modal');
+            if(m) m.classList.add('hidden');
+            let f = document.getElementById('change-password-form');
+            if(f) f.reset();
         }
 
         function handleChangePassword(e) {
@@ -715,29 +929,41 @@
 
         function logout() {
             currentUser = null;
-            document.getElementById('main-screen').classList.add('hidden');
-            document.getElementById('auth-screen').classList.remove('hidden');
+            let main = document.getElementById('main-screen');
+            let auth = document.getElementById('auth-screen');
+            if(main) main.classList.add('hidden');
+            if(auth) auth.classList.remove('hidden');
         }
 
         function initSession() {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-screen').classList.remove('hidden');
-            document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
-            document.getElementById('user-display-email').innerText = currentUser.email;
+            let auth = document.getElementById('auth-screen');
+            let main = document.getElementById('main-screen');
+            if(auth) auth.classList.add('hidden');
+            if(main) main.classList.remove('hidden');
+
+            let dName = document.getElementById('user-display-name');
+            let dEmail = document.getElementById('user-display-email');
+            if(dName) dName.innerText = currentUser.name || currentUser.email;
+            if(dEmail) dEmail.innerText = currentUser.email;
 
             let badge = document.getElementById('badge-role');
             let adminTab = document.getElementById('admin-tab-btn');
             let adminRep = document.getElementById('admin-report-card');
 
             if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
-                badge.innerText = "Administrador Master";
-                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
-                adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
-                adminRep.classList.remove('hidden');
+                if(badge) {
+                    badge.innerText = "Administrador Master";
+                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
+                }
+                if(adminTab) { adminTab.classList.remove('hidden'); adminTab.classList.add('flex'); }
+                if(adminRep) adminRep.classList.remove('hidden');
             } else {
-                badge.innerText = "Gestor Autorizado";
-                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
-                adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
+                if(badge) {
+                    badge.innerText = "Gestor Autorizado";
+                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
+                }
+                if(adminTab) adminTab.classList.add('hidden');
+                if(adminRep) adminRep.classList.add('hidden');
             }
 
             switchTab('evaluations');
@@ -754,11 +980,13 @@
 
         function switchTab(tab) {
             ['evaluations', 'revenues', 'patients', 'cycles', 'renewals', 'history', 'reports', 'backup', 'admin'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
+                let el = document.getElementById(`tab-${t}`);
+                if(el) el.classList.add('hidden');
                 let btn = document.getElementById(`tab-btn-${t}`);
                 if(btn) btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100";
             });
-            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            let targetTab = document.getElementById(`tab-${tab}`);
+            if(targetTab) targetTab.classList.remove('hidden');
             let activeBtn = document.getElementById(`tab-btn-${tab}`);
             if(activeBtn) activeBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700";
             
@@ -798,9 +1026,12 @@
         }
 
         function calculateAutoProfileFromIvcf() {
-            let val = parseInt(document.getElementById('item-ivcf20').value);
+            let inputEl = document.getElementById('item-ivcf20');
             let profileInput = document.getElementById('item-profile');
             let displayInput = document.getElementById('item-profile-display');
+            if(!inputEl || !profileInput || !displayInput) return;
+
+            let val = parseInt(inputEl.value);
 
             if (isNaN(val)) {
                 profileInput.value = "90";
@@ -821,8 +1052,12 @@
         }
 
         function checkDuplicateAndIvcf() {
-            let pName = document.getElementById('revenue-paciente').value.trim();
-            let gName = document.getElementById('revenue-gestor').value.trim();
+            let pNameEl = document.getElementById('revenue-paciente');
+            let gNameEl = document.getElementById('revenue-gestor');
+            if(!pNameEl || !gNameEl) return;
+
+            let pName = pNameEl.value.trim();
+            let gName = gNameEl.value.trim();
             let currentRevId = document.getElementById('revenue-id').value;
 
             let alertBox = document.getElementById('ivcf-alert-box');
@@ -831,8 +1066,8 @@
             let dupMsg = document.getElementById('duplicate-alert-msg');
 
             if (!pName || !gName) {
-                alertBox.classList.add('hidden');
-                dupBox.classList.add('hidden');
+                if(alertBox) alertBox.classList.add('hidden');
+                if(dupBox) dupBox.classList.add('hidden');
                 suggestedIvcfProfile = null;
                 duplicateMatchId = null;
                 return;
@@ -841,25 +1076,25 @@
             let matchIvcf = db.items.find(i => stringsAreSimilar(i.name || '', pName) && stringsAreSimilar(i.gestor || '', gName));
             if (matchIvcf) {
                 suggestedIvcfProfile = matchIvcf.profile;
-                alertBox.classList.remove('hidden');
+                if(alertBox) alertBox.classList.remove('hidden');
                 let score20 = matchIvcf.ivcf20 !== undefined ? matchIvcf.ivcf20 : matchIvcf.value;
                 let score10 = matchIvcf.ivsf10 || 0;
                 
-                alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-blue-50 border-blue-200 text-blue-900 font-bold";
-                alertText.innerHTML = `Alerta Avaliação: IVCF-20: ${score20} (${matchIvcf.class20}) | IVSF-10: ${score10} (${matchIvcf.class10})`;
+                if(alertBox) alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-blue-50 border-blue-200 text-blue-900 font-bold";
+                if(alertText) alertText.innerHTML = `Alerta Avaliação: IVCF-20: ${score20} (${matchIvcf.class20}) | IVSF-10: ${score10} (${matchIvcf.class10})`;
             } else {
-                alertBox.classList.add('hidden');
+                if(alertBox) alertBox.classList.add('hidden');
                 suggestedIvcfProfile = null;
             }
 
             let existingRev = db.revenues.find(r => r.id !== currentRevId && stringsAreSimilar(r.paciente || '', pName) && stringsAreSimilar(r.gestor || '', gName));
             if (existingRev) {
                 duplicateMatchId = existingRev.id;
-                dupBox.classList.remove('hidden');
+                if(dupBox) dupBox.classList.remove('hidden');
                 let existingMeds = existingRev.medications.map(m => m.name).join(', ');
-                dupMsg.innerHTML = `Encontramos um cadastro semelhante para <b>${existingRev.paciente}</b> (Gestor: ${existingRev.gestor}) com os medicamentos: <i>${existingMeds}</i>. Deseja unificar os novos dados neste registro?`;
+                if(dupMsg) dupMsg.innerHTML = `Encontramos um cadastro semelhante para <b>${existingRev.paciente}</b> (Gestor: ${existingRev.gestor}) com os medicamentos: <i>${existingMeds}</i>. Deseja unificar os novos dados neste registro?`;
             } else {
-                dupBox.classList.add('hidden');
+                if(dupBox) dupBox.classList.add('hidden');
                 duplicateMatchId = null;
             }
         }
@@ -867,10 +1102,10 @@
         function resolveDuplicate(choice) {
             shouldUnify = choice;
             let dupBox = document.getElementById('duplicate-alert-box');
-            if (choice) {
+            if (choice && dupBox) {
                 dupBox.className = "p-4 rounded-xl border text-sm bg-emerald-50 border-emerald-300 text-emerald-900";
                 dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Ao salvar, as medicações serão agrupadas.</div>`;
-            } else {
+            } else if(dupBox) {
                 dupBox.classList.add('hidden');
                 duplicateMatchId = null;
             }
@@ -893,6 +1128,7 @@
 
         function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '') {
             let container = document.getElementById('medication-rows-container');
+            if(!container) return;
             let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2,5);
             let todayStr = new Date().toISOString().split('T')[0];
             let dateVal = baseDateStr || todayStr;
@@ -947,8 +1183,8 @@
 
         function checkCustomCycle(selectEl) {
             let manualInput = selectEl.nextElementSibling;
-            if (selectEl.value === 'manual') manualInput.classList.remove('hidden');
-            else manualInput.classList.add('hidden');
+            if (manualInput && selectEl.value === 'manual') manualInput.classList.remove('hidden');
+            else if (manualInput) manualInput.classList.add('hidden');
         }
 
         function calculateValidDate(baseDateStr, addDays) {
@@ -982,6 +1218,7 @@
         function renderItems() {
             let tbody = document.getElementById('items-table-body');
             let empty = document.getElementById('empty-state');
+            if(!tbody) return;
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
@@ -991,8 +1228,8 @@
                 list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
             }
 
-            if (list.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (list.length === 0) { if(empty) empty.classList.remove('hidden'); return; }
+            if(empty) empty.classList.add('hidden');
 
             list.forEach(i => {
                 let score20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value);
@@ -1056,20 +1293,23 @@
                 </div>
             `).join('');
 
-            content.innerHTML = `
+            if(content) content.innerHTML = `
                 <p class="font-semibold text-slate-800 mb-2">Paciente: ${item.name} (Gestor: ${item.gestor})</p>
                 <div class="space-y-2">${historyHtml}</div>
             `;
-            document.getElementById('history-modal').classList.remove('hidden');
+            let hm = document.getElementById('history-modal');
+            if(hm) hm.classList.remove('hidden');
         }
 
         function closeHistoryModal() {
-            document.getElementById('history-modal').classList.add('hidden');
+            let hm = document.getElementById('history-modal');
+            if(hm) hm.classList.add('hidden');
         }
 
         function renderRevenues() {
             let tbody = document.getElementById('revenues-table-body');
             let empty = document.getElementById('empty-revenue-state');
+            if(!tbody) return;
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
@@ -1084,8 +1324,8 @@
                 });
             }
 
-            if (list.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (list.length === 0) { if(empty) empty.classList.remove('hidden'); return; }
+            if(empty) empty.classList.add('hidden');
 
             list.forEach(i => {
                 let medsCount = i.medications ? i.medications.length : 0;
@@ -1106,6 +1346,7 @@
         function renderPatients() {
             let tbody = document.getElementById('patients-table-body');
             let empty = document.getElementById('empty-patient-state');
+            if(!tbody) return;
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
@@ -1121,8 +1362,8 @@
 
             list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
 
-            if (list.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (list.length === 0) { if(empty) empty.classList.remove('hidden'); return; }
+            if(empty) empty.classList.add('hidden');
 
             list.forEach(rev => {
                 let status = rev.status || 'active';
@@ -1152,6 +1393,7 @@
             let container90 = document.getElementById('cycle-list-90');
             let container180 = document.getElementById('cycle-list-180');
             let containerOutros = document.getElementById('cycle-list-outros');
+            if(!container30) return;
 
             container30.innerHTML = '';
             container60.innerHTML = '';
@@ -1201,7 +1443,8 @@
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev) return;
 
-            document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
+            let mpn = document.getElementById('modal-patient-name');
+            if(mpn) mpn.innerText = `Paciente: ${rev.paciente}`;
             let content = document.getElementById('modal-patient-content');
             
             let medsHtml = rev.medications.map(m => `
@@ -1213,7 +1456,7 @@
                 </div>
             `).join('');
 
-            content.innerHTML = `
+            if(content) content.innerHTML = `
                 <p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor}</p>
                 <p class="text-xs text-slate-600"><b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p>
                 <p class="text-xs text-slate-600 mb-2"><b>Status:</b> ${rev.status === 'inactive' ? 'Inativo' : 'Ativo'}</p>
@@ -1222,11 +1465,13 @@
                 <div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>
             `;
 
-            document.getElementById('patient-detail-modal').classList.remove('hidden');
+            let pdm = document.getElementById('patient-detail-modal');
+            if(pdm) pdm.classList.remove('hidden');
         }
 
         function closePatientDetailModal() {
-            document.getElementById('patient-detail-modal').classList.add('hidden');
+            let pdm = document.getElementById('patient-detail-modal');
+            if(pdm) pdm.classList.add('hidden');
         }
 
         function exportCyclePDF(cycleType) {
@@ -1332,6 +1577,7 @@
         function renderRenewals() {
             let tbody = document.getElementById('renewals-table-body');
             let empty = document.getElementById('empty-renewal-state');
+            if(!tbody) return;
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
@@ -1375,8 +1621,8 @@
 
             groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
 
-            if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
+            if (groupsList.length === 0) { if(empty) empty.classList.remove('hidden'); return; }
+            if(empty) empty.classList.add('hidden');
 
             groupsList.forEach(g => {
                 let medsHtml = g.medications.map(m => `
@@ -1653,6 +1899,440 @@
             renderCycles();
             renderCharts();
             alert("Grupos selecionados renovados com sucesso!");
+        }
+
+        function openItemModal(id = null) {
+            let im = document.getElementById('item-modal');
+            let form = document.getElementById('item-form');
+            if(im) im.classList.remove('hidden');
+            if(form) form.reset();
+            let iId = document.getElementById('item-id');
+            let i20 = document.getElementById('item-ivcf20');
+            let i10 = document.getElementById('item-ivsf10');
+            let prof = document.getElementById('item-profile');
+            let disp = document.getElementById('item-profile-display');
+
+            if(iId) iId.value = '';
+            if(i20) i20.value = '';
+            if(i10) i10.value = '';
+            if(prof) prof.value = '90';
+            if(disp) disp.value = 'Calculado pela pontuação IVCF-20';
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    if(iId) iId.value = item.id;
+                    let ig = document.getElementById('item-gestor');
+                    let iname = document.getElementById('item-name');
+                    if(ig) ig.value = item.gestor;
+                    if(iname) iname.value = item.name;
+                    if(i20) i20.value = item.ivcf20 !== undefined ? item.ivcf20 : (item.value || 0);
+                    if(i10) i10.value = item.ivsf10 !== undefined ? item.ivsf10 : 0;
+                    if(prof) prof.value = item.profile || 90;
+                    calculateAutoProfileFromIvcf();
+                }
+            }
+        }
+
+        function closeItemModal() { 
+            let im = document.getElementById('item-modal');
+            if(im) im.classList.add('hidden'); 
+        }
+
+        function openRevenueModal(id = null) {
+            let rm = document.getElementById('revenue-modal');
+            let rf = document.getElementById('revenue-form');
+            if(rm) rm.classList.remove('hidden');
+            if(rf) rf.reset();
+            let rid = document.getElementById('revenue-id');
+            let rmed = document.getElementById('revenue-medico');
+            let mrc = document.getElementById('medication-rows-container');
+            let iab = document.getElementById('ivcf-alert-box');
+            let dab = document.getElementById('duplicate-alert-box');
+
+            if(rid) rid.value = '';
+            if(rmed) rmed.value = 'Dr. Andrey';
+            if(mrc) mrc.innerHTML = '';
+            if(iab) iab.classList.add('hidden');
+            if(dab) dab.classList.add('hidden');
+
+            duplicateMatchId = null;
+            shouldUnify = false;
+
+            let todayStr = new Date().toISOString().split('T')[0];
+
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) {
+                    if(rid) rid.value = rev.id;
+                    let rg = document.getElementById('revenue-gestor');
+                    let rp = document.getElementById('revenue-paciente');
+                    if(rg) rg.value = rev.gestor;
+                    if(rp) rp.value = rev.paciente || '';
+                    if(rmed) rmed.value = rev.medico || 'Dr. Andrey';
+
+                    if (rev.medications && rev.medications.length > 0) {
+                        rev.medications.forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
+                    } else {
+                        addMedicationRow('', '30', '', todayStr);
+                    }
+                    checkDuplicateAndIvcf();
+                }
+            } else {
+                addMedicationRow('', '30', '', todayStr);
+            }
+        }
+
+        function closeRevenueModal() { 
+            let rm = document.getElementById('revenue-modal');
+            if(rm) rm.classList.add('hidden');
+            let rf = document.getElementById('revenue-form');
+            if(rf) rf.reset();
+            let dab = document.getElementById('duplicate-alert-box');
+            if(dab) dab.classList.add('hidden');
+            duplicateMatchId = null;
+            shouldUnify = false;
+        }
+
+        function saveItem(e) {
+            e.preventDefault();
+            let id = document.getElementById('item-id').value;
+            let gestor = document.getElementById('item-gestor').value;
+            let name = document.getElementById('item-name').value;
+            let ivcf20 = parseInt(document.getElementById('item-ivcf20').value);
+            let ivsf10 = parseInt(document.getElementById('item-ivsf10').value);
+            let profile = parseInt(document.getElementById('item-profile').value);
+            let todayStr = new Date().toISOString().split('T')[0];
+
+            let nextStr = calculateValidDate(null, profile);
+            let class20 = "";
+            let class10 = "";
+
+            if (ivcf20 >= 15) class20 = "Idoso Frágil";
+            else if (ivcf20 >= 7) class20 = "Risco de Fragilização";
+            else class20 = "Idoso Robusto";
+
+            if (ivsf10 >= 10) class10 = "Alta Vulnerabilidade";
+            else if (ivsf10 >= 5) class10 = "Média Vulnerabilidade";
+            else class10 = "Baixa Vulnerabilidade";
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) { 
+                    if (!item.history) item.history = [];
+                    item.history.push({ ivcf20: item.ivcf20, ivsf10: item.ivsf10, date: item.date || todayStr, profile: item.profile });
+
+                    item.gestor = gestor; 
+                    item.name = name; 
+                    item.ivcf20 = ivcf20; 
+                    item.ivsf10 = ivsf10; 
+                    item.class20 = class20;
+                    item.class10 = class10;
+                    item.value = ivcf20; 
+                    item.profile = profile; 
+                    item.date = todayStr;
+                    item.nextDate = nextStr; 
+                }
+            } else {
+                db.items.push({ 
+                    id: Date.now().toString(), 
+                    userEmail: currentUser.email, 
+                    gestor, 
+                    name, 
+                    ivcf20, 
+                    ivsf10, 
+                    class20,
+                    class10,
+                    value: ivcf20, 
+                    profile, 
+                    date: todayStr,
+                    nextDate: nextStr,
+                    history: [] 
+                });
+                db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, date: todayStr });
+            }
+            persistDB(); closeItemModal(); renderItems(); renderCharts();
+        }
+
+        function saveRevenue(e) {
+            e.preventDefault();
+            let id = document.getElementById('revenue-id').value;
+            let gestor = document.getElementById('revenue-gestor').value.trim();
+            let paciente = document.getElementById('revenue-paciente').value.trim();
+            let medico = document.getElementById('revenue-medico').value;
+
+            let medications = [];
+            let rowContainers = document.querySelectorAll('#medication-rows-container > div');
+            rowContainers.forEach(row => {
+                let name = row.querySelector('input[name="med_name"]').value.trim();
+                let medDate = row.querySelector('input[name="med_date"]').value;
+                let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
+                let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
+                let obs = row.querySelector('input[name="med_obs"]').value.trim();
+                if (name && medDate) {
+                    medications.push({ name, cycleDays, obs, baseDate: medDate });
+                }
+            });
+
+            if (medications.length === 0) { alert("Adicione pelo menos um medicamento com nome e data de confecção."); return; }
+
+            if (!id && duplicateMatchId && shouldUnify) {
+                let existingRev = db.revenues.find(r => r.id === duplicateMatchId);
+                if (existingRev) {
+                    existingRev.medications.push(...medications);
+                    persistDB();
+                    closeRevenueModal();
+                    renderRevenues();
+                    renderPatients();
+                    renderCycles();
+                    renderRenewals();
+                    renderCharts();
+                    alert("Medicamentos unificados com sucesso ao paciente existente!");
+                    return;
+                }
+            }
+
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
+            } else {
+                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
+            }
+            
+            persistDB(); 
+            closeRevenueModal(); 
+            renderRevenues(); 
+            renderPatients(); 
+            renderCycles();
+            renderRenewals(); 
+            renderCharts();
+        }
+
+        function editItem(id) { openItemModal(id); }
+        function deleteItem(id) {
+            if (confirm("Excluir item?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); renderItems(); renderCharts(); }
+        }
+
+        function deleteRevenue(id) {
+            if (confirm("Excluir receita e todos os seus medicamentos?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); renderRevenues(); renderPatients(); renderCycles(); renderRenewals(); renderCharts(); }
+        }
+
+        function addHoliday() {
+            let dateEl = document.getElementById('holiday-date');
+            let descEl = document.getElementById('holiday-desc');
+            if(!dateEl || !descEl) return;
+            let date = dateEl.value;
+            let desc = descEl.value.trim();
+            if(!date || !desc) { alert("Preencha a data e a descrição."); return; }
+            db.holidays.push({ date, desc });
+            persistDB(); renderHolidays();
+        }
+
+        function renderHolidays() {
+            let container = document.getElementById('holiday-list');
+            if(!container) return;
+            container.innerHTML = '';
+            db.holidays.forEach((h, idx) => {
+                container.innerHTML += `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} — ${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold cursor-pointer">&times;</button></div>`;
+            });
+        }
+
+        function removeHoliday(idx) {
+            db.holidays.splice(idx, 1);
+            persistDB(); renderHolidays();
+        }
+
+        function saveVacations() {
+            db.vacations = [];
+            for(let i=1; i<=2; i++) {
+                let startEl = document.getElementById(`vac-start-${i}`);
+                let endEl = document.getElementById(`vac-end-${i}`);
+                if(startEl && endEl) {
+                    let start = startEl.value;
+                    let end = endEl.value;
+                    if(start && end) { db.vacations.push({ start, end }); }
+                }
+            }
+            persistDB();
+            alert("Férias salvas com sucesso!");
+        }
+
+        function renderVacationsInputs() {
+            if(db.vacations[0]) {
+                let vs1 = document.getElementById('vac-start-1');
+                let ve1 = document.getElementById('vac-end-1');
+                if(vs1) vs1.value = db.vacations[0].start || '';
+                if(ve1) ve1.value = db.vacations[0].end || '';
+            }
+            if(db.vacations[1]) {
+                let vs2 = document.getElementById('vac-start-2');
+                let ve2 = document.getElementById('vac-end-2');
+                if(vs2) vs2.value = db.vacations[1].start || '';
+                if(ve2) ve2.value = db.vacations[1].end || '';
+            }
+        }
+
+        function renderCharts() {
+            let ctx1El = document.getElementById('scoreChart');
+            if(ctx1El) {
+                let ctx1 = ctx1El.getContext('2d');
+                let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+                if (scoreChartInstance) scoreChartInstance.destroy();
+                scoreChartInstance = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`),
+                        datasets: [{ label: 'Pontuação IVCF-20', data: hist.map(h => h.value), borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,0.1)', fill: true }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            let ctx2El = document.getElementById('revenueChart');
+            if(ctx2El) {
+                let ctx2 = ctx2El.getContext('2d');
+                let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+                let cycleCounts = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+                revList.forEach(r => {
+                    if (r.medications) {
+                        r.medications.forEach(m => {
+                            if (m.cycleDays == 30) cycleCounts['30d']++;
+                            else if (m.cycleDays == 60) cycleCounts['60d']++;
+                            else if (m.cycleDays == 90) cycleCounts['90d']++;
+                            else if (m.cycleDays == 180) cycleCounts['180d']++;
+                            else cycleCounts['Outros']++;
+                        });
+                    }
+                });
+
+                if (revenueChartInstance) revenueChartInstance.destroy();
+                revenueChartInstance = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['30 Dias', '60 Dias', '90 Dias', '180 Dias', 'Outros'],
+                        datasets: [{ label: 'Qtd. Medicamentos', data: [cycleCounts['30d'], cycleCounts['60d'], cycleCounts['90d'], cycleCounts['180d'], cycleCounts['Outros']], backgroundColor: '#10b981' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function renderUsers() {
+            let tbody = document.getElementById('users-table-body');
+            if(!tbody) return;
+            tbody.innerHTML = '';
+            db.users.forEach(u => {
+                let isPrimaryMaster = u.email.toLowerCase() === MASTER_EMAIL;
+                let statusBadge = u.status === 'inactive' 
+                    ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo / Bloqueado</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Autorizado (Ativo)</span>`;
+
+                tbody.innerHTML += `
+                    <tr class="border-b">
+                        <td class="p-4 font-semibold">${u.email}</td>
+                        <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
+                        <td class="p-4">${statusBadge}</td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold hover:bg-blue-100 cursor-pointer"><i class="fa-solid fa-key mr-1"></i>Redefinir Senha</button>
+                            ${!isPrimaryMaster ? `
+                                <button onclick="toggleUserStatus('${u.email}')" class="px-3 py-1 ${u.status === 'inactive' ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' : 'bg-red-50 text-red-700 hover:bg-red-100'} rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear / Ativar' : 'Bloquear / Inativar'}</button>
+                            ` : '<span class="text-xs text-slate-400 italic">ADM Master Principal</span>'}
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function resetUserPassword(email) {
+            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if (!u) return;
+            let newPass = prompt(`Digite a nova senha pré-determinada para ${u.email}:`, u.password);
+            if (newPass && newPass.trim().length >= 3) {
+                u.password = newPass.trim();
+                persistDB();
+                alert(`Senha de ${u.email} atualizada com sucesso!`);
+            } else if (newPass !== null) {
+                alert("A senha deve ter pelo menos 3 caracteres.");
+            }
+        }
+
+        function toggleUserStatus(email) {
+            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if(u && u.email.toLowerCase() !== MASTER_EMAIL) {
+                u.status = u.status === 'inactive' ? 'active' : 'inactive';
+                persistDB();
+                renderUsers();
+            }
+        }
+
+        function openInviteModal() { let im = document.getElementById('invite-modal'); if(im) im.classList.remove('hidden'); }
+        function closeInviteModal() { let im = document.getElementById('invite-modal'); if(im) im.classList.add('hidden'); }
+
+        function sendInvite(e) {
+            e.preventDefault();
+            let emailEl = document.getElementById('invite-email');
+            let roleEl = document.getElementById('invite-role');
+            let passEl = document.getElementById('invite-pass');
+            if(!emailEl || !roleEl || !passEl) return;
+
+            let email = emailEl.value.trim().toLowerCase();
+            let role = roleEl.value;
+            let password = passEl.value;
+
+            if (db.users.find(u => u.email.toLowerCase() === email)) {
+                alert("Este e-mail já está cadastrado.");
+                return;
+            }
+
+            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
+            persistDB();
+            closeInviteModal();
+            renderUsers();
+            alert(`Usuário ${email} cadastrado com a senha inicial "${password}"!`);
+        }
+
+        function exportBackupJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_v19.5_${Date.now()}.json`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0]; if(!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    let imp = JSON.parse(evt.target.result);
+                    if (imp) {
+                        db.version = imp.version || CURRENT_VERSION;
+                        db.users = imp.users || db.users;
+                        db.items = imp.items || [];
+                        db.revenues = imp.revenues || [];
+                        db.history = imp.history || [];
+                        db.holidays = imp.holidays || [];
+                        db.vacations = imp.vacations || [];
+
+                        let master = db.users.find(u => u.email.toLowerCase() === MASTER_EMAIL);
+                        if (!master) {
+                            db.users.push({ email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" });
+                        }
+
+                        persistDB();
+                        alert("Backup restaurado com sucesso!");
+                        location.reload();
+                    }
+                } catch(err) { alert("Arquivo de backup inválido."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function exportPDF(type) {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.text("Relatório Geral - Gestão Segura ACS Marcelo 90/01 (v19.5)", 14, 20);
+            let rows = (type === 'individual') ? db.items.filter(i => i.userEmail === currentUser.email).map(i => [i.gestor, i.name, i.ivcf20 || i.value, i.ivsf10 || 0, formatDateBR(i.nextDate)]) : db.items.map(i => [i.userEmail, i.gestor, i.name, i.ivcf20 || i.value, i.ivsf10 || 0, formatDateBR(i.nextDate)]);
+            let headers = (type === 'individual') ? [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Vencimento"]] : [["Usuário", "Gestor", "Paciente", "IVCF-20", "IVSF-10", "Vencimento"]];
+            doc.autoTable({ startY: 30, head: headers, body: rows });
+            doc.save(`relatorio_${type}.pdf`);
         }
 
         window.onload = initDB;
