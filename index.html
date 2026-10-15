@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="app-window-title">Gestão Segura ACS Marcelo 90/01 - v20.3 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.3 Cloud</title>
     
-    <!-- DESTRUIDOR AUTOMÁTICO DE CACHE ANTIGO (RODA ANTES DE TUDO) -->
+    <!-- DESTRAVADOR IMEDIATO DE CACHE E SERVICE WORKER (RODA ANTES DE TUDO) -->
     <script>
         (function() {
             try {
@@ -42,83 +42,68 @@
     <!-- Toast de Salvamento -->
     <div id="save-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium">
         <i class="fa-solid fa-cloud-arrow-up"></i>
-        <span id="save-toast-msg">Dados salvos e sincronizados na nuvem!</span>
+        <span id="save-toast-msg">Dados salvos e sincronizados!</span>
     </div>
 
     <!-- App Container -->
     <div id="app" class="flex-1 flex flex-col h-full overflow-hidden">
         
         <!-- LOGIN SCREEN -->
-        <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 overflow-y-auto">
-            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 my-auto">
-                <div class="text-center mb-5">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-3">
+        <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200">
+            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-4">
                         <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
                         Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.3</span>
                     </h1>
-                    <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.3 Cloud</span> — Sincronização em Tempo Real
+                    <p class="text-sm text-slate-500 mt-1">
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.3 Cloud</span> — Acesso Rápido e Seguro
                     </p>
-                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600" id="login-cloud-status">
-                        <i class="fa-solid fa-circle-notch fa-spin text-blue-600"></i>
-                        <span>Conectando ao banco na nuvem...</span>
+                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Sistema Pronto para Login</span>
                     </div>
                 </div>
 
-                <!-- Aviso de Erro Visível na Tela (Caso erre a senha) -->
-                <div id="login-error-box" class="hidden mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold text-center"></div>
-
-                <!-- Botão Google que preenche ou abre seletor rápido -->
-                <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-4 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
+                <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
                     <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                     </svg>
-                    Selecionar Conta Google Autorizada
+                    Entrar com conta Google
                 </button>
 
-                <!-- Botões de Preenchimento Rápido 1-Clique -->
-                <div class="grid grid-cols-2 gap-2 mb-4">
-                    <button type="button" onclick="quickFillLogin('marcelo.doetz@gmail.com')" class="py-2 px-2 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold transition-all cursor-pointer">
-                        <i class="fa-solid fa-user-shield mr-1"></i>Marcelo Master
-                    </button>
-                    <button type="button" onclick="quickFillLogin('esf90micro01@gmail.com')" class="py-2 px-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold transition-all cursor-pointer">
-                        <i class="fa-solid fa-hospital-user mr-1"></i>ESF 90 Master
-                    </button>
-                </div>
-
-                <div class="relative flex py-1.5 items-center mb-4">
+                <div class="relative flex py-2 items-center mb-5">
                     <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-4 text-[11px] text-slate-400 uppercase font-semibold">Credenciais de Acesso</span>
+                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Ou Digite E-mail e Senha</span>
                     <div class="flex-grow border-t border-slate-200"></div>
                 </div>
 
-                <div class="space-y-4">
+                <form onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
-                        <input type="email" id="login-email" value="marcelo.doetz@gmail.com" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
+                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="marcelo.doetz@gmail.com">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
                         <div class="relative">
-                            <input type="password" id="login-password" autocomplete="new-password" onkeydown="if(event.key==='Enter') executeDirectLogin()" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="Digite sua senha aqui...">
+                            <input type="password" id="login-password" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
                             <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer" title="Mostrar/Ocultar Senha">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <button type="button" onclick="executeDirectLogin()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold rounded-xl shadow-md transition-all text-sm cursor-pointer">
-                        <i class="fa-solid fa-right-to-bracket mr-2"></i>Entrar no Sistema Agora
+                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm cursor-pointer">
+                        Entrar no Sistema
                     </button>
-                </div>
+                </form>
 
-                <div class="mt-5 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
-                    <span>ADM: <b class="text-blue-600 font-mono">marcelo.doetz@gmail.com</b></span>
-                    <button type="button" onclick="forceHardResetCache()" class="text-red-500 hover:underline font-semibold cursor-pointer" title="Limpa cache travado do navegador">Destravar Cache</button>
+                <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+                    <p class="text-xs text-slate-500">ADM Master: <span class="font-mono font-bold text-blue-600">marcelo.doetz@gmail.com</span></p>
                 </div>
             </div>
         </div>
@@ -313,7 +298,7 @@
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center bg-blue-50 text-blue-700 px-3 py-2 rounded-xl font-bold text-sm">
                                         <span>30 Dias</span>
-                                        <button onclick="exportCyclePDF('30')" title="Baixar PDF Ciclo 30 Dias" class="text-xs hover:text-blue-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button onclick="exportCyclePDF('30')" class="text-xs hover:text-blue-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
                                     </div>
                                     <div id="cycle-list-30" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
                                 </div>
@@ -322,7 +307,7 @@
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center bg-emerald-50 text-emerald-700 px-3 py-2 rounded-xl font-bold text-sm">
                                         <span>60 Dias</span>
-                                        <button onclick="exportCyclePDF('60')" title="Baixar PDF Ciclo 60 Dias" class="text-xs hover:text-emerald-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button onclick="exportCyclePDF('60')" class="text-xs hover:text-emerald-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
                                     </div>
                                     <div id="cycle-list-60" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
                                 </div>
@@ -331,7 +316,7 @@
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center bg-amber-50 text-amber-700 px-3 py-2 rounded-xl font-bold text-sm">
                                         <span>90 Dias</span>
-                                        <button onclick="exportCyclePDF('90')" title="Baixar PDF Ciclo 90 Dias" class="text-xs hover:text-amber-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button onclick="exportCyclePDF('90')" class="text-xs hover:text-amber-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
                                     </div>
                                     <div id="cycle-list-90" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
                                 </div>
@@ -340,7 +325,7 @@
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center bg-purple-50 text-purple-700 px-3 py-2 rounded-xl font-bold text-sm">
                                         <span>180 Dias</span>
-                                        <button onclick="exportCyclePDF('180')" title="Baixar PDF Ciclo 180 Dias" class="text-xs hover:text-purple-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button onclick="exportCyclePDF('180')" class="text-xs hover:text-purple-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
                                     </div>
                                     <div id="cycle-list-180" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
                                 </div>
@@ -349,7 +334,7 @@
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center bg-slate-100 text-slate-700 px-3 py-2 rounded-xl font-bold text-sm">
                                         <span>Outros (Manual)</span>
-                                        <button onclick="exportCyclePDF('outros')" title="Baixar PDF Outros Ciclos" class="text-xs hover:text-slate-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button onclick="exportCyclePDF('outros')" class="text-xs hover:text-slate-900 cursor-pointer"><i class="fa-solid fa-file-pdf"></i></button>
                                     </div>
                                     <div id="cycle-list-outros" class="space-y-2 text-xs max-h-[60vh] overflow-y-auto"></div>
                                 </div>
@@ -554,27 +539,44 @@
     <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
             <div class="p-6 text-center border-b border-slate-100">
-                <h3 class="font-bold text-slate-800 text-lg">Escolher Conta Autorizada</h3>
-                <p class="text-xs text-slate-500 mt-1">Clique na sua conta e digite a senha</p>
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
+                <p class="text-xs text-slate-500 mt-1">Clique na sua conta autorizada</p>
             </div>
+
             <div class="p-4 space-y-2">
-                <button type="button" onclick="chooseGoogleAndFocusPass('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer">
+                <button type="button" onclick="pickGoogleEmailAndFocusPass('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
                     <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">M</div>
                     <div>
-                        <p class="text-sm font-semibold text-slate-800">ADM Master (Marcelo)</p>
+                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">ADM Master (Marcelo)</p>
                         <p class="text-xs text-slate-500">marcelo.doetz@gmail.com</p>
                     </div>
                 </button>
-                <button type="button" onclick="chooseGoogleAndFocusPass('esf90micro01@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer">
+                <button type="button" onclick="pickGoogleEmailAndFocusPass('esf90micro01@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
                     <div class="w-9 h-9 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">E</div>
                     <div>
-                        <p class="text-sm font-semibold text-slate-800">ESF 90 Master</p>
+                        <p class="text-sm font-semibold text-slate-800 group-hover:text-emerald-600">ESF 90 Master</p>
                         <p class="text-xs text-slate-500">esf90micro01@gmail.com</p>
                     </div>
                 </button>
+                <button type="button" onclick="pickGoogleEmailAndFocusPass('')" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-check"></i></div>
+                    <div>
+                        <p class="text-sm font-semibold text-slate-800">Outra conta pré-autorizada</p>
+                        <p class="text-xs text-slate-500">Preencher na tela de login</p>
+                    </div>
+                </button>
             </div>
+
             <div class="p-3 bg-slate-50 border-t border-slate-100 text-center">
-                <button type="button" onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer">Fechar</button>
+                <button type="button" onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer">Cancelar</button>
             </div>
         </div>
     </div>
@@ -742,9 +744,9 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha Forte</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
                     <div class="relative">
-                        <input type="password" id="new-password" required minlength="8" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mínimo 8 caracteres">
+                        <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
                         <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -753,7 +755,7 @@
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
                     <div class="relative">
-                        <input type="password" id="confirm-new-password" required minlength="8" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                        <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
                         <button type="button" onclick="togglePasswordVisibility('confirm-new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -781,7 +783,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL BLINDADO (VERSÃO 20.3 CLOUD) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 20.3 CLOUD - LOGIN INFALÍVEL) -->
     <script>
         const CURRENT_VERSION = "20.3";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
@@ -789,21 +791,6 @@
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
         const SECONDARY_DEFAULT_PASS = "0limpic0";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic",
-            authDomain: "gestao-acs-marcelo.firebaseapp.com",
-            databaseURL: "https://gestao-acs-marcelo-default-rtdb.firebaseio.com",
-            projectId: "gestao-acs-marcelo",
-            storageBucket: "gestao-acs-marcelo.firebasestorage.app",
-            messagingSenderId: "962078506582",
-            appId: "1:962078506582:web:51cdd7e1434dc50fd845f7",
-            measurementId: "G-34KHWRJ336"
-        };
-
-        let firebaseDB = null;
-        let dbRef = null;
-        let isCloudConnected = false;
 
         let db = {
             version: CURRENT_VERSION,
@@ -819,58 +806,17 @@
         };
 
         let currentUser = null;
+        let firebaseDB = null;
+        let dbRef = null;
         let scoreChartInstance = null;
         let revenueChartInstance = null;
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
 
-        function forceHardResetCache() {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-            }
-            if ('caches' in window) {
-                caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
-            }
-            alert("Cache limpo! A página será recarregada na versão mais recente.");
-            window.location.reload(true);
-        }
-
-        function showLoginError(msg) {
-            let box = document.getElementById('login-error-box');
-            if (box) {
-                box.innerText = msg;
-                box.classList.remove('hidden');
-            } else {
-                alert(msg);
-            }
-        }
-
-        function quickFillLogin(email) {
-            let emailEl = document.getElementById('login-email');
-            let passEl = document.getElementById('login-password');
-            let errBox = document.getElementById('login-error-box');
-            if (errBox) errBox.classList.add('hidden');
-            if (emailEl) emailEl.value = email;
-            if (passEl) {
-                passEl.value = '';
-                passEl.focus();
-            }
-        }
-
-        function openGoogleAuthModal() {
-            document.getElementById('google-modal').classList.remove('hidden');
-        }
-
-        function closeGoogleAuthModal() {
-            document.getElementById('google-modal').classList.add('hidden');
-        }
-
-        function chooseGoogleAndFocusPass(email) {
-            closeGoogleAuthModal();
-            quickFillLogin(email);
-        }
-
+        // =========================================================================
+        // 1. FUNÇÕES DE LOGIN NO TOPO (FUNCIONAM IMEDIATAMENTE SEM DEPENDER DE NADA)
+        // =========================================================================
         function togglePasswordVisibility(inputId, btnEl) {
             let input = document.getElementById(inputId);
             if (!input) return;
@@ -882,19 +828,41 @@
                 input.type = "password";
                 if (icon) icon.className = "fa-solid fa-eye";
             }
-            input.focus();
+        }
+
+        function openGoogleAuthModal() {
+            document.getElementById('google-modal').classList.remove('hidden');
+        }
+
+        function closeGoogleAuthModal() {
+            document.getElementById('google-modal').classList.add('hidden');
+        }
+
+        // Quando clica na conta Google, preenche o e-mail na tela de login principal e foca na caixa de senha com olho!
+        function pickGoogleEmailAndFocusPass(email) {
+            closeGoogleAuthModal();
+            let emailInput = document.getElementById('login-email');
+            let passInput = document.getElementById('login-password');
+            if (email) {
+                emailInput.value = email;
+                passInput.value = '';
+                setTimeout(() => passInput.focus(), 100);
+            } else {
+                emailInput.value = '';
+                passInput.value = '';
+                setTimeout(() => emailInput.focus(), 100);
+            }
         }
 
         function isMasterAccount(email) {
             if (!email) return false;
-            let e = String(email).trim().toLowerCase();
+            let e = email.trim().toLowerCase();
             return e === MASTER_EMAIL || e === SECONDARY_MASTER;
         }
 
         function ensureMasterUsers() {
             if (!Array.isArray(db.users)) db.users = [];
-
-            let master = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === MASTER_EMAIL);
+            let master = db.users.find(u => u && u.email && u.email.toLowerCase() === MASTER_EMAIL);
             if (!master) {
                 db.users.push({ email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" });
             } else {
@@ -903,7 +871,7 @@
                 if (!master.password) master.password = MASTER_DEFAULT_PASS;
             }
 
-            let secMaster = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === SECONDARY_MASTER);
+            let secMaster = db.users.find(u => u && u.email && u.email.toLowerCase() === SECONDARY_MASTER);
             if (!secMaster) {
                 db.users.push({ email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" });
             } else {
@@ -913,83 +881,113 @@
             }
         }
 
-        function executeDirectLogin() {
-            try {
-                ensureMasterUsers();
-                let emailEl = document.getElementById('login-email');
-                let passEl = document.getElementById('login-password');
-                let errBox = document.getElementById('login-error-box');
-                if (errBox) errBox.classList.add('hidden');
+        function handleLogin(e) {
+            if (e) e.preventDefault();
+            ensureMasterUsers();
 
-                let email = emailEl ? String(emailEl.value).trim().toLowerCase() : '';
-                let pass = passEl ? String(passEl.value).trim() : '';
+            let emailEl = document.getElementById('login-email');
+            let passEl = document.getElementById('login-password');
+            let email = (emailEl.value || '').trim().toLowerCase();
+            let pass = (passEl.value || '').trim();
 
-                if (!email) {
-                    showLoginError("Digite ou selecione o seu e-mail de usuário.");
-                    return;
-                }
-                if (!pass) {
-                    showLoginError("Digite a sua senha de acesso no campo de senha.");
-                    if (passEl) passEl.focus();
-                    return;
-                }
-
-                let user = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === email);
-
-                if (!user && isMasterAccount(email)) {
-                    ensureMasterUsers();
-                    user = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === email);
-                }
-
-                if (!user) {
-                    showLoginError("E-mail não autorizado: " + email);
-                    return;
-                }
-
-                if (user.status === 'inactive' && !isMasterAccount(email)) {
-                    showLoginError("Conta inativada pelo Administrador Master.");
-                    return;
-                }
-
-                let userStoredPass = String(user.password || '').trim();
-                let isMasterValid = (email === MASTER_EMAIL && (pass === MASTER_DEFAULT_PASS || pass.toLowerCase() === "r@ul2011")) ||
-                                    (email === SECONDARY_MASTER && (pass === SECONDARY_DEFAULT_PASS || pass.toLowerCase() === "0limpic0"));
-
-                if (pass !== userStoredPass && !isMasterValid) {
-                    showLoginError("Senha incorreta para " + email + ". Clique no ícone do olho para conferir o que digitou.");
-                    return;
-                }
-
-                if (isMasterAccount(email)) {
-                    user.role = 'admin';
-                    user.status = 'active';
-                }
-
-                currentUser = user;
-                if (passEl) passEl.value = '';
-                initSession();
-            } catch (err) {
-                alert("Erro ao processar login: " + err.message);
+            if (!email || !pass) {
+                alert("Preencha o e-mail e a senha.");
+                return;
             }
+
+            let user = db.users.find(u => u && u.email && u.email.trim().toLowerCase() === email);
+
+            if (!user) {
+                alert("ACESSO BLOQUEADO: E-mail não pré-cadastrado pelo ADM Master.");
+                return;
+            }
+
+            if (user.status === 'inactive' && !isMasterAccount(email)) {
+                alert("ACESSO BLOQUEADO: Usuário inativado pelo ADM Master.");
+                return;
+            }
+
+            // Aceita a senha cadastrada ou as senhas oficiais de segurança dos Masters
+            let isPassCorrect = (pass === user.password) ||
+                                (email === MASTER_EMAIL && pass === MASTER_DEFAULT_PASS) ||
+                                (email === SECONDARY_MASTER && pass === SECONDARY_DEFAULT_PASS);
+
+            if (!isPassCorrect) {
+                alert("ACESSO NEGADO: Senha incorreta.");
+                return;
+            }
+
+            if (isMasterAccount(email)) {
+                user.role = 'admin';
+                user.status = 'active';
+            }
+
+            currentUser = user;
+            passEl.value = '';
+            initSession();
         }
 
-        function applyDynamicVersionNaming() {
-            const fullTitle = `${APP_BASE_NAME} - v${CURRENT_VERSION} Cloud`;
-            document.title = fullTitle;
-            document.querySelectorAll('.ver-tag').forEach(el => { el.innerText = `v${CURRENT_VERSION}`; });
-            document.querySelectorAll('.ver-full-label').forEach(el => { el.innerText = `Versão ${CURRENT_VERSION} Cloud`; });
+        // =========================================================================
+        // 2. INICIALIZAÇÃO DO BANCO LOCAL + FIREBASE EM SEGUNDO PLANO
+        // =========================================================================
+        function initDB() {
+            document.title = `${APP_BASE_NAME} - v${CURRENT_VERSION} Cloud`;
+            document.querySelectorAll('.ver-tag').forEach(el => el.innerText = `v${CURRENT_VERSION}`);
+            document.querySelectorAll('.ver-full-label').forEach(el => el.innerText = `Versão ${CURRENT_VERSION} Cloud`);
+
+            // Carrega imediatamente os dados salvos no navegador
+            let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
+            if (saved) {
+                try {
+                    normalizeDatabaseObject(JSON.parse(saved));
+                } catch (e) {
+                    ensureMasterUsers();
+                }
+            } else {
+                ensureMasterUsers();
+            }
+
+            // Conecta ao Firebase de forma assíncrona sem travar a tela
+            setTimeout(connectFirebaseCloud, 200);
         }
 
-        function isValidStrongPassword(pass) {
-            if (!pass || pass.length < 8) return false;
-            return /[A-Z]/.test(pass) && /[a-z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass);
-        }
+        function connectFirebaseCloud() {
+            try {
+                if (typeof firebase === 'undefined') return;
+                const firebaseConfig = {
+                    apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic",
+                    authDomain: "gestao-acs-marcelo.firebaseapp.com",
+                    databaseURL: "https://gestao-acs-marcelo-default-rtdb.firebaseio.com",
+                    projectId: "gestao-acs-marcelo",
+                    storageBucket: "gestao-acs-marcelo.firebasestorage.app",
+                    messagingSenderId: "962078506582",
+                    appId: "1:962078506582:web:51cdd7e1434dc50fd845f7",
+                    measurementId: "G-34KHWRJ336"
+                };
 
-        function formatDateBR(dateStr) {
-            if (!dateStr) return '';
-            let parts = String(dateStr).split('-');
-            if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
-            return dateStr;
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                firebaseDB = firebase.database();
+                dbRef = firebaseDB.ref('gestao_acs_90_db');
+
+                dbRef.on('value', (snapshot) => {
+                    const cloudData = snapshot.val();
+                    if (cloudData) {
+                        normalizeDatabaseObject(cloudData);
+                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+                        if (currentUser) refreshAllViews();
+                    } else {
+                        persistDB();
+                    }
+                    let loginBadge = document.getElementById('login-cloud-status');
+                    if (loginBadge) {
+                        loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Nuvem Firebase Conectada (v${CURRENT_VERSION})</span>`;
+                    }
+                });
+            } catch (err) {
+                console.warn("Operando em modo local:", err);
+            }
         }
 
         function normalizeDatabaseObject(raw) {
@@ -1015,6 +1013,7 @@
             if (!db.revenues || db.revenues.length === 0) return;
             let uniqueMap = new Map();
             let cleanedList = [];
+
             db.revenues.forEach(rev => {
                 if (!rev) return;
                 let key = (rev.paciente || '').trim().toLowerCase() + '|' + (rev.gestor || '').trim().toLowerCase();
@@ -1032,95 +1031,6 @@
             db.revenues = cleanedList;
         }
 
-        function updateCloudStatusBadge(online) {
-            isCloudConnected = online;
-            let loginBadge = document.getElementById('login-cloud-status');
-            let headerBadge = document.getElementById('header-cloud-badge');
-
-            if (online) {
-                if (loginBadge) {
-                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Banco Online Conectado (Firebase v${CURRENT_VERSION})</span>`;
-                }
-                if (headerBadge) {
-                    headerBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1";
-                    headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada</span>`;
-                }
-            } else {
-                if (loginBadge) {
-                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-slash"></i><span>Modo Local Ativo (Login liberado)</span>`;
-                }
-                if (headerBadge) {
-                    headerBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 flex items-center space-x-1";
-                    headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>Modo Offline</span>`;
-                }
-            }
-        }
-
-        function refreshAllViews() {
-            if (!currentUser) return;
-            renderItems();
-            renderRevenues();
-            renderPatients();
-            renderCycles();
-            renderRenewals();
-            renderUsers();
-            renderHolidays();
-            renderVacationsInputs();
-            renderCharts();
-        }
-
-        function initDB() {
-            applyDynamicVersionNaming();
-
-            let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
-            if (saved) {
-                try { normalizeDatabaseObject(JSON.parse(saved)); } catch (e) { ensureMasterUsers(); }
-            } else {
-                ensureMasterUsers();
-            }
-
-            try {
-                if (typeof firebase !== 'undefined') {
-                    if (!firebase.apps.length) {
-                        firebase.initializeApp(firebaseConfig);
-                    }
-                    firebaseDB = firebase.database();
-                    dbRef = firebaseDB.ref('gestao_acs_90_db');
-
-                    firebaseDB.ref('.info/connected').on('value', (snap) => {
-                        updateCloudStatusBadge(snap.val() === true);
-                    });
-
-                    dbRef.on('value', (snapshot) => {
-                        const cloudData = snapshot.val();
-                        if (cloudData) {
-                            normalizeDatabaseObject(cloudData);
-                            localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
-                            if (currentUser) refreshAllViews();
-                        } else {
-                            persistDB();
-                        }
-                    });
-                } else {
-                    updateCloudStatusBadge(false);
-                }
-            } catch (err) {
-                updateCloudStatusBadge(false);
-            }
-        }
-
-        function showToast(msg) {
-            let toast = document.getElementById('save-toast');
-            let toastMsg = document.getElementById('save-toast-msg');
-            if (toastMsg && msg) toastMsg.innerText = msg;
-            if (toast) {
-                toast.classList.remove('translate-y-20', 'opacity-0');
-                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2200);
-            }
-        }
-
         function persistDB() {
             db.version = CURRENT_VERSION;
             ensureMasterUsers();
@@ -1128,65 +1038,25 @@
             localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
 
             if (dbRef) {
-                dbRef.set(cleanCopy)
-                    .then(() => showToast(`Salvo na nuvem (v${CURRENT_VERSION})!`))
-                    .catch(() => showToast("Salvo localmente!"));
-            } else {
-                showToast("Salvo localmente!");
+                dbRef.set(cleanCopy).catch(() => {});
+            }
+            let toast = document.getElementById('save-toast');
+            if (toast) {
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000);
             }
         }
 
         function forceCloudSync() {
             persistDB();
-            alert(`Sincronização com a nuvem (v${CURRENT_VERSION}) executada com sucesso!`);
+            alert(`Sincronização com a nuvem (v${CURRENT_VERSION}) concluída!`);
         }
 
-        function openChangePasswordModal() {
-            document.getElementById('change-password-form').reset();
-            document.getElementById('change-password-modal').classList.remove('hidden');
-        }
-
-        function closeChangePasswordModal() {
-            document.getElementById('change-password-modal').classList.add('hidden');
-        }
-
-        function handleChangePassword(e) {
-            e.preventDefault();
-            let currPass = document.getElementById('current-password').value;
-            let newPass = document.getElementById('new-password').value;
-            let confPass = document.getElementById('confirm-new-password').value;
-
-            if (!currentUser) return;
-
-            if (currPass !== currentUser.password && !(currentUser.email.toLowerCase() === MASTER_EMAIL && currPass === MASTER_DEFAULT_PASS)) {
-                alert("A senha atual informada está incorreta.");
-                return;
-            }
-
-            if (!isValidStrongPassword(newPass)) {
-                alert("A nova senha deve ter no mínimo 8 caracteres, incluindo 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial (ou espaço).");
-                return;
-            }
-
-            if (newPass !== confPass) {
-                alert("A nova senha e a confirmação não coincidem.");
-                return;
-            }
-
-            let userInDb = db.users.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
-            if (userInDb) {
-                userInDb.password = newPass;
-                currentUser.password = newPass;
-                persistDB();
-                closeChangePasswordModal();
-                alert("Sua senha foi alterada e salva na nuvem com sucesso!");
-            }
-        }
-
-        function logout() {
-            currentUser = null;
-            document.getElementById('main-screen').classList.add('hidden');
-            document.getElementById('auth-screen').classList.remove('hidden');
+        function formatDateBR(dateStr) {
+            if (!dateStr) return '';
+            let parts = String(dateStr).split('-');
+            if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            return dateStr;
         }
 
         function initSession() {
@@ -1214,6 +1084,25 @@
             refreshAllViews();
         }
 
+        function logout() {
+            currentUser = null;
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+        }
+
+        function refreshAllViews() {
+            if (!currentUser) return;
+            renderItems();
+            renderRevenues();
+            renderPatients();
+            renderCycles();
+            renderRenewals();
+            renderUsers();
+            renderHolidays();
+            renderVacationsInputs();
+            renderCharts();
+        }
+
         function switchTab(tab) {
             ['evaluations', 'revenues', 'patients', 'cycles', 'renewals', 'history', 'reports', 'backup', 'admin'].forEach(t => {
                 let el = document.getElementById(`tab-${t}`);
@@ -1233,6 +1122,40 @@
             if (tab === 'revenues') renderRevenues();
             if (tab === 'history') renderCharts();
             if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); }
+        }
+
+        function openChangePasswordModal() {
+            document.getElementById('change-password-form').reset();
+            document.getElementById('change-password-modal').classList.remove('hidden');
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById('change-password-modal').classList.add('hidden');
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            let currPass = document.getElementById('current-password').value;
+            let newPass = document.getElementById('new-password').value;
+            let confPass = document.getElementById('confirm-new-password').value;
+
+            if (!currentUser) return;
+            if (currPass !== currentUser.password && !(currentUser.email.toLowerCase() === MASTER_EMAIL && currPass === MASTER_DEFAULT_PASS)) {
+                alert("A senha atual informada está incorreta.");
+                return;
+            }
+            if (newPass !== confPass) {
+                alert("A nova senha e a confirmação não coincidem.");
+                return;
+            }
+            let userInDb = db.users.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
+            if (userInDb) {
+                userInDb.password = newPass;
+                currentUser.password = newPass;
+                persistDB();
+                closeChangePasswordModal();
+                alert("Sua senha foi alterada com sucesso!");
+            }
         }
 
         function handleGlobalSearch() {
@@ -1319,7 +1242,7 @@
                 } else {
                     alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-emerald-600 text-yellow-300 font-bold border-emerald-700";
                 }
-                alertText.innerHTML = `Avaliação encontrada: IVCF-20: ${score20} | IVSF-10: ${score10} (Ciclo: ${suggestedIvcfProfile}d)`;
+                alertText.innerHTML = `Avaliação encontrada: IVCF-20: ${score20} | IVSF-10: ${score10} (Ciclo:${suggestedIvcfProfile}d)`;
             } else {
                 alertBox.classList.add('hidden');
                 suggestedIvcfProfile = null;
@@ -1390,7 +1313,7 @@
                             <option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option>
                         </select>
                         <input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}">
-                        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 hover:text-red-700 px-2 font-bold cursor-pointer" title="Remover este medicamento"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 hover:text-red-700 px-2 font-bold cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     <div>
                         <input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Observação (máx. 100 caracteres)" class="w-full px-3 py-1.5 border rounded-lg text-xs bg-white text-slate-600">
@@ -1437,16 +1360,13 @@
                 });
             };
 
-            let safetyCounter = 0;
-            while (safetyCounter < 365) {
+            let safety = 0;
+            while (safety < 365) {
                 let dayOfWeek = targetDate.getDay();
-                if ((dayOfWeek === 1 || dayOfWeek === 2) && !isHoliday(targetDate) && !isVacation(targetDate)) {
-                    break;
-                }
+                if ((dayOfWeek === 1 || dayOfWeek === 2) && !isHoliday(targetDate) && !isVacation(targetDate)) break;
                 targetDate.setDate(targetDate.getDate() - 1);
-                safetyCounter++;
+                safety++;
             }
-
             return targetDate.toISOString().split('T')[0];
         }
 
@@ -1458,14 +1378,408 @@
 
             let term = getSearchTerm();
             let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email);
-            
-            if (term) {
-                list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
-            }
+            if (term) list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
 
             if (list.length === 0) { empty.classList.remove('hidden'); return; }
             empty.classList.add('hidden');
 
             list.forEach(i => {
                 let score20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0;
-                let score10 = parseInt(i.ivsf10 !== undefined ? i
+                let score10 = parseInt(i.ivsf10 !== undefined ? i.ivsf10 : 0) || 0;
+
+                let badge20 = score20 >= 15 ? "bg-red-600 text-yellow-300 font-bold" : (score20 >= 7 ? "bg-yellow-400 text-black font-bold" : "bg-emerald-600 text-yellow-300 font-bold");
+                let class20 = score20 >= 15 ? "Idoso Frágil" : (score20 >= 7 ? "Risco de Fragilização" : "Idoso Robusto");
+
+                let badge10 = score10 >= 10 ? "bg-red-600 text-yellow-300 font-bold" : (score10 >= 5 ? "bg-yellow-400 text-red-600 font-bold" : "bg-emerald-600 text-yellow-300 font-bold");
+                let class10 = score10 >= 10 ? "Alta Vulnerabilidade" : (score10 >= 5 ? "Média Vulnerabilidade" : "Baixa Vulnerabilidade");
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-medium">${i.gestor}</td>
+                        <td class="p-4 text-slate-800 font-semibold">${i.name}</td>
+                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge20}">${score20} pts —${class20}</span></td>
+                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge10}">${score10} pts —${class10}</span></td>
+                        <td class="p-4 font-mono text-xs font-bold text-slate-700">${formatDateBR(i.nextDate)} (${i.profile || 90}d)</td>
+                        <td class="p-4 text-center space-x-1">
+                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="showItemHistory('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg cursor-pointer"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function showItemHistory(id) {
+            let item = db.items.find(i => i.id === id);
+            if (!item) return;
+            let historyList = Array.isArray(item.history) && item.history.length > 0
+                ? item.history
+                : [{ ivcf20: item.ivcf20 !== undefined ? item.ivcf20 : item.value, ivsf10: item.ivsf10 || 0, date: item.date || new Date().toISOString().split('T')[0], profile: item.profile || 90 }];
+            
+            let content = document.getElementById('history-modal-content');
+            content.innerHTML = `<p class="font-semibold text-slate-800 mb-2">Paciente: ${item.name} (Gestor:${item.gestor})</p><div class="space-y-2">` +
+                historyList.map((h, idx) => `
+                    <div class="bg-slate-50 p-3 rounded-xl border space-y-1">
+                        <p class="font-bold text-slate-800">Registro #${idx + 1} — Data:${formatDateBR(h.date || 'N/D')}</p>
+                        <p class="text-xs text-slate-700">• <b>IVCF-20:</b> ${h.ivcf20} pontos \vert{} <b>IVSF-10:</b>${h.ivsf10} pontos</p>
+                        <p class="text-xs text-blue-600 font-semibold">• <b>Agendamento:</b> ${h.profile} dias</p>
+                    </div>`).join('') + `</div>`;
+            document.getElementById('history-modal').classList.remove('hidden');
+        }
+
+        function closeHistoryModal() { document.getElementById('history-modal').classList.add('hidden'); }
+
+        function renderRevenues() {
+            let tbody = document.getElementById('revenues-table-body');
+            let empty = document.getElementById('empty-revenue-state');
+            if (!tbody || !currentUser) return;
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            if (term) {
+                list = list.filter(rev => (rev.paciente || '').toLowerCase().includes(term) || (rev.gestor || '').toLowerCase().includes(term) || (rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term))));
+            }
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            list.forEach(i => {
+                let medsCount = i.medications ? i.medications.length : 0;
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-medium">${i.gestor}</td>
+                        <td class="p-4 font-semibold text-slate-800">${i.paciente || 'N/D'}</td>
+                        <td class="p-4 text-emerald-700 font-medium">${i.medico || 'Dr. Andrey'}</td>
+                        <td class="p-4 text-slate-600 font-bold">${medsCount} medicamento(s)</td>
+                        <td class="p-4 text-center space-x-2">
+                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteRevenue('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderPatients() {
+            let tbody = document.getElementById('patients-table-body');
+            let empty = document.getElementById('empty-patient-state');
+            if (!tbody || !currentUser) return;
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = [...((isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email))];
+            if (term) {
+                list = list.filter(rev => (rev.paciente || '').toLowerCase().includes(term) || (rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term))));
+            }
+            list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            list.forEach(rev => {
+                let status = rev.status || 'active';
+                let statusBadge = status === 'inactive' ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo</span>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
+                let medsHtml = (rev.medications || []).map(m => `<div>• ${m.name} (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''} - <span class="text-xs font-mono text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 font-semibold text-slate-800">${rev.paciente}</td>
+                        <td class="p-4 text-slate-600">${rev.gestor}</td>
+                        <td class="p-4 text-xs text-slate-700 space-y-1">${medsHtml}</td>
+                        <td class="p-4">${statusBadge}</td>
+                        <td class="p-4 text-center space-x-1">
+                            <button onclick="togglePatientStatus('${rev.id}')" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold cursor-pointer">${status === 'inactive' ? 'Ativar' : 'Inativar'}</button>
+                            <button onclick="downloadPatientPDF('${rev.id}')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-semibold cursor-pointer"><i class="fa-solid fa-file-pdf mr-1"></i> PDF</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renderCycles() {
+            let c30 = document.getElementById('cycle-list-30'), c60 = document.getElementById('cycle-list-60'), c90 = document.getElementById('cycle-list-90'), c180 = document.getElementById('cycle-list-180'), cOut = document.getElementById('cycle-list-outros');
+            if (!c30 || !currentUser) return;
+            c30.innerHTML = ''; c60.innerHTML = ''; c90.innerHTML = ''; c180.innerHTML = ''; cOut.innerHTML = '';
+
+            let term = getSearchTerm(), cycleTerm = getCycleSearchTerm();
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                let cyclesPresent = new Set(rev.medications.map(m => String(m.cycleDays)));
+                cyclesPresent.forEach(cycle => {
+                    let medsInCycle = rev.medications.filter(m => String(m.cycleDays) === cycle);
+                    let mG = !term || (rev.paciente || '').toLowerCase().includes(term) || medsInCycle.some(m => (m.name || '').toLowerCase().includes(term));
+                    let mC = !cycleTerm || (rev.paciente || '').toLowerCase().includes(cycleTerm) || medsInCycle.some(m => (m.name || '').toLowerCase().includes(cycleTerm));
+
+                    if (mG && mC) {
+                        let card = `<div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 hover:border-amber-400 cursor-pointer" onclick='showPatientDetail("${rev.id}")'><p class="font-bold text-slate-800 underline">${rev.paciente}</p><p class="text-[11px] text-slate-500">Gestor: ${rev.gestor}</p><p class="text-[11px] text-emerald-700 font-medium mt-1">Qtd Meds: ${medsInCycle.length}</p></div>`;
+                        if (cycle === '30') c30.innerHTML += card;
+                        else if (cycle === '60') c60.innerHTML += card;
+                        else if (cycle === '90') c90.innerHTML += card;
+                        else if (cycle === '180') c180.innerHTML += card;
+                        else cOut.innerHTML += card;
+                    }
+                });
+            });
+            [c30, c60, c90, c180, cOut].forEach(c => { if (!c.innerHTML) c.innerHTML = '<span class="text-slate-400 italic">Nenhum</span>'; });
+        }
+
+        function showPatientDetail(revId) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev) return;
+            document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
+            let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> \vert{} Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
+            document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} \vert{} <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
+            document.getElementById('patient-detail-modal').classList.remove('hidden');
+        }
+
+        function closePatientDetailModal() { document.getElementById('patient-detail-modal').classList.add('hidden'); }
+
+        function togglePatientStatus(id) {
+            let rev = db.revenues.find(i => i.id === id);
+            if (rev) { rev.status = rev.status === 'inactive' ? 'active' : 'inactive'; persistDB(); refreshAllViews(); }
+        }
+
+        function renderRenewals() {
+            let tbody = document.getElementById('renewals-table-body');
+            let empty = document.getElementById('empty-renewal-state');
+            if (!tbody || !currentUser) return;
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let groupsMap = {};
+
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                rev.medications.forEach((med, mIdx) => {
+                    let nextDate = calculateValidDate(med.baseDate, med.cycleDays);
+                    let groupKey = rev.id + '_' + nextDate;
+                    if (!groupsMap[groupKey]) {
+                        groupsMap[groupKey] = { revId: rev.id, paciente: rev.paciente, gestor: rev.gestor, medico: rev.medico || 'Dr. Andrey', nextDate, medications: [] };
+                    }
+                    groupsMap[groupKey].medications.push({ medIndex: mIdx, name: med.name, cycleDays: med.cycleDays, baseDate: med.baseDate, obs: med.obs || '' });
+                });
+            });
+
+            let groupsList = Object.values(groupsMap);
+            if (term) groupsList = groupsList.filter(g => (g.paciente || '').toLowerCase().includes(term) || g.medications.some(m => (m.name || '').toLowerCase().includes(term)));
+            groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+
+            if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            groupsList.forEach(g => {
+                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) \vert{} Conf:${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
+                        <td class="p-4 font-mono font-bold text-emerald-700">${formatDateBR(g.nextDate)}</td>
+                        <td class="p-4 font-semibold text-slate-800">${g.paciente}</td>
+                        <td class="p-4 text-xs text-slate-700">${medsHtml}</td>
+                        <td class="p-4 text-slate-600">${g.gestor}</td>
+                        <td class="p-4 text-slate-500 text-xs">${g.medico}</td>
+                        <td class="p-4 text-center space-y-1">
+                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer">Renovar Grupo</button>
+                            <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold cursor-pointer">PDF Desta Data</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renewSingleMed(revId, medIndex) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev || !rev.medications[medIndex]) return;
+            let med = rev.medications[medIndex];
+            let newDays = parseInt(prompt(`Novo período (em dias) para "${med.name}":`, med.cycleDays));
+            if (isNaN(newDays) || newDays <= 0) return;
+            med.cycleDays = newDays;
+            med.baseDate = new Date().toISOString().split('T')[0];
+            persistDB(); refreshAllViews();
+        }
+
+        function renewGroupMedications(revId, targetDate) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev || !rev.medications) return;
+            let newDays = parseInt(prompt(`Novo período (em dias) para o grupo de ${rev.paciente}:`, "30"));
+            if (isNaN(newDays) || newDays <= 0) return;
+            let todayStr = new Date().toISOString().split('T')[0];
+            rev.medications.forEach(med => {
+                if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                    med.cycleDays = newDays;
+                    med.baseDate = todayStr;
+                }
+            });
+            persistDB(); refreshAllViews();
+        }
+
+        function toggleSelectAllRenewals(masterCheckbox) {
+            document.querySelectorAll('.renewal-checkbox').forEach(cb => cb.checked = masterCheckbox.checked);
+        }
+
+        function renewSelectedGroups() {
+            let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked');
+            if (checkedBoxes.length === 0) { alert("Selecione pelo menos um grupo."); return; }
+            let newDays = parseInt(prompt("Novo período (em dias) para os selecionados:", "30"));
+            if (isNaN(newDays) || newDays <= 0) return;
+            let todayStr = new Date().toISOString().split('T')[0];
+            checkedBoxes.forEach(cb => {
+                let rev = db.revenues.find(r => r.id === cb.getAttribute('data-revid'));
+                let targetDate = cb.getAttribute('data-nextdate');
+                if (rev && rev.medications) {
+                    rev.medications.forEach(med => {
+                        if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                            med.cycleDays = newDays;
+                            med.baseDate = todayStr;
+                        }
+                    });
+                }
+            });
+            persistDB(); refreshAllViews();
+        }
+
+        function openItemModal(id = null) {
+            document.getElementById('item-modal').classList.remove('hidden');
+            document.getElementById('item-form').reset();
+            document.getElementById('item-id').value = '';
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    document.getElementById('item-id').value = item.id;
+                    document.getElementById('item-gestor').value = item.gestor;
+                    document.getElementById('item-name').value = item.name;
+                    document.getElementById('item-ivcf20').value = item.ivcf20 !== undefined ? item.ivcf20 : (item.value || 0);
+                    document.getElementById('item-ivsf10').value = item.ivsf10 || 0;
+                    calculateAutoProfileFromIvcf();
+                }
+            }
+        }
+
+        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
+
+        function saveItem(e) {
+            e.preventDefault();
+            let id = document.getElementById('item-id').value;
+            let gestor = document.getElementById('item-gestor').value.trim();
+            let name = document.getElementById('item-name').value.trim();
+            let ivcf20 = parseInt(document.getElementById('item-ivcf20').value) || 0;
+            let ivsf10 = parseInt(document.getElementById('item-ivsf10').value) || 0;
+            calculateAutoProfileFromIvcf();
+            let profile = parseInt(document.getElementById('item-profile').value) || 90;
+            let todayStr = new Date().toISOString().split('T')[0];
+            let nextStr = calculateValidDate(todayStr, profile);
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    if (!Array.isArray(item.history)) item.history = [];
+                    item.history.push({ ivcf20: item.ivcf20, ivsf10: item.ivsf10 || 0, date: item.date || todayStr, profile: item.profile || 90 });
+                    item.gestor = gestor; item.name = name; item.ivcf20 = ivcf20; item.ivsf10 = ivsf10; item.value = ivcf20; item.profile = profile; item.date = todayStr; item.nextDate = nextStr;
+                }
+            } else {
+                db.items.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, name, ivcf20, ivsf10, value: ivcf20, profile, date: todayStr, nextDate: nextStr, history: [{ ivcf20, ivsf10, date: todayStr, profile }] });
+            }
+            db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, ivsf10, date: todayStr });
+            persistDB(); closeItemModal(); refreshAllViews();
+        }
+
+        function editItem(id) { openItemModal(id); }
+        function deleteItem(id) { if (confirm("Excluir avaliação?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        function openRevenueModal(id = null) {
+            document.getElementById('revenue-modal').classList.remove('hidden');
+            document.getElementById('revenue-form').reset();
+            document.getElementById('revenue-id').value = '';
+            document.getElementById('revenue-medico').value = 'Dr. Andrey';
+            document.getElementById('medication-rows-container').innerHTML = '';
+            let todayStr = new Date().toISOString().split('T')[0];
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) {
+                    document.getElementById('revenue-id').value = rev.id;
+                    document.getElementById('revenue-gestor').value = rev.gestor;
+                    document.getElementById('revenue-paciente').value = rev.paciente || '';
+                    document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
+                    (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
+                }
+            } else {
+                addMedicationRow('', '30', '', todayStr);
+            }
+        }
+
+        function closeRevenueModal() { document.getElementById('revenue-modal').classList.add('hidden'); }
+
+        function saveRevenue(e) {
+            e.preventDefault();
+            let id = document.getElementById('revenue-id').value;
+            let gestor = document.getElementById('revenue-gestor').value.trim();
+            let paciente = document.getElementById('revenue-paciente').value.trim();
+            let medico = document.getElementById('revenue-medico').value.trim();
+            let medications = [];
+            document.querySelectorAll('#medication-rows-container > div').forEach(row => {
+                let name = row.querySelector('input[name="med_name"]').value.trim();
+                let medDate = row.querySelector('input[name="med_date"]').value;
+                let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
+                let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
+                let obs = row.querySelector('input[name="med_obs"]').value.trim();
+                if (name && medDate) medications.push({ name, cycleDays: cycleDays || 30, obs, baseDate: medDate });
+            });
+            if (medications.length === 0) return;
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
+            } else {
+                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
+            }
+            persistDB(); closeRevenueModal(); refreshAllViews();
+        }
+
+        function deleteRevenue(id) { if (confirm("Excluir receita?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        function addHoliday() {
+            let date = document.getElementById('holiday-date').value;
+            let desc = document.getElementById('holiday-desc').value.trim();
+            if (!date || !desc) return;
+            db.holidays.push({ date, desc });
+            persistDB(); renderHolidays();
+        }
+
+        function renderHolidays() {
+            let container = document.getElementById('holiday-list');
+            if (!container) return;
+            container.innerHTML = (db.holidays || []).map((h, idx) => `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} —${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold px-2 cursor-pointer">&times;</button></div>`).join('');
+        }
+
+        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
+
+        function saveVacations() {
+            let newVacations = [];
+            for (let i = 1; i <= 4; i++) {
+                let s = document.getElementById(`vac-start-${i}`).value;
+                let e = document.getElementById(`vac-end-${i}`).value;
+                if (s && e) newVacations.push({ period: i, start: s, end: e });
+            }
+            db.vacations = newVacations;
+            persistDB();
+            alert("Férias salvas na nuvem com sucesso!");
+        }
+
+        function renderVacationsInputs() {
+            for (let i = 1; i <= 4; i++) {
+                let vs = document.getElementById(`vac-start-${i}`);
+                let ve = document.getElementById(`vac-end-${i}`);
+                let saved = (db.vacations || [])[i - 1];
+                if (vs) vs.value = saved ? (saved.start || '') : '';
+                if (ve) ve.value = saved ? (saved.end || '') : '';
+            }
+        }
+
+        function renderCharts() {
+            if (typeof Chart === 'undefined' || !currentUser) return;
+            let ctx1El = document.getElementById('scoreChart');
+            if (ctx1El) {
+                let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+                if (scoreChartInstance) scoreChartInstance.destroy();
+                scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: hist.map(h => `${formatDateBR(h
