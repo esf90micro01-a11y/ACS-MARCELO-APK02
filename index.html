@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v20.3 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.4 Cloud</title>
     
-    <!-- DESTRAVADOR IMEDIATO DE CACHE E SERVICE WORKER (RODA ANTES DE TUDO) -->
+    <!-- LIMPADOR IMEDIATO DE CACHE E SERVICE WORKER ANTIGO -->
     <script>
         (function() {
             try {
@@ -42,68 +42,75 @@
     <!-- Toast de Salvamento -->
     <div id="save-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium">
         <i class="fa-solid fa-cloud-arrow-up"></i>
-        <span id="save-toast-msg">Dados salvos e sincronizados!</span>
+        <span id="save-toast-msg">Sincronizado na nuvem!</span>
     </div>
 
     <!-- App Container -->
     <div id="app" class="flex-1 flex flex-col h-full overflow-hidden">
         
         <!-- LOGIN SCREEN -->
-        <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200">
-            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
-                <div class="text-center mb-6">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-4">
-                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+        <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 overflow-y-auto">
+            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 my-auto">
+                <div class="text-center mb-5">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-3">
+                        <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.3</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.4</span>
                     </h1>
-                    <p class="text-sm text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.3 Cloud</span> — Acesso Rápido e Seguro
+                    <p class="text-xs text-slate-500 mt-1">
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.4 Cloud</span> — Sincronização em Tempo Real
                     </p>
-                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <span>Sistema Pronto para Login</span>
+                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
+                        <i class="fa-solid fa-rotate fa-spin"></i>
+                        <span>Conectando ao Firebase...</span>
                     </div>
                 </div>
 
-                <button onclick="openGoogleAuthModal()" type="button" class="w-full mb-5 flex items-center justify-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer">
-                    <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                    Entrar com conta Google
-                </button>
-
-                <div class="relative flex py-2 items-center mb-5">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Ou Digite E-mail e Senha</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
+                <!-- SELEÇÃO RÁPIDA GOOGLE -->
+                <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">1. Clique na sua Conta Google para preencher:</p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button type="button" onclick="quickSelectAccount('marcelo.doetz@gmail.com')" class="w-full text-left p-2.5 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer shadow-sm">
+                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">M</div>
+                            <div class="overflow-hidden">
+                                <p class="text-xs font-bold text-slate-800">ADM Master (Marcelo)</p>
+                                <p class="text-[11px] text-slate-500 truncate">marcelo.doetz@gmail.com</p>
+                            </div>
+                        </button>
+                        <button type="button" onclick="quickSelectAccount('esf90micro01@gmail.com')" class="w-full text-left p-2.5 rounded-xl bg-white hover:bg-emerald-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer shadow-sm">
+                            <div class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">E</div>
+                            <div class="overflow-hidden">
+                                <p class="text-xs font-bold text-slate-800">ESF 90 Master</p>
+                                <p class="text-[11px] text-slate-500 truncate">esf90micro01@gmail.com</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
 
-                <form onsubmit="handleLogin(event)" class="space-y-4">
+                <!-- CAMPOS DE LOGIN DIRETO -->
+                <div class="space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
-                        <input type="email" id="login-email" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="marcelo.doetz@gmail.com">
+                        <input type="email" id="login-email" value="marcelo.doetz@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none font-medium" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">2. Digite sua Senha de Acesso</label>
                         <div class="relative">
-                            <input type="password" id="login-password" required class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
-                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer" title="Mostrar/Ocultar Senha">
+                            <input type="password" id="login-password" onkeydown="if(event.key==='Enter') doSystemLogin()" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-blue-400 focus:ring-2 focus:ring-blue-600 text-sm outline-none bg-blue-50/30" placeholder="Digite sua senha aqui...">
+                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-800 cursor-pointer" title="Mostrar/Ocultar Senha">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm cursor-pointer">
-                        Entrar no Sistema
+                    <button type="button" onclick="doSystemLogin()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold rounded-xl shadow-md transition-all text-sm cursor-pointer flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Entrar no Sistema Agora</span>
                     </button>
-                </form>
+                </div>
 
-                <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-xs text-slate-500">ADM Master: <span class="font-mono font-bold text-blue-600">marcelo.doetz@gmail.com</span></p>
+                <div class="mt-5 pt-3 border-t border-slate-100 text-center">
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo</span></p>
                 </div>
             </div>
         </div>
@@ -118,10 +125,10 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.3</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.4</span>
                             </h2>
-                            <span id="header-cloud-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1">
-                                <i class="fa-solid fa-cloud"></i><span>Nuvem Ativa</span>
+                            <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1">
+                                <i class="fa-solid fa-cloud"></i><span>Verificando Nuvem...</span>
                             </span>
                         </div>
                         <span id="badge-role" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"></span>
@@ -185,7 +192,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 20.3 Cloud</span>
+                            APK <span class="ver-full-label">Versão 20.4 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -438,15 +445,15 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase Ativo (<span class="ver-full-label">Versão 20.3 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.4 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
-                                    Todos os cadastros são salvos automaticamente na nuvem e sincronizados entre todos os seus computadores e celulares.<br>
-                                    Se você tinha um arquivo <b>.json</b> antigo salvo no computador, basta carregá-lo abaixo em <b>"Restaurar Backup (.json)"</b> uma única vez para enviar tudo para a nuvem!
+                                    Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`).<br>
+                                    Se a etiqueta no topo estiver amarela ("Modo Local"), verifique no painel do Firebase em <b>Realtime Database &rarr; Regras</b> se <code>.read</code> e <code>.write</code> estão como <code>true</code>.
                                 </p>
                             </div>
                             <button onclick="forceCloudSync()" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs shadow cursor-pointer">
-                                <i class="fa-solid fa-rotate mr-1.5"></i>Sincronizar Agora
+                                <i class="fa-solid fa-rotate mr-1.5"></i>Forçar Sincronização Nuvem
                             </button>
                         </div>
 
@@ -456,12 +463,12 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.3</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.4</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
                                     <h4 class="font-bold text-amber-900 text-base mb-1">Restaurar Backup (.json) para a Nuvem</h4>
-                                    <p class="text-xs text-amber-700 mb-4">Carrega um arquivo de backup (.json) e salva todos os pacientes e receitas diretamente no banco online.</p>
+                                    <p class="text-xs text-amber-700 mb-4">Carrega um arquivo de backup (.json) e envia todos os pacientes e receitas direto para a nuvem.</p>
                                 </div>
                                 <label class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm text-center cursor-pointer block">
                                     Selecionar Arquivo (.json)
@@ -531,52 +538,6 @@
                         </div>
                     </div>
                 </main>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL DE SELEÇÃO DE CONTA GOOGLE -->
-    <div id="google-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden border border-slate-100">
-            <div class="p-6 text-center border-b border-slate-100">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-slate-800 text-lg">Entrar com o Google</h3>
-                <p class="text-xs text-slate-500 mt-1">Clique na sua conta autorizada</p>
-            </div>
-
-            <div class="p-4 space-y-2">
-                <button type="button" onclick="pickGoogleEmailAndFocusPass('marcelo.doetz@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">M</div>
-                    <div>
-                        <p class="text-sm font-semibold text-slate-800 group-hover:text-blue-600">ADM Master (Marcelo)</p>
-                        <p class="text-xs text-slate-500">marcelo.doetz@gmail.com</p>
-                    </div>
-                </button>
-                <button type="button" onclick="pickGoogleEmailAndFocusPass('esf90micro01@gmail.com')" class="w-full text-left p-3 rounded-xl hover:bg-emerald-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">E</div>
-                    <div>
-                        <p class="text-sm font-semibold text-slate-800 group-hover:text-emerald-600">ESF 90 Master</p>
-                        <p class="text-xs text-slate-500">esf90micro01@gmail.com</p>
-                    </div>
-                </button>
-                <button type="button" onclick="pickGoogleEmailAndFocusPass('')" class="w-full text-left p-3 rounded-xl hover:bg-slate-50 border border-slate-200 transition-all flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-9 h-9 bg-slate-200 text-slate-700 rounded-full flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-user-check"></i></div>
-                    <div>
-                        <p class="text-sm font-semibold text-slate-800">Outra conta pré-autorizada</p>
-                        <p class="text-xs text-slate-500">Preencher na tela de login</p>
-                    </div>
-                </button>
-            </div>
-
-            <div class="p-3 bg-slate-50 border-t border-slate-100 text-center">
-                <button type="button" onclick="closeGoogleAuthModal()" class="text-xs font-semibold text-slate-500 hover:text-slate-800 cursor-pointer">Cancelar</button>
             </div>
         </div>
     </div>
@@ -696,7 +657,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial Forte</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial</label>
                     <div class="relative">
                         <input type="password" id="invite-pass" required value="Mudar@123" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm font-mono outline-none">
                         <button type="button" onclick="togglePasswordVisibility('invite-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
@@ -783,9 +744,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 20.3 CLOUD - LOGIN INFALÍVEL) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 20.4 CLOUD - CONEXÃO REALTIME DATABASE CORRIGIDA) -->
     <script>
-        const CURRENT_VERSION = "20.3";
+        const CURRENT_VERSION = "20.4";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
@@ -815,7 +776,7 @@
         let shouldUnify = false;
 
         // =========================================================================
-        // 1. FUNÇÕES DE LOGIN NO TOPO (FUNCIONAM IMEDIATAMENTE SEM DEPENDER DE NADA)
+        // 1. LOGIN DIRETO E SELEÇÃO RÁPIDA GOOGLE (ZERO BLOQUEIO)
         // =========================================================================
         function togglePasswordVisibility(inputId, btnEl) {
             let input = document.getElementById(inputId);
@@ -828,29 +789,16 @@
                 input.type = "password";
                 if (icon) icon.className = "fa-solid fa-eye";
             }
+            input.focus();
         }
 
-        function openGoogleAuthModal() {
-            document.getElementById('google-modal').classList.remove('hidden');
-        }
-
-        function closeGoogleAuthModal() {
-            document.getElementById('google-modal').classList.add('hidden');
-        }
-
-        // Quando clica na conta Google, preenche o e-mail na tela de login principal e foca na caixa de senha com olho!
-        function pickGoogleEmailAndFocusPass(email) {
-            closeGoogleAuthModal();
-            let emailInput = document.getElementById('login-email');
-            let passInput = document.getElementById('login-password');
-            if (email) {
-                emailInput.value = email;
-                passInput.value = '';
-                setTimeout(() => passInput.focus(), 100);
-            } else {
-                emailInput.value = '';
-                passInput.value = '';
-                setTimeout(() => emailInput.focus(), 100);
+        function quickSelectAccount(email) {
+            let emailEl = document.getElementById('login-email');
+            let passEl = document.getElementById('login-password');
+            if (emailEl) emailEl.value = email;
+            if (passEl) {
+                passEl.value = '';
+                passEl.focus();
             }
         }
 
@@ -881,17 +829,20 @@
             }
         }
 
-        function handleLogin(e) {
-            if (e) e.preventDefault();
+        function doSystemLogin() {
             ensureMasterUsers();
-
             let emailEl = document.getElementById('login-email');
             let passEl = document.getElementById('login-password');
-            let email = (emailEl.value || '').trim().toLowerCase();
-            let pass = (passEl.value || '').trim();
+            let email = (emailEl ? emailEl.value : '').trim().toLowerCase();
+            let pass = (passEl ? passEl.value : '').trim();
 
-            if (!email || !pass) {
-                alert("Preencha o e-mail e a senha.");
+            if (!email) {
+                alert("Digite ou clique na sua conta de e-mail.");
+                return;
+            }
+            if (!pass) {
+                alert("Digite a sua senha de acesso.");
+                if (passEl) passEl.focus();
                 return;
             }
 
@@ -907,7 +858,6 @@
                 return;
             }
 
-            // Aceita a senha cadastrada ou as senhas oficiais de segurança dos Masters
             let isPassCorrect = (pass === user.password) ||
                                 (email === MASTER_EMAIL && pass === MASTER_DEFAULT_PASS) ||
                                 (email === SECONDARY_MASTER && pass === SECONDARY_DEFAULT_PASS);
@@ -923,19 +873,43 @@
             }
 
             currentUser = user;
-            passEl.value = '';
+            if (passEl) passEl.value = '';
             initSession();
         }
 
         // =========================================================================
-        // 2. INICIALIZAÇÃO DO BANCO LOCAL + FIREBASE EM SEGUNDO PLANO
+        // 2. CONEXÃO COM A NUVEM FIREBASE (SUPORTA O URL EXATO DO SEU PRINT)
         // =========================================================================
+        function updateCloudBadges(status, message) {
+            let loginBadge = document.getElementById('login-cloud-status');
+            let headerBadge = document.getElementById('header-cloud-badge');
+
+            if (status === 'online') {
+                if (loginBadge) {
+                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700";
+                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Banco Online Conectado (Firebase v${CURRENT_VERSION})</span>`;
+                }
+                if (headerBadge) {
+                    headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1";
+                    headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada (v${CURRENT_VERSION})</span>`;
+                }
+            } else {
+                if (loginBadge) {
+                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800";
+                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-Exclamation"></i><span>${message || 'Modo Local Ativo'}</span>`;
+                }
+                if (headerBadge) {
+                    headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1";
+                    headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>${message || 'Modo Local'}</span>`;
+                }
+            }
+        }
+
         function initDB() {
             document.title = `${APP_BASE_NAME} - v${CURRENT_VERSION} Cloud`;
             document.querySelectorAll('.ver-tag').forEach(el => el.innerText = `v${CURRENT_VERSION}`);
             document.querySelectorAll('.ver-full-label').forEach(el => el.innerText = `Versão ${CURRENT_VERSION} Cloud`);
 
-            // Carrega imediatamente os dados salvos no navegador
             let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
             if (saved) {
                 try {
@@ -947,17 +921,21 @@
                 ensureMasterUsers();
             }
 
-            // Conecta ao Firebase de forma assíncrona sem travar a tela
-            setTimeout(connectFirebaseCloud, 200);
+            setTimeout(connectFirebaseCloud, 150);
         }
 
         function connectFirebaseCloud() {
             try {
-                if (typeof firebase === 'undefined') return;
+                if (typeof firebase === 'undefined') {
+                    updateCloudBadges('offline', 'Modo Local (Sem biblioteca Firebase)');
+                    return;
+                }
+
+                // Usa o databaseURL exato exibido no console do Firebase (gestao-acs-Marcelo)
                 const firebaseConfig = {
                     apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic",
                     authDomain: "gestao-acs-marcelo.firebaseapp.com",
-                    databaseURL: "https://gestao-acs-marcelo-default-rtdb.firebaseio.com",
+                    databaseURL: "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com",
                     projectId: "gestao-acs-marcelo",
                     storageBucket: "gestao-acs-marcelo.firebasestorage.app",
                     messagingSenderId: "962078506582",
@@ -971,7 +949,14 @@
                 firebaseDB = firebase.database();
                 dbRef = firebaseDB.ref('gestao_acs_90_db');
 
+                firebaseDB.ref('.info/connected').on('value', (snap) => {
+                    if (snap.val() === true) {
+                        updateCloudBadges('online');
+                    }
+                });
+
                 dbRef.on('value', (snapshot) => {
+                    updateCloudBadges('online');
                     const cloudData = snapshot.val();
                     if (cloudData) {
                         normalizeDatabaseObject(cloudData);
@@ -980,13 +965,13 @@
                     } else {
                         persistDB();
                     }
-                    let loginBadge = document.getElementById('login-cloud-status');
-                    if (loginBadge) {
-                        loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Nuvem Firebase Conectada (v${CURRENT_VERSION})</span>`;
-                    }
+                }, (error) => {
+                    console.warn("Aviso de permissão Firebase:", error);
+                    updateCloudBadges('offline', 'Regras Firebase Bloqueadas (Ver aba Regras)');
                 });
             } catch (err) {
                 console.warn("Operando em modo local:", err);
+                updateCloudBadges('offline', 'Modo Local');
             }
         }
 
@@ -1038,7 +1023,9 @@
             localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
 
             if (dbRef) {
-                dbRef.set(cleanCopy).catch(() => {});
+                dbRef.set(cleanCopy)
+                    .then(() => updateCloudBadges('online'))
+                    .catch(() => updateCloudBadges('offline', 'Erro de Permissão nas Regras do Firebase'));
             }
             let toast = document.getElementById('save-toast');
             if (toast) {
@@ -1049,7 +1036,7 @@
 
         function forceCloudSync() {
             persistDB();
-            alert(`Sincronização com a nuvem (v${CURRENT_VERSION}) concluída!`);
+            alert(`Sincronização enviada para a nuvem (v${CURRENT_VERSION})!`);
         }
 
         function formatDateBR(dateStr) {
@@ -1154,7 +1141,7 @@
                 currentUser.password = newPass;
                 persistDB();
                 closeChangePasswordModal();
-                alert("Sua senha foi alterada com sucesso!");
+                alert("Sua senha foi alterada e salva na nuvem com sucesso!");
             }
         }
 
@@ -1242,7 +1229,7 @@
                 } else {
                     alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-emerald-600 text-yellow-300 font-bold border-emerald-700";
                 }
-                alertText.innerHTML = `Avaliação encontrada: IVCF-20: ${score20} | IVSF-10: ${score10} (Ciclo:${suggestedIvcfProfile}d)`;
+                alertText.innerHTML = `Avaliação encontrada: IVCF-20: ${score20} | IVSF-10: ${score10} (Ciclo: ${suggestedIvcfProfile}d)`;
             } else {
                 alertBox.classList.add('hidden');
                 suggestedIvcfProfile = null;
@@ -1397,8 +1384,8 @@
                     <tr class="hover:bg-slate-50 border-b">
                         <td class="p-4 font-medium">${i.gestor}</td>
                         <td class="p-4 text-slate-800 font-semibold">${i.name}</td>
-                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge20}">${score20} pts —${class20}</span></td>
-                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge10}">${score10} pts —${class10}</span></td>
+                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge20}">${score20} pts — ${class20}</span></td>
+                        <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge10}">${score10} pts — ${class10}</span></td>
                         <td class="p-4 font-mono text-xs font-bold text-slate-700">${formatDateBR(i.nextDate)} (${i.profile || 90}d)</td>
                         <td class="p-4 text-center space-x-1">
                             <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
@@ -1417,11 +1404,11 @@
                 : [{ ivcf20: item.ivcf20 !== undefined ? item.ivcf20 : item.value, ivsf10: item.ivsf10 || 0, date: item.date || new Date().toISOString().split('T')[0], profile: item.profile || 90 }];
             
             let content = document.getElementById('history-modal-content');
-            content.innerHTML = `<p class="font-semibold text-slate-800 mb-2">Paciente: ${item.name} (Gestor:${item.gestor})</p><div class="space-y-2">` +
+            content.innerHTML = `<p class="font-semibold text-slate-800 mb-2">Paciente: ${item.name} (Gestor: ${item.gestor})</p><div class="space-y-2">` +
                 historyList.map((h, idx) => `
                     <div class="bg-slate-50 p-3 rounded-xl border space-y-1">
-                        <p class="font-bold text-slate-800">Registro #${idx + 1} — Data:${formatDateBR(h.date || 'N/D')}</p>
-                        <p class="text-xs text-slate-700">• <b>IVCF-20:</b> ${h.ivcf20} pontos \vert{} <b>IVSF-10:</b>${h.ivsf10} pontos</p>
+                        <p class="font-bold text-slate-800">Registro #${idx + 1} — Data: ${formatDateBR(h.date || 'N/D')}</p>
+                        <p class="text-xs text-slate-700">• <b>IVCF-20:</b> ${h.ivcf20} pontos | <b>IVSF-10:</b> ${h.ivsf10} pontos</p>
                         <p class="text-xs text-blue-600 font-semibold">• <b>Agendamento:</b> ${h.profile} dias</p>
                     </div>`).join('') + `</div>`;
             document.getElementById('history-modal').classList.remove('hidden');
@@ -1479,7 +1466,7 @@
             list.forEach(rev => {
                 let status = rev.status || 'active';
                 let statusBadge = status === 'inactive' ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo</span>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
-                let medsHtml = (rev.medications || []).map(m => `<div>• ${m.name} (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''} - <span class="text-xs font-mono text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
+                let medsHtml = (rev.medications || []).map(m => `<div>• ${m.name} (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)} ${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''} - <span class="text-xs font-mono text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
@@ -1528,8 +1515,8 @@
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev) return;
             document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
-            let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> \vert{} Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
-            document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} \vert{} <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
+            let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> | Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
+            document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} | <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
             document.getElementById('patient-detail-modal').classList.remove('hidden');
         }
 
@@ -1570,7 +1557,7 @@
             empty.classList.add('hidden');
 
             groupsList.forEach(g => {
-                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) \vert{} Conf:${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
+                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
                         <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
@@ -1747,7 +1734,7 @@
         function renderHolidays() {
             let container = document.getElementById('holiday-list');
             if (!container) return;
-            container.innerHTML = (db.holidays || []).map((h, idx) => `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} —${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold px-2 cursor-pointer">&times;</button></div>`).join('');
+            container.innerHTML = (db.holidays || []).map((h, idx) => `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} — ${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold px-2 cursor-pointer">&times;</button></div>`).join('');
         }
 
         function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
@@ -1782,4 +1769,119 @@
                 if (scoreChartInstance) scoreChartInstance.destroy();
                 scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
                     type: 'line',
-                    data: { labels: hist.map(h => `${formatDateBR(h
+                    data: { labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`), datasets: [{ label: 'IVCF-20', data: hist.map(h => h.value), borderColor: '#2563eb', fill: true }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+            let ctx2El = document.getElementById('revenueChart');
+            if (ctx2El) {
+                let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+                let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+                revList.forEach(r => (r.medications || []).forEach(m => {
+                    if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++;
+                }));
+                if (revenueChartInstance) revenueChartInstance.destroy();
+                revenueChartInstance = new Chart(ctx2El.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function renderUsers() {
+            let tbody = document.getElementById('users-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = (db.users || []).map(u => `
+                <tr class="border-b">
+                    <td class="p-4 font-semibold">${u.email}</td>
+                    <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
+                    <td class="p-4">${u.status === 'inactive' ? 'Inativo' : 'Ativo'}</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold cursor-pointer">Redefinir Senha</button>
+                    </td>
+                </tr>`).join('');
+        }
+
+        function resetUserPassword(email) {
+            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
+            if (!u) return;
+            let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
+            if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada!"); }
+        }
+
+        function openInviteModal() { document.getElementById('invite-modal').classList.remove('hidden'); }
+        function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
+
+        function sendInvite(e) {
+            e.preventDefault();
+            let email = document.getElementById('invite-email').value.trim().toLowerCase();
+            let role = document.getElementById('invite-role').value;
+            let password = document.getElementById('invite-pass').value;
+            if (db.users.find(u => u.email.toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
+            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
+            persistDB(); closeInviteModal(); renderUsers();
+        }
+
+        function exportBackupJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0]; if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    normalizeDatabaseObject(JSON.parse(evt.target.result));
+                    persistDB(); refreshAllViews();
+                    alert("Backup restaurado e sincronizado na nuvem com sucesso!");
+                } catch (err) { alert("Erro ao ler arquivo JSON."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function downloadPatientPDF(id) {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            let rev = db.revenues.find(i => i.id === id); if (!rev) return;
+            doc.text(`Paciente: ${rev.paciente} (Gestor: ${rev.gestor}) - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (rev.medications || []).map(m => [m.name, `${m.cycleDays}d`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
+            doc.autoTable({ startY: 28, head: [["Medicamento", "Ciclo", "Confecção", "Renovação"]], body: rows });
+            doc.save(`paciente_${rev.paciente}.pdf`);
+        }
+
+        function downloadGroupPDF(revId, targetDate) { downloadPatientPDF(revId); }
+        function exportAllPatientsPDF() { exportRevenuesPDF(); }
+        function exportCyclePDF(c) { exportRevenuesPDF(); }
+        function exportRenewalsSeparatedByUserPDF() { exportRenewalsPDF(); }
+
+        function exportRenewalsPDF() {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Renovação - v${CURRENT_VERSION}`, 14, 20);
+            let rows = [];
+            (db.revenues || []).forEach(r => (r.medications || []).forEach(m => rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, m.name, r.gestor])));
+            doc.autoTable({ startY: 28, head: [["Vencimento", "Paciente", "Medicamento", "Gestor"]], body: rows });
+            doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
+        }
+
+        function exportRevenuesPDF() {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Receitas - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.revenues || []).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => m.name).join(', ')]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos"]], body: rows });
+            doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
+        }
+
+        function exportPDF(type) {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.items || []).map(i => [i.gestor, i.name, i.ivcf20 || i.value, i.ivsf10 || 0, formatDateBR(i.nextDate)]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Próxima Data"]], body: rows });
+            doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
+        }
+
+        window.onload = initDB;
+    </script>
+</body>
+</html>
