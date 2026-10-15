@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v20.4 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.5 Cloud</title>
     
     <!-- LIMPADOR IMEDIATO DE CACHE E SERVICE WORKER ANTIGO -->
     <script>
@@ -56,10 +56,10 @@
                         <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.4</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.5</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.4 Cloud</span> — Sincronização em Tempo Real
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.5 Cloud</span> — Sincronização em Tempo Real
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
                         <i class="fa-solid fa-rotate fa-spin"></i>
@@ -125,7 +125,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.4</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.5</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Verificando Nuvem...</span>
@@ -192,7 +192,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 20.4 Cloud</span>
+                            APK <span class="ver-full-label">Versão 20.5 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -200,14 +200,26 @@
                 <main class="flex-1 bg-slate-100 overflow-y-auto p-6">
                     <!-- ABA IVCF-20 / IVSF-10 -->
                     <div id="tab-evaluations" class="space-y-6 max-w-7xl mx-auto">
-                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Avaliações IVCF-20 & IVSF-10</h3>
-                                <p class="text-xs text-slate-500">Cadastre gestores, nomes, pontuações independentes e histórico preservado na nuvem.</p>
+                                <p class="text-xs text-slate-500">Ordenado do maior risco (Vermelho &rarr; Amarelo &rarr; Verde). Datas de avaliação editáveis.</p>
                             </div>
-                            <button id="btn-new-item" onclick="openItemModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
-                                <i class="fa-solid fa-plus mr-2"></i>Adicionar Avaliação
-                            </button>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <!-- Filtro por Cor / Classificação -->
+                                <div class="flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+                                    <i class="fa-solid fa-filter text-slate-400 text-xs"></i>
+                                    <select id="ivcf-color-filter" onchange="renderItems()" class="bg-transparent text-xs font-semibold text-slate-700 outline-none cursor-pointer">
+                                        <option value="all">Todas as Cores (Maior &rarr; Menor)</option>
+                                        <option value="red">🔴 Apenas Vermelhos (Idoso Frágil &ge; 15)</option>
+                                        <option value="yellow">🟡 Apenas Amarelos (Risco 7 a 14)</option>
+                                        <option value="green">🟢 Apenas Verdes (Robusto 0 a 6)</option>
+                                    </select>
+                                </div>
+                                <button id="btn-new-item" onclick="openItemModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
+                                    <i class="fa-solid fa-plus mr-2"></i>Adicionar Avaliação
+                                </button>
+                            </div>
                         </div>
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                             <table class="w-full text-left border-collapse">
@@ -215,8 +227,14 @@
                                     <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
                                         <th class="p-4">Gestor</th>
                                         <th class="p-4">Nome / Paciente</th>
-                                        <th class="p-4">IVCF-20 (Principal)</th>
+                                        <th class="p-4 cursor-pointer hover:bg-blue-50/60 transition-all select-none" onclick="toggleIvcfSortOrder()" title="Clique para alternar entre Ordem Decrescente e Crescente">
+                                            <div class="flex items-center space-x-1.5 text-blue-700">
+                                                <span>IVCF-20 (Principal)</span>
+                                                <i id="ivcf-sort-icon" class="fa-solid fa-arrow-down-wide-short"></i>
+                                            </div>
+                                        </th>
                                         <th class="p-4">IVSF-10</th>
+                                        <th class="p-4">Data da Avaliação</th>
                                         <th class="p-4">Próxima Data</th>
                                         <th class="p-4 text-center">Ações / Histórico</th>
                                     </tr>
@@ -433,7 +451,7 @@
                             <div id="admin-report-card" class="bg-indigo-50 border border-indigo-200 p-6 rounded-2xl flex flex-col justify-between hidden">
                                 <div>
                                     <h4 class="font-bold text-indigo-900 text-base mb-1">Relatório Consolidado (Admin)</h4>
-                                    <p class="text-xs text-indigo-700 mb-4">Exporta o consolidado geral de avaliações IVCF-20 / IVSF-10 de todos os usuários.</p>
+                                    <p class="text-xs text-indigo-700 mb-4">Exporta o consolidado geral de avaliações IVCF-20 / IVSF-10 (já ordenado por gravidade).</p>
                                 </div>
                                 <button onclick="exportPDF('group')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar PDF Geral</button>
                             </div>
@@ -445,11 +463,11 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.4 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.5 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
                                     Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`).<br>
-                                    Se a etiqueta no topo estiver amarela ("Modo Local"), verifique no painel do Firebase em <b>Realtime Database &rarr; Regras</b> se <code>.read</code> e <code>.write</code> estão como <code>true</code>.
+                                    Qualquer alteração feita em um computador ou celular aparece automaticamente nos outros aparelhos!
                                 </p>
                             </div>
                             <button onclick="forceCloudSync()" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs shadow cursor-pointer">
@@ -463,7 +481,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.4</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.5</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -542,18 +560,24 @@
         </div>
     </div>
 
-    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 -->
+    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 (COM DATA DA AVALIAÇÃO EDITÁVEL E RECÁLCULO AUTOMÁTICO) -->
     <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 id="modal-title" class="font-bold">Avaliação IVCF-20 & IVSF-10</h3>
+                <h3 id="modal-title" class="font-bold text-slate-800">Avaliação IVCF-20 & IVSF-10</h3>
                 <button onclick="closeItemModal()" class="cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="item-form" onsubmit="saveItem(event)" class="p-6 space-y-4">
                 <input type="hidden" id="item-id">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
-                    <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
+                        <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-blue-700 mb-1">Data da Avaliação (Editável)</label>
+                        <input type="date" id="item-eval-date" required onchange="calculateAutoProfileFromIvcf()" class="w-full px-4 py-2.5 border border-blue-300 bg-blue-50/40 rounded-xl text-sm font-semibold text-slate-800">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
@@ -570,13 +594,23 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Prazo Calculado Automaticamente (Reagendamento)</label>
-                    <input type="text" id="item-profile-display" readonly class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-100 font-bold text-blue-700" value="Calculado pela pontuação">
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Prazo e Próxima Data Calculada</label>
+                    <input type="text" id="item-profile-display" readonly class="w-full px-4 py-2.5 border rounded-xl text-xs bg-slate-100 font-bold text-blue-700" value="Calculado pela pontuação e data da avaliação">
                     <input type="hidden" id="item-profile" value="90">
                 </div>
+
+                <!-- Opção exibida ao editar um paciente existente para escolher se apenas corrige a data/nota atual ou cria novo histórico -->
+                <div id="edit-mode-box" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 space-y-1">
+                    <label class="flex items-center space-x-2 font-semibold cursor-pointer">
+                        <input type="checkbox" id="item-only-correct" checked class="w-4 h-4 text-blue-600 rounded cursor-pointer">
+                        <span>Apenas corrigir data/valores desta avaliação (sem duplicar histórico)</span>
+                    </label>
+                    <p class="text-[11px] text-amber-700 pl-6">Desmarque se esta for uma nova avaliação feita meses depois e você quiser guardar a anterior no histórico.</p>
+                </div>
+
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeItemModal()" class="px-4 py-2 border rounded-xl text-sm cursor-pointer">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold cursor-pointer">Salvar Avaliação</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Salvar Avaliação</button>
                 </div>
             </form>
         </div>
@@ -744,9 +778,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 20.4 CLOUD - CONEXÃO REALTIME DATABASE CORRIGIDA) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 20.5 CLOUD) -->
     <script>
-        const CURRENT_VERSION = "20.4";
+        const CURRENT_VERSION = "20.5";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
@@ -774,9 +808,10 @@
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
+        let ivcfSortDirection = 'desc'; // Padrão: do maior (Vermelho) para o menor (Verde)
 
         // =========================================================================
-        // 1. LOGIN DIRETO E SELEÇÃO RÁPIDA GOOGLE (ZERO BLOQUEIO)
+        // 1. LOGIN DIRETO E SELEÇÃO RÁPIDA GOOGLE
         // =========================================================================
         function togglePasswordVisibility(inputId, btnEl) {
             let input = document.getElementById(inputId);
@@ -878,7 +913,7 @@
         }
 
         // =========================================================================
-        // 2. CONEXÃO COM A NUVEM FIREBASE (SUPORTA O URL EXATO DO SEU PRINT)
+        // 2. CONEXÃO COM A NUVEM FIREBASE
         // =========================================================================
         function updateCloudBadges(status, message) {
             let loginBadge = document.getElementById('login-cloud-status');
@@ -896,7 +931,7 @@
             } else {
                 if (loginBadge) {
                     loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-Exclamation"></i><span>${message || 'Modo Local Ativo'}</span>`;
+                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-exclamation"></i><span>${message || 'Modo Local Ativo'}</span>`;
                 }
                 if (headerBadge) {
                     headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1";
@@ -931,7 +966,6 @@
                     return;
                 }
 
-                // Usa o databaseURL exato exibido no console do Firebase (gestao-acs-Marcelo)
                 const firebaseConfig = {
                     apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic",
                     authDomain: "gestao-acs-marcelo.firebaseapp.com",
@@ -967,7 +1001,7 @@
                     }
                 }, (error) => {
                     console.warn("Aviso de permissão Firebase:", error);
-                    updateCloudBadges('offline', 'Regras Firebase Bloqueadas (Ver aba Regras)');
+                    updateCloudBadges('offline', 'Regras Firebase Bloqueadas');
                 });
             } catch (err) {
                 console.warn("Operando em modo local:", err);
@@ -1170,31 +1204,36 @@
             return s1 === s2 || s1.includes(s2) || s2.includes(s1);
         }
 
+        // Calcula o prazo e já mostra a Próxima Data baseada na Data da Avaliação escolhida!
         function calculateAutoProfileFromIvcf() {
             let val20 = parseInt(document.getElementById('item-ivcf20').value);
             let val10 = parseInt(document.getElementById('item-ivsf10').value);
+            let evalDateStr = document.getElementById('item-eval-date').value || new Date().toISOString().split('T')[0];
             let profileInput = document.getElementById('item-profile');
             let displayInput = document.getElementById('item-profile-display');
 
             if (isNaN(val20) && isNaN(val10)) {
                 profileInput.value = "90";
-                displayInput.value = "Calculado pela pontuação";
+                displayInput.value = "Calculado pela pontuação e data da avaliação";
                 return;
             }
 
             let v20 = isNaN(val20) ? 0 : val20;
             let v10 = isNaN(val10) ? 0 : val10;
+            let days = 360;
+            let riskLabel = "Baixo Risco / Robusto";
 
             if (v20 >= 15 || v10 >= 10) {
-                profileInput.value = "90";
-                displayInput.value = "90 dias (Alto Risco / Frágil)";
+                days = 90;
+                riskLabel = "Alto Risco / Frágil";
             } else if ((v20 >= 7 && v20 <= 14) || (v10 >= 5 && v10 <= 9)) {
-                profileInput.value = "180";
-                displayInput.value = "180 dias (Médio Risco / Fragilização)";
-            } else {
-                profileInput.value = "360";
-                displayInput.value = "360 dias (Baixo Risco / Robusto)";
+                days = 180;
+                riskLabel = "Médio Risco / Fragilização";
             }
+
+            profileInput.value = String(days);
+            let previewNextDate = calculateValidDate(evalDateStr, days);
+            displayInput.value = `${days} dias (${riskLabel}) — Próx. Avaliação: ${formatDateBR(previewNextDate)}`;
         }
 
         function checkDuplicateAndIvcf() {
@@ -1357,6 +1396,19 @@
             return targetDate.toISOString().split('T')[0];
         }
 
+        // Alterna ordem decrescente / crescente se clicar no título da coluna IVCF-20
+        function toggleIvcfSortOrder() {
+            ivcfSortDirection = ivcfSortDirection === 'desc' ? 'asc' : 'desc';
+            let icon = document.getElementById('ivcf-sort-icon');
+            if (icon) {
+                icon.className = ivcfSortDirection === 'desc'
+                    ? "fa-solid fa-arrow-down-wide-short"
+                    : "fa-solid fa-arrow-up-short-wide";
+            }
+            renderItems();
+        }
+
+        // Renderiza a tabela IVCF-20 ordenada de cima para baixo (Vermelhos maiores -> Amarelos -> Verdes)
         function renderItems() {
             let tbody = document.getElementById('items-table-body');
             let empty = document.getElementById('empty-state');
@@ -1364,8 +1416,37 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email);
-            if (term) list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
+            let colorFilterEl = document.getElementById('ivcf-color-filter');
+            let colorFilter = colorFilterEl ? colorFilterEl.value : 'all';
+
+            let list = [...((isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email))];
+            
+            if (term) {
+                list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
+            }
+
+            // Filtro por cor/faixa do IVCF-20
+            if (colorFilter !== 'all') {
+                list = list.filter(i => {
+                    let s20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0;
+                    if (colorFilter === 'red') return s20 >= 15;
+                    if (colorFilter === 'yellow') return s20 >= 7 && s20 <= 14;
+                    if (colorFilter === 'green') return s20 <= 6;
+                    return true;
+                });
+            }
+
+            // Ordenação Principal por IVCF-20 (Decrescente por padrão: Vermelho maior -> Amarelo -> Verde) e Desempate por IVSF-10
+            list.sort((a, b) => {
+                let a20 = parseInt(a.ivcf20 !== undefined ? a.ivcf20 : a.value) || 0;
+                let b20 = parseInt(b.ivcf20 !== undefined ? b.ivcf20 : b.value) || 0;
+                if (a20 !== b20) {
+                    return ivcfSortDirection === 'desc' ? (b20 - a20) : (a20 - b20);
+                }
+                let a10 = parseInt(a.ivsf10 || 0) || 0;
+                let b10 = parseInt(b.ivsf10 || 0) || 0;
+                return ivcfSortDirection === 'desc' ? (b10 - a10) : (a10 - b10);
+            });
 
             if (list.length === 0) { empty.classList.remove('hidden'); return; }
             empty.classList.add('hidden');
@@ -1380,17 +1461,22 @@
                 let badge10 = score10 >= 10 ? "bg-red-600 text-yellow-300 font-bold" : (score10 >= 5 ? "bg-yellow-400 text-red-600 font-bold" : "bg-emerald-600 text-yellow-300 font-bold");
                 let class10 = score10 >= 10 ? "Alta Vulnerabilidade" : (score10 >= 5 ? "Média Vulnerabilidade" : "Baixa Vulnerabilidade");
 
+                let evalDateFormatted = formatDateBR(i.date) || 'Não informada';
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
                         <td class="p-4 font-medium">${i.gestor}</td>
                         <td class="p-4 text-slate-800 font-semibold">${i.name}</td>
                         <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge20}">${score20} pts — ${class20}</span></td>
                         <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge10}">${score10} pts — ${class10}</span></td>
-                        <td class="p-4 font-mono text-xs font-bold text-slate-700">${formatDateBR(i.nextDate)} (${i.profile || 90}d)</td>
+                        <td class="p-4 font-mono text-xs text-slate-600">
+                            <span class="bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 font-semibold">${evalDateFormatted}</span>
+                        </td>
+                        <td class="p-4 font-mono text-xs font-bold text-blue-700">${formatDateBR(i.nextDate)} (${i.profile || 90}d)</td>
                         <td class="p-4 text-center space-x-1">
-                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="showItemHistory('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg cursor-pointer"><i class="fa-solid fa-clock-rotate-left"></i></button>
-                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg cursor-pointer" title="Editar Avaliação ou Alterar Data"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="showItemHistory('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg cursor-pointer" title="Ver Histórico de Avaliações"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer" title="Excluir"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             });
@@ -1407,9 +1493,9 @@
             content.innerHTML = `<p class="font-semibold text-slate-800 mb-2">Paciente: ${item.name} (Gestor: ${item.gestor})</p><div class="space-y-2">` +
                 historyList.map((h, idx) => `
                     <div class="bg-slate-50 p-3 rounded-xl border space-y-1">
-                        <p class="font-bold text-slate-800">Registro #${idx + 1} — Data: ${formatDateBR(h.date || 'N/D')}</p>
+                        <p class="font-bold text-slate-800">Avaliação #${idx + 1} — Realizada em: ${formatDateBR(h.date || 'N/D')}</p>
                         <p class="text-xs text-slate-700">• <b>IVCF-20:</b> ${h.ivcf20} pontos | <b>IVSF-10:</b> ${h.ivsf10} pontos</p>
-                        <p class="text-xs text-blue-600 font-semibold">• <b>Agendamento:</b> ${h.profile} dias</p>
+                        <p class="text-xs text-blue-600 font-semibold">• <b>Prazo de Reavaliação:</b> ${h.profile} dias</p>
                     </div>`).join('') + `</div>`;
             document.getElementById('history-modal').classList.remove('hidden');
         }
@@ -1517,371 +1603,4 @@
             document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
             let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> | Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
             document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} | <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
-            document.getElementById('patient-detail-modal').classList.remove('hidden');
-        }
-
-        function closePatientDetailModal() { document.getElementById('patient-detail-modal').classList.add('hidden'); }
-
-        function togglePatientStatus(id) {
-            let rev = db.revenues.find(i => i.id === id);
-            if (rev) { rev.status = rev.status === 'inactive' ? 'active' : 'inactive'; persistDB(); refreshAllViews(); }
-        }
-
-        function renderRenewals() {
-            let tbody = document.getElementById('renewals-table-body');
-            let empty = document.getElementById('empty-renewal-state');
-            if (!tbody || !currentUser) return;
-            tbody.innerHTML = '';
-
-            let term = getSearchTerm();
-            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
-            let groupsMap = {};
-
-            list.forEach(rev => {
-                if (rev.status === 'inactive' || !rev.medications) return;
-                rev.medications.forEach((med, mIdx) => {
-                    let nextDate = calculateValidDate(med.baseDate, med.cycleDays);
-                    let groupKey = rev.id + '_' + nextDate;
-                    if (!groupsMap[groupKey]) {
-                        groupsMap[groupKey] = { revId: rev.id, paciente: rev.paciente, gestor: rev.gestor, medico: rev.medico || 'Dr. Andrey', nextDate, medications: [] };
-                    }
-                    groupsMap[groupKey].medications.push({ medIndex: mIdx, name: med.name, cycleDays: med.cycleDays, baseDate: med.baseDate, obs: med.obs || '' });
-                });
-            });
-
-            let groupsList = Object.values(groupsMap);
-            if (term) groupsList = groupsList.filter(g => (g.paciente || '').toLowerCase().includes(term) || g.medications.some(m => (m.name || '').toLowerCase().includes(term)));
-            groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
-
-            if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
-            empty.classList.add('hidden');
-
-            groupsList.forEach(g => {
-                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
-                tbody.innerHTML += `
-                    <tr class="hover:bg-slate-50 border-b">
-                        <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
-                        <td class="p-4 font-mono font-bold text-emerald-700">${formatDateBR(g.nextDate)}</td>
-                        <td class="p-4 font-semibold text-slate-800">${g.paciente}</td>
-                        <td class="p-4 text-xs text-slate-700">${medsHtml}</td>
-                        <td class="p-4 text-slate-600">${g.gestor}</td>
-                        <td class="p-4 text-slate-500 text-xs">${g.medico}</td>
-                        <td class="p-4 text-center space-y-1">
-                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer">Renovar Grupo</button>
-                            <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold cursor-pointer">PDF Desta Data</button>
-                        </td>
-                    </tr>`;
-            });
-        }
-
-        function renewSingleMed(revId, medIndex) {
-            let rev = db.revenues.find(r => r.id === revId);
-            if (!rev || !rev.medications[medIndex]) return;
-            let med = rev.medications[medIndex];
-            let newDays = parseInt(prompt(`Novo período (em dias) para "${med.name}":`, med.cycleDays));
-            if (isNaN(newDays) || newDays <= 0) return;
-            med.cycleDays = newDays;
-            med.baseDate = new Date().toISOString().split('T')[0];
-            persistDB(); refreshAllViews();
-        }
-
-        function renewGroupMedications(revId, targetDate) {
-            let rev = db.revenues.find(r => r.id === revId);
-            if (!rev || !rev.medications) return;
-            let newDays = parseInt(prompt(`Novo período (em dias) para o grupo de ${rev.paciente}:`, "30"));
-            if (isNaN(newDays) || newDays <= 0) return;
-            let todayStr = new Date().toISOString().split('T')[0];
-            rev.medications.forEach(med => {
-                if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
-                    med.cycleDays = newDays;
-                    med.baseDate = todayStr;
-                }
-            });
-            persistDB(); refreshAllViews();
-        }
-
-        function toggleSelectAllRenewals(masterCheckbox) {
-            document.querySelectorAll('.renewal-checkbox').forEach(cb => cb.checked = masterCheckbox.checked);
-        }
-
-        function renewSelectedGroups() {
-            let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked');
-            if (checkedBoxes.length === 0) { alert("Selecione pelo menos um grupo."); return; }
-            let newDays = parseInt(prompt("Novo período (em dias) para os selecionados:", "30"));
-            if (isNaN(newDays) || newDays <= 0) return;
-            let todayStr = new Date().toISOString().split('T')[0];
-            checkedBoxes.forEach(cb => {
-                let rev = db.revenues.find(r => r.id === cb.getAttribute('data-revid'));
-                let targetDate = cb.getAttribute('data-nextdate');
-                if (rev && rev.medications) {
-                    rev.medications.forEach(med => {
-                        if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
-                            med.cycleDays = newDays;
-                            med.baseDate = todayStr;
-                        }
-                    });
-                }
-            });
-            persistDB(); refreshAllViews();
-        }
-
-        function openItemModal(id = null) {
-            document.getElementById('item-modal').classList.remove('hidden');
-            document.getElementById('item-form').reset();
-            document.getElementById('item-id').value = '';
-            if (id) {
-                let item = db.items.find(i => i.id === id);
-                if (item) {
-                    document.getElementById('item-id').value = item.id;
-                    document.getElementById('item-gestor').value = item.gestor;
-                    document.getElementById('item-name').value = item.name;
-                    document.getElementById('item-ivcf20').value = item.ivcf20 !== undefined ? item.ivcf20 : (item.value || 0);
-                    document.getElementById('item-ivsf10').value = item.ivsf10 || 0;
-                    calculateAutoProfileFromIvcf();
-                }
-            }
-        }
-
-        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
-
-        function saveItem(e) {
-            e.preventDefault();
-            let id = document.getElementById('item-id').value;
-            let gestor = document.getElementById('item-gestor').value.trim();
-            let name = document.getElementById('item-name').value.trim();
-            let ivcf20 = parseInt(document.getElementById('item-ivcf20').value) || 0;
-            let ivsf10 = parseInt(document.getElementById('item-ivsf10').value) || 0;
-            calculateAutoProfileFromIvcf();
-            let profile = parseInt(document.getElementById('item-profile').value) || 90;
-            let todayStr = new Date().toISOString().split('T')[0];
-            let nextStr = calculateValidDate(todayStr, profile);
-
-            if (id) {
-                let item = db.items.find(i => i.id === id);
-                if (item) {
-                    if (!Array.isArray(item.history)) item.history = [];
-                    item.history.push({ ivcf20: item.ivcf20, ivsf10: item.ivsf10 || 0, date: item.date || todayStr, profile: item.profile || 90 });
-                    item.gestor = gestor; item.name = name; item.ivcf20 = ivcf20; item.ivsf10 = ivsf10; item.value = ivcf20; item.profile = profile; item.date = todayStr; item.nextDate = nextStr;
-                }
-            } else {
-                db.items.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, name, ivcf20, ivsf10, value: ivcf20, profile, date: todayStr, nextDate: nextStr, history: [{ ivcf20, ivsf10, date: todayStr, profile }] });
-            }
-            db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, ivsf10, date: todayStr });
-            persistDB(); closeItemModal(); refreshAllViews();
-        }
-
-        function editItem(id) { openItemModal(id); }
-        function deleteItem(id) { if (confirm("Excluir avaliação?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
-
-        function openRevenueModal(id = null) {
-            document.getElementById('revenue-modal').classList.remove('hidden');
-            document.getElementById('revenue-form').reset();
-            document.getElementById('revenue-id').value = '';
-            document.getElementById('revenue-medico').value = 'Dr. Andrey';
-            document.getElementById('medication-rows-container').innerHTML = '';
-            let todayStr = new Date().toISOString().split('T')[0];
-            if (id) {
-                let rev = db.revenues.find(i => i.id === id);
-                if (rev) {
-                    document.getElementById('revenue-id').value = rev.id;
-                    document.getElementById('revenue-gestor').value = rev.gestor;
-                    document.getElementById('revenue-paciente').value = rev.paciente || '';
-                    document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
-                    (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
-                }
-            } else {
-                addMedicationRow('', '30', '', todayStr);
-            }
-        }
-
-        function closeRevenueModal() { document.getElementById('revenue-modal').classList.add('hidden'); }
-
-        function saveRevenue(e) {
-            e.preventDefault();
-            let id = document.getElementById('revenue-id').value;
-            let gestor = document.getElementById('revenue-gestor').value.trim();
-            let paciente = document.getElementById('revenue-paciente').value.trim();
-            let medico = document.getElementById('revenue-medico').value.trim();
-            let medications = [];
-            document.querySelectorAll('#medication-rows-container > div').forEach(row => {
-                let name = row.querySelector('input[name="med_name"]').value.trim();
-                let medDate = row.querySelector('input[name="med_date"]').value;
-                let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
-                let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
-                let obs = row.querySelector('input[name="med_obs"]').value.trim();
-                if (name && medDate) medications.push({ name, cycleDays: cycleDays || 30, obs, baseDate: medDate });
-            });
-            if (medications.length === 0) return;
-            if (id) {
-                let rev = db.revenues.find(i => i.id === id);
-                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
-            } else {
-                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
-            }
-            persistDB(); closeRevenueModal(); refreshAllViews();
-        }
-
-        function deleteRevenue(id) { if (confirm("Excluir receita?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
-
-        function addHoliday() {
-            let date = document.getElementById('holiday-date').value;
-            let desc = document.getElementById('holiday-desc').value.trim();
-            if (!date || !desc) return;
-            db.holidays.push({ date, desc });
-            persistDB(); renderHolidays();
-        }
-
-        function renderHolidays() {
-            let container = document.getElementById('holiday-list');
-            if (!container) return;
-            container.innerHTML = (db.holidays || []).map((h, idx) => `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} — ${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold px-2 cursor-pointer">&times;</button></div>`).join('');
-        }
-
-        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
-
-        function saveVacations() {
-            let newVacations = [];
-            for (let i = 1; i <= 4; i++) {
-                let s = document.getElementById(`vac-start-${i}`).value;
-                let e = document.getElementById(`vac-end-${i}`).value;
-                if (s && e) newVacations.push({ period: i, start: s, end: e });
-            }
-            db.vacations = newVacations;
-            persistDB();
-            alert("Férias salvas na nuvem com sucesso!");
-        }
-
-        function renderVacationsInputs() {
-            for (let i = 1; i <= 4; i++) {
-                let vs = document.getElementById(`vac-start-${i}`);
-                let ve = document.getElementById(`vac-end-${i}`);
-                let saved = (db.vacations || [])[i - 1];
-                if (vs) vs.value = saved ? (saved.start || '') : '';
-                if (ve) ve.value = saved ? (saved.end || '') : '';
-            }
-        }
-
-        function renderCharts() {
-            if (typeof Chart === 'undefined' || !currentUser) return;
-            let ctx1El = document.getElementById('scoreChart');
-            if (ctx1El) {
-                let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
-                if (scoreChartInstance) scoreChartInstance.destroy();
-                scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
-                    type: 'line',
-                    data: { labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`), datasets: [{ label: 'IVCF-20', data: hist.map(h => h.value), borderColor: '#2563eb', fill: true }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-            let ctx2El = document.getElementById('revenueChart');
-            if (ctx2El) {
-                let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
-                let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
-                revList.forEach(r => (r.medications || []).forEach(m => {
-                    if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++;
-                }));
-                if (revenueChartInstance) revenueChartInstance.destroy();
-                revenueChartInstance = new Chart(ctx2El.getContext('2d'), {
-                    type: 'bar',
-                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-            }
-        }
-
-        function renderUsers() {
-            let tbody = document.getElementById('users-table-body');
-            if (!tbody) return;
-            tbody.innerHTML = (db.users || []).map(u => `
-                <tr class="border-b">
-                    <td class="p-4 font-semibold">${u.email}</td>
-                    <td class="p-4 uppercase text-xs font-bold">${u.role}</td>
-                    <td class="p-4">${u.status === 'inactive' ? 'Inativo' : 'Ativo'}</td>
-                    <td class="p-4 text-center space-x-2">
-                        <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold cursor-pointer">Redefinir Senha</button>
-                    </td>
-                </tr>`).join('');
-        }
-
-        function resetUserPassword(email) {
-            let u = db.users.find(x => x.email.toLowerCase() === email.toLowerCase());
-            if (!u) return;
-            let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
-            if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada!"); }
-        }
-
-        function openInviteModal() { document.getElementById('invite-modal').classList.remove('hidden'); }
-        function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
-
-        function sendInvite(e) {
-            e.preventDefault();
-            let email = document.getElementById('invite-email').value.trim().toLowerCase();
-            let role = document.getElementById('invite-role').value;
-            let password = document.getElementById('invite-pass').value;
-            if (db.users.find(u => u.email.toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
-            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
-            persistDB(); closeInviteModal(); renderUsers();
-        }
-
-        function exportBackupJSON() {
-            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
-            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`;
-            document.body.appendChild(a); a.click(); a.remove();
-        }
-
-        function importBackupJSON(e) {
-            let file = e.target.files[0]; if (!file) return;
-            let reader = new FileReader();
-            reader.onload = function(evt) {
-                try {
-                    normalizeDatabaseObject(JSON.parse(evt.target.result));
-                    persistDB(); refreshAllViews();
-                    alert("Backup restaurado e sincronizado na nuvem com sucesso!");
-                } catch (err) { alert("Erro ao ler arquivo JSON."); }
-            };
-            reader.readAsText(file);
-        }
-
-        function downloadPatientPDF(id) {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF();
-            let rev = db.revenues.find(i => i.id === id); if (!rev) return;
-            doc.text(`Paciente: ${rev.paciente} (Gestor: ${rev.gestor}) - v${CURRENT_VERSION}`, 14, 20);
-            let rows = (rev.medications || []).map(m => [m.name, `${m.cycleDays}d`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
-            doc.autoTable({ startY: 28, head: [["Medicamento", "Ciclo", "Confecção", "Renovação"]], body: rows });
-            doc.save(`paciente_${rev.paciente}.pdf`);
-        }
-
-        function downloadGroupPDF(revId, targetDate) { downloadPatientPDF(revId); }
-        function exportAllPatientsPDF() { exportRevenuesPDF(); }
-        function exportCyclePDF(c) { exportRevenuesPDF(); }
-        function exportRenewalsSeparatedByUserPDF() { exportRenewalsPDF(); }
-
-        function exportRenewalsPDF() {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF();
-            doc.text(`Relatório de Renovação - v${CURRENT_VERSION}`, 14, 20);
-            let rows = [];
-            (db.revenues || []).forEach(r => (r.medications || []).forEach(m => rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, m.name, r.gestor])));
-            doc.autoTable({ startY: 28, head: [["Vencimento", "Paciente", "Medicamento", "Gestor"]], body: rows });
-            doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
-        }
-
-        function exportRevenuesPDF() {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF();
-            doc.text(`Relatório de Receitas - v${CURRENT_VERSION}`, 14, 20);
-            let rows = (db.revenues || []).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => m.name).join(', ')]);
-            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos"]], body: rows });
-            doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
-        }
-
-        function exportPDF(type) {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF();
-            doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20);
-            let rows = (db.items || []).map(i => [i.gestor, i.name, i.ivcf20 || i.value, i.ivsf10 || 0, formatDateBR(i.nextDate)]);
-            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Próxima Data"]], body: rows });
-            doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
-        }
-
-        window.onload = initDB;
-    </script>
-</body>
-</html>
+            document.getElementById('patient-detail-modal').classList.remove('hidden
