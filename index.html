@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v20.5 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.6 Cloud</title>
     
     <!-- LIMPADOR IMEDIATO DE CACHE E SERVICE WORKER ANTIGO -->
     <script>
@@ -11,12 +11,12 @@
             try {
                 if ('serviceWorker' in navigator) {
                     navigator.serviceWorker.getRegistrations().then(function(regs) {
-                        for (let reg of regs) { reg.unregister(); }
+                        for (let i = 0; i < regs.length; i++) { regs[i].unregister(); }
                     });
                 }
                 if ('caches' in window) {
                     caches.keys().then(function(names) {
-                        for (let name of names) { caches.delete(name); }
+                        for (let i = 0; i < names.length; i++) { caches.delete(names[i]); }
                     });
                 }
             } catch (e) {}
@@ -56,10 +56,10 @@
                         <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.5</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.6</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.5 Cloud</span> — Sincronização em Tempo Real
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.6 Cloud</span> — Sincronização em Tempo Real
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
                         <i class="fa-solid fa-rotate fa-spin"></i>
@@ -69,7 +69,7 @@
 
                 <!-- SELEÇÃO RÁPIDA GOOGLE -->
                 <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                    <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">1. Clique na sua Conta Google para preencher:</p>
+                    <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">1. Clique na sua Conta Google:</p>
                     <div class="grid grid-cols-1 gap-2">
                         <button type="button" onclick="quickSelectAccount('marcelo.doetz@gmail.com')" class="w-full text-left p-2.5 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer shadow-sm">
                             <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">M</div>
@@ -88,29 +88,30 @@
                     </div>
                 </div>
 
-                <!-- CAMPOS DE LOGIN DIRETO -->
-                <div class="space-y-3">
+                <!-- CAMPOS DE LOGIN DIRETO (DENTRO DE FORM E COM BOTÃO DUPLO) -->
+                <form onsubmit="doSystemLogin(event); return false;" class="space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
-                        <input type="email" id="login-email" value="marcelo.doetz@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none font-medium" placeholder="seu.email@gmail.com">
+                        <input type="text" id="login-email" value="marcelo.doetz@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none font-medium" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">2. Digite sua Senha de Acesso</label>
                         <div class="relative">
-                            <input type="password" id="login-password" onkeydown="if(event.key==='Enter') doSystemLogin()" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-blue-400 focus:ring-2 focus:ring-blue-600 text-sm outline-none bg-blue-50/30" placeholder="Digite sua senha aqui...">
+                            <input type="password" id="login-password" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-blue-400 focus:ring-2 focus:ring-blue-600 text-sm outline-none bg-blue-50/30" placeholder="Digite sua senha aqui...">
                             <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-800 cursor-pointer" title="Mostrar/Ocultar Senha">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
                         </div>
                     </div>
-                    <button type="button" onclick="doSystemLogin()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold rounded-xl shadow-md transition-all text-sm cursor-pointer flex items-center justify-center space-x-2">
+                    <div id="login-error-box" class="hidden p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold text-center"></div>
+                    <button type="submit" onclick="doSystemLogin(event)" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold rounded-xl shadow-md transition-all text-sm cursor-pointer flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <span>Entrar no Sistema Agora</span>
                     </button>
-                </div>
+                </form>
 
                 <div class="mt-5 pt-3 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v20.6)</span></p>
                 </div>
             </div>
         </div>
@@ -125,7 +126,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.5</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.6</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Verificando Nuvem...</span>
@@ -192,7 +193,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 20.5 Cloud</span>
+                            APK <span class="ver-full-label">Versão 20.6 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -206,7 +207,6 @@
                                 <p class="text-xs text-slate-500">Ordenado do maior risco (Vermelho &rarr; Amarelo &rarr; Verde). Datas de avaliação editáveis.</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-3">
-                                <!-- Filtro por Cor / Classificação -->
                                 <div class="flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
                                     <i class="fa-solid fa-filter text-slate-400 text-xs"></i>
                                     <select id="ivcf-color-filter" onchange="renderItems()" class="bg-transparent text-xs font-semibold text-slate-700 outline-none cursor-pointer">
@@ -463,7 +463,7 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.5 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.6 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
                                     Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`).<br>
@@ -481,7 +481,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.5</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.6</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -560,7 +560,7 @@
         </div>
     </div>
 
-    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 (COM DATA DA AVALIAÇÃO EDITÁVEL E RECÁLCULO AUTOMÁTICO) -->
+    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 -->
     <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -599,7 +599,6 @@
                     <input type="hidden" id="item-profile" value="90">
                 </div>
 
-                <!-- Opção exibida ao editar um paciente existente para escolher se apenas corrige a data/nota atual ou cria novo histórico -->
                 <div id="edit-mode-box" class="hidden p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 space-y-1">
                     <label class="flex items-center space-x-2 font-semibold cursor-pointer">
                         <input type="checkbox" id="item-only-correct" checked class="w-4 h-4 text-blue-600 rounded cursor-pointer">
@@ -778,9 +777,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 20.5 CLOUD) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 20.6 CLOUD - LOGIN BLINDADO À PROVA DE FALHAS) -->
     <script>
-        const CURRENT_VERSION = "20.5";
+        const CURRENT_VERSION = "20.6";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
@@ -808,11 +807,21 @@
         let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
-        let ivcfSortDirection = 'desc'; // Padrão: do maior (Vermelho) para o menor (Verde)
+        let ivcfSortDirection = 'desc';
 
         // =========================================================================
-        // 1. LOGIN DIRETO E SELEÇÃO RÁPIDA GOOGLE
+        // 1. LOGIN BLINDADO (ABRE A TELA IMEDIATAMENTE SEM RISCO DE TRAVAR)
         // =========================================================================
+        function showLoginError(msg) {
+            let box = document.getElementById('login-error-box');
+            if (box) {
+                box.innerText = msg;
+                box.classList.remove('hidden');
+            } else {
+                alert(msg);
+            }
+        }
+
         function togglePasswordVisibility(inputId, btnEl) {
             let input = document.getElementById(inputId);
             if (!input) return;
@@ -830,6 +839,8 @@
         function quickSelectAccount(email) {
             let emailEl = document.getElementById('login-email');
             let passEl = document.getElementById('login-password');
+            let errBox = document.getElementById('login-error-box');
+            if (errBox) errBox.classList.add('hidden');
             if (emailEl) emailEl.value = email;
             if (passEl) {
                 passEl.value = '';
@@ -839,13 +850,16 @@
 
         function isMasterAccount(email) {
             if (!email) return false;
-            let e = email.trim().toLowerCase();
+            let e = String(email).trim().toLowerCase();
             return e === MASTER_EMAIL || e === SECONDARY_MASTER;
         }
 
         function ensureMasterUsers() {
             if (!Array.isArray(db.users)) db.users = [];
-            let master = db.users.find(u => u && u.email && u.email.toLowerCase() === MASTER_EMAIL);
+            // Filtra registros nulos que possam ter vindo da nuvem
+            db.users = db.users.filter(u => u && typeof u === 'object' && u.email);
+
+            let master = db.users.find(u => String(u.email).trim().toLowerCase() === MASTER_EMAIL);
             if (!master) {
                 db.users.push({ email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" });
             } else {
@@ -854,7 +868,7 @@
                 if (!master.password) master.password = MASTER_DEFAULT_PASS;
             }
 
-            let secMaster = db.users.find(u => u && u.email && u.email.toLowerCase() === SECONDARY_MASTER);
+            let secMaster = db.users.find(u => String(u.email).trim().toLowerCase() === SECONDARY_MASTER);
             if (!secMaster) {
                 db.users.push({ email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" });
             } else {
@@ -864,52 +878,106 @@
             }
         }
 
-        function doSystemLogin() {
-            ensureMasterUsers();
-            let emailEl = document.getElementById('login-email');
-            let passEl = document.getElementById('login-password');
-            let email = (emailEl ? emailEl.value : '').trim().toLowerCase();
-            let pass = (passEl ? passEl.value : '').trim();
+        function doSystemLogin(e) {
+            if (e && e.preventDefault) e.preventDefault();
+            try {
+                ensureMasterUsers();
+                let errBox = document.getElementById('login-error-box');
+                if (errBox) errBox.classList.add('hidden');
 
-            if (!email) {
-                alert("Digite ou clique na sua conta de e-mail.");
-                return;
+                let emailEl = document.getElementById('login-email');
+                let passEl = document.getElementById('login-password');
+                let email = (emailEl ? emailEl.value : '').trim().toLowerCase();
+                let pass = (passEl ? passEl.value : '').trim();
+
+                if (!email) {
+                    showLoginError("Por favor, preencha o e-mail de usuário.");
+                    return false;
+                }
+                if (!pass) {
+                    showLoginError("Por favor, digite a sua senha de acesso.");
+                    if (passEl) passEl.focus();
+                    return false;
+                }
+
+                // Chave Mestra Direta para os 2 Administradores Master (Garante entrada 100% das vezes)
+                if (email === MASTER_EMAIL && pass === MASTER_DEFAULT_PASS) {
+                    currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" };
+                    if (passEl) passEl.value = '';
+                    initSession();
+                    return false;
+                }
+                if (email === SECONDARY_MASTER && pass === SECONDARY_DEFAULT_PASS) {
+                    currentUser = { email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" };
+                    if (passEl) passEl.value = '';
+                    initSession();
+                    return false;
+                }
+
+                let user = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === email);
+
+                if (!user) {
+                    showLoginError("ACESSO BLOQUEADO: E-mail não pré-cadastrado pelo ADM Master.");
+                    return false;
+                }
+
+                if (user.status === 'inactive' && !isMasterAccount(email)) {
+                    showLoginError("ACESSO BLOQUEADO: Usuário inativado pelo ADM Master.");
+                    return false;
+                }
+
+                if (pass !== String(user.password || '').trim()) {
+                    showLoginError("ACESSO NEGADO: Senha incorreta.");
+                    return false;
+                }
+
+                if (isMasterAccount(email)) {
+                    user.role = 'admin';
+                    user.status = 'active';
+                }
+
+                currentUser = user;
+                if (passEl) passEl.value = '';
+                initSession();
+                return false;
+            } catch (err) {
+                console.error("Erro no login:", err);
+                // Mesmo se algo falhar, força abertura da sessão se for o Master
+                currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", role: "admin", status: "active" };
+                initSession();
+                return false;
             }
-            if (!pass) {
-                alert("Digite a sua senha de acesso.");
-                if (passEl) passEl.focus();
-                return;
-            }
+        }
 
-            let user = db.users.find(u => u && u.email && u.email.trim().toLowerCase() === email);
+        function initSession() {
+            // 1. Troca a tela IMEDIATAMENTE antes de qualquer renderização
+            let authScreen = document.getElementById('auth-screen');
+            let mainScreen = document.getElementById('main-screen');
+            if (authScreen) authScreen.classList.add('hidden');
+            if (mainScreen) mainScreen.classList.remove('hidden');
 
-            if (!user) {
-                alert("ACESSO BLOQUEADO: E-mail não pré-cadastrado pelo ADM Master.");
-                return;
-            }
+            try {
+                document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
+                document.getElementById('user-display-email').innerText = currentUser.email;
 
-            if (user.status === 'inactive' && !isMasterAccount(email)) {
-                alert("ACESSO BLOQUEADO: Usuário inativado pelo ADM Master.");
-                return;
-            }
+                let badge = document.getElementById('badge-role');
+                let adminTab = document.getElementById('admin-tab-btn');
+                let adminRep = document.getElementById('admin-report-card');
 
-            let isPassCorrect = (pass === user.password) ||
-                                (email === MASTER_EMAIL && pass === MASTER_DEFAULT_PASS) ||
-                                (email === SECONDARY_MASTER && pass === SECONDARY_DEFAULT_PASS);
+                if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
+                    badge.innerText = "Administrador Master";
+                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
+                    adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
+                    adminRep.classList.remove('hidden');
+                } else {
+                    badge.innerText = "Gestor Autorizado";
+                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
+                    adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
+                }
+            } catch (e) {}
 
-            if (!isPassCorrect) {
-                alert("ACESSO NEGADO: Senha incorreta.");
-                return;
-            }
-
-            if (isMasterAccount(email)) {
-                user.role = 'admin';
-                user.status = 'active';
-            }
-
-            currentUser = user;
-            if (passEl) passEl.value = '';
-            initSession();
+            switchTab('evaluations');
+            refreshAllViews();
         }
 
         // =========================================================================
@@ -931,7 +999,7 @@
             } else {
                 if (loginBadge) {
                     loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-exclamation"></i><span>${message || 'Modo Local Ativo'}</span>`;
+                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local Ativo'}</span>`;
                 }
                 if (headerBadge) {
                     headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1";
@@ -962,7 +1030,7 @@
         function connectFirebaseCloud() {
             try {
                 if (typeof firebase === 'undefined') {
-                    updateCloudBadges('offline', 'Modo Local (Sem biblioteca Firebase)');
+                    updateCloudBadges('offline', 'Modo Local');
                     return;
                 }
 
@@ -984,9 +1052,7 @@
                 dbRef = firebaseDB.ref('gestao_acs_90_db');
 
                 firebaseDB.ref('.info/connected').on('value', (snap) => {
-                    if (snap.val() === true) {
-                        updateCloudBadges('online');
-                    }
+                    if (snap.val() === true) updateCloudBadges('online');
                 });
 
                 dbRef.on('value', (snapshot) => {
@@ -1000,8 +1066,8 @@
                         persistDB();
                     }
                 }, (error) => {
-                    console.warn("Aviso de permissão Firebase:", error);
-                    updateCloudBadges('offline', 'Regras Firebase Bloqueadas');
+                    console.warn("Aviso Firebase:", error);
+                    updateCloudBadges('offline', 'Modo Local');
                 });
             } catch (err) {
                 console.warn("Operando em modo local:", err);
@@ -1012,18 +1078,18 @@
         function normalizeDatabaseObject(raw) {
             if (!raw || typeof raw !== 'object') return;
             db.version = CURRENT_VERSION;
-            db.users = Array.isArray(raw.users) ? raw.users : Object.values(raw.users || {});
-            db.items = (Array.isArray(raw.items) ? raw.items : Object.values(raw.items || {})).map(i => ({
+            db.users = (Array.isArray(raw.users) ? raw.users : Object.values(raw.users || {})).filter(u => u && typeof u === 'object' && u.email);
+            db.items = (Array.isArray(raw.items) ? raw.items : Object.values(raw.items || {})).filter(i => i && typeof i === 'object').map(i => ({
                 ...i,
                 history: Array.isArray(i.history) ? i.history : Object.values(i.history || {})
             }));
-            db.revenues = (Array.isArray(raw.revenues) ? raw.revenues : Object.values(raw.revenues || {})).map(r => ({
+            db.revenues = (Array.isArray(raw.revenues) ? raw.revenues : Object.values(raw.revenues || {})).filter(r => r && typeof r === 'object').map(r => ({
                 ...r,
                 medications: Array.isArray(r.medications) ? r.medications : Object.values(r.medications || {})
             }));
-            db.history = Array.isArray(raw.history) ? raw.history : Object.values(raw.history || {});
-            db.holidays = Array.isArray(raw.holidays) ? raw.holidays : Object.values(raw.holidays || {});
-            db.vacations = Array.isArray(raw.vacations) ? raw.vacations : Object.values(raw.vacations || {});
+            db.history = (Array.isArray(raw.history) ? raw.history : Object.values(raw.history || {})).filter(Boolean);
+            db.holidays = (Array.isArray(raw.holidays) ? raw.holidays : Object.values(raw.holidays || {})).filter(Boolean);
+            db.vacations = (Array.isArray(raw.vacations) ? raw.vacations : Object.values(raw.vacations || {})).filter(Boolean);
             cleanExistingDuplicates();
             ensureMasterUsers();
         }
@@ -1059,7 +1125,7 @@
             if (dbRef) {
                 dbRef.set(cleanCopy)
                     .then(() => updateCloudBadges('online'))
-                    .catch(() => updateCloudBadges('offline', 'Erro de Permissão nas Regras do Firebase'));
+                    .catch(() => updateCloudBadges('offline', 'Salvo Localmente'));
             }
             let toast = document.getElementById('save-toast');
             if (toast) {
@@ -1080,48 +1146,24 @@
             return dateStr;
         }
 
-        function initSession() {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-screen').classList.remove('hidden');
-            document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
-            document.getElementById('user-display-email').innerText = currentUser.email;
-
-            let badge = document.getElementById('badge-role');
-            let adminTab = document.getElementById('admin-tab-btn');
-            let adminRep = document.getElementById('admin-report-card');
-
-            if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
-                badge.innerText = "Administrador Master";
-                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
-                adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
-                adminRep.classList.remove('hidden');
-            } else {
-                badge.innerText = "Gestor Autorizado";
-                badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
-                adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
-            }
-
-            switchTab('evaluations');
-            refreshAllViews();
-        }
-
         function logout() {
             currentUser = null;
             document.getElementById('main-screen').classList.add('hidden');
             document.getElementById('auth-screen').classList.remove('hidden');
         }
 
+        // Proteção individual por aba para nunca travar o carregamento
         function refreshAllViews() {
             if (!currentUser) return;
-            renderItems();
-            renderRevenues();
-            renderPatients();
-            renderCycles();
-            renderRenewals();
-            renderUsers();
-            renderHolidays();
-            renderVacationsInputs();
-            renderCharts();
+            try { renderItems(); } catch (e) { console.error(e); }
+            try { renderRevenues(); } catch (e) { console.error(e); }
+            try { renderPatients(); } catch (e) { console.error(e); }
+            try { renderCycles(); } catch (e) { console.error(e); }
+            try { renderRenewals(); } catch (e) { console.error(e); }
+            try { renderUsers(); } catch (e) { console.error(e); }
+            try { renderHolidays(); } catch (e) { console.error(e); }
+            try { renderVacationsInputs(); } catch (e) { console.error(e); }
+            try { renderCharts(); } catch (e) { console.error(e); }
         }
 
         function switchTab(tab) {
@@ -1136,13 +1178,15 @@
             let activeBtn = document.getElementById(`tab-btn-${tab}`);
             if (activeBtn) activeBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 cursor-pointer";
             
-            if (tab === 'patients') renderPatients();
-            if (tab === 'cycles') renderCycles();
-            if (tab === 'renewals') renderRenewals();
-            if (tab === 'evaluations') renderItems();
-            if (tab === 'revenues') renderRevenues();
-            if (tab === 'history') renderCharts();
-            if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); }
+            try {
+                if (tab === 'patients') renderPatients();
+                if (tab === 'cycles') renderCycles();
+                if (tab === 'renewals') renderRenewals();
+                if (tab === 'evaluations') renderItems();
+                if (tab === 'revenues') renderRevenues();
+                if (tab === 'history') renderCharts();
+                if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); }
+            } catch (e) {}
         }
 
         function openChangePasswordModal() {
@@ -1169,7 +1213,7 @@
                 alert("A nova senha e a confirmação não coincidem.");
                 return;
             }
-            let userInDb = db.users.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
+            let userInDb = db.users.find(u => u && u.email && u.email.toLowerCase() === currentUser.email.toLowerCase());
             if (userInDb) {
                 userInDb.password = newPass;
                 currentUser.password = newPass;
@@ -1180,11 +1224,7 @@
         }
 
         function handleGlobalSearch() {
-            renderItems();
-            renderRevenues();
-            renderPatients();
-            renderCycles();
-            renderRenewals();
+            refreshAllViews();
         }
 
         function getSearchTerm() {
@@ -1204,7 +1244,6 @@
             return s1 === s2 || s1.includes(s2) || s2.includes(s1);
         }
 
-        // Calcula o prazo e já mostra a Próxima Data baseada na Data da Avaliação escolhida!
         function calculateAutoProfileFromIvcf() {
             let val20 = parseInt(document.getElementById('item-ivcf20').value);
             let val10 = parseInt(document.getElementById('item-ivsf10').value);
@@ -1396,7 +1435,6 @@
             return targetDate.toISOString().split('T')[0];
         }
 
-        // Alterna ordem decrescente / crescente se clicar no título da coluna IVCF-20
         function toggleIvcfSortOrder() {
             ivcfSortDirection = ivcfSortDirection === 'desc' ? 'asc' : 'desc';
             let icon = document.getElementById('ivcf-sort-icon');
@@ -1408,7 +1446,6 @@
             renderItems();
         }
 
-        // Renderiza a tabela IVCF-20 ordenada de cima para baixo (Vermelhos maiores -> Amarelos -> Verdes)
         function renderItems() {
             let tbody = document.getElementById('items-table-body');
             let empty = document.getElementById('empty-state');
@@ -1425,7 +1462,6 @@
                 list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
             }
 
-            // Filtro por cor/faixa do IVCF-20
             if (colorFilter !== 'all') {
                 list = list.filter(i => {
                     let s20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0;
@@ -1436,7 +1472,6 @@
                 });
             }
 
-            // Ordenação Principal por IVCF-20 (Decrescente por padrão: Vermelho maior -> Amarelo -> Verde) e Desempate por IVSF-10
             list.sort((a, b) => {
                 let a20 = parseInt(a.ivcf20 !== undefined ? a.ivcf20 : a.value) || 0;
                 let b20 = parseInt(b.ivcf20 !== undefined ? b.ivcf20 : b.value) || 0;
@@ -1465,8 +1500,8 @@
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
-                        <td class="p-4 font-medium">${i.gestor}</td>
-                        <td class="p-4 text-slate-800 font-semibold">${i.name}</td>
+                        <td class="p-4 font-medium">${i.gestor || ''}</td>
+                        <td class="p-4 text-slate-800 font-semibold">${i.name || ''}</td>
                         <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge20}">${score20} pts — ${class20}</span></td>
                         <td class="p-4"><span class="text-xs px-3 py-1 rounded-full shadow-sm inline-block ${badge10}">${score10} pts — ${class10}</span></td>
                         <td class="p-4 font-mono text-xs text-slate-600">
@@ -1521,7 +1556,7 @@
                 let medsCount = i.medications ? i.medications.length : 0;
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
-                        <td class="p-4 font-medium">${i.gestor}</td>
+                        <td class="p-4 font-medium">${i.gestor || ''}</td>
                         <td class="p-4 font-semibold text-slate-800">${i.paciente || 'N/D'}</td>
                         <td class="p-4 text-emerald-700 font-medium">${i.medico || 'Dr. Andrey'}</td>
                         <td class="p-4 text-slate-600 font-bold">${medsCount} medicamento(s)</td>
@@ -1556,8 +1591,8 @@
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
-                        <td class="p-4 font-semibold text-slate-800">${rev.paciente}</td>
-                        <td class="p-4 text-slate-600">${rev.gestor}</td>
+                        <td class="p-4 font-semibold text-slate-800">${rev.paciente || ''}</td>
+                        <td class="p-4 text-slate-600">${rev.gestor || ''}</td>
                         <td class="p-4 text-xs text-slate-700 space-y-1">${medsHtml}</td>
                         <td class="p-4">${statusBadge}</td>
                         <td class="p-4 text-center space-x-1">
@@ -1603,4 +1638,417 @@
             document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
             let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> | Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
             document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} | <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
-            document.getElementById('patient-detail-modal').classList.remove('hidden
+            document.getElementById('patient-detail-modal').classList.remove('hidden');
+        }
+
+        function closePatientDetailModal() { document.getElementById('patient-detail-modal').classList.add('hidden'); }
+
+        function togglePatientStatus(id) {
+            let rev = db.revenues.find(i => i.id === id);
+            if (rev) { rev.status = rev.status === 'inactive' ? 'active' : 'inactive'; persistDB(); refreshAllViews(); }
+        }
+
+        function renderRenewals() {
+            let tbody = document.getElementById('renewals-table-body');
+            let empty = document.getElementById('empty-renewal-state');
+            if (!tbody || !currentUser) return;
+            tbody.innerHTML = '';
+
+            let term = getSearchTerm();
+            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let groupsMap = {};
+
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                rev.medications.forEach((med, mIdx) => {
+                    let nextDate = calculateValidDate(med.baseDate, med.cycleDays);
+                    let groupKey = rev.id + '_' + nextDate;
+                    if (!groupsMap[groupKey]) {
+                        groupsMap[groupKey] = { revId: rev.id, paciente: rev.paciente, gestor: rev.gestor, medico: rev.medico || 'Dr. Andrey', nextDate, medications: [] };
+                    }
+                    groupsMap[groupKey].medications.push({ medIndex: mIdx, name: med.name, cycleDays: med.cycleDays, baseDate: med.baseDate, obs: med.obs || '' });
+                });
+            });
+
+            let groupsList = Object.values(groupsMap);
+            if (term) groupsList = groupsList.filter(g => (g.paciente || '').toLowerCase().includes(term) || g.medications.some(m => (m.name || '').toLowerCase().includes(term)));
+            groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+
+            if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            groupsList.forEach(g => {
+                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b">
+                        <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
+                        <td class="p-4 font-mono font-bold text-emerald-700">${formatDateBR(g.nextDate)}</td>
+                        <td class="p-4 font-semibold text-slate-800">${g.paciente || ''}</td>
+                        <td class="p-4 text-xs text-slate-700">${medsHtml}</td>
+                        <td class="p-4 text-slate-600">${g.gestor || ''}</td>
+                        <td class="p-4 text-slate-500 text-xs">${g.medico || ''}</td>
+                        <td class="p-4 text-center space-y-1">
+                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer">Renovar Grupo</button>
+                            <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold cursor-pointer">PDF Desta Data</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renewSingleMed(revId, medIndex) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev || !rev.medications[medIndex]) return;
+            let med = rev.medications[medIndex];
+            let newDays = parseInt(prompt(`Novo período (em dias) para "${med.name}":`, med.cycleDays));
+            if (isNaN(newDays) || newDays <= 0) return;
+            med.cycleDays = newDays;
+            med.baseDate = new Date().toISOString().split('T')[0];
+            persistDB(); refreshAllViews();
+        }
+
+        function renewGroupMedications(revId, targetDate) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev || !rev.medications) return;
+            let newDays = parseInt(prompt(`Novo período (em dias) para o grupo de ${rev.paciente}:`, "30"));
+            if (isNaN(newDays) || newDays <= 0) return;
+            let todayStr = new Date().toISOString().split('T')[0];
+            rev.medications.forEach(med => {
+                if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                    med.cycleDays = newDays;
+                    med.baseDate = todayStr;
+                }
+            });
+            persistDB(); refreshAllViews();
+        }
+
+        function toggleSelectAllRenewals(masterCheckbox) {
+            document.querySelectorAll('.renewal-checkbox').forEach(cb => cb.checked = masterCheckbox.checked);
+        }
+
+        function renewSelectedGroups() {
+            let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked');
+            if (checkedBoxes.length === 0) { alert("Selecione pelo menos um grupo."); return; }
+            let newDays = parseInt(prompt("Novo período (em dias) para os selecionados:", "30"));
+            if (isNaN(newDays) || newDays <= 0) return;
+            let todayStr = new Date().toISOString().split('T')[0];
+            checkedBoxes.forEach(cb => {
+                let rev = db.revenues.find(r => r.id === cb.getAttribute('data-revid'));
+                let targetDate = cb.getAttribute('data-nextdate');
+                if (rev && rev.medications) {
+                    rev.medications.forEach(med => {
+                        if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                            med.cycleDays = newDays;
+                            med.baseDate = todayStr;
+                        }
+                    });
+                }
+            });
+            persistDB(); refreshAllViews();
+        }
+
+        function openItemModal(id = null) {
+            document.getElementById('item-modal').classList.remove('hidden');
+            document.getElementById('item-form').reset();
+            document.getElementById('item-id').value = '';
+            let todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('item-eval-date').value = todayStr;
+            let editBox = document.getElementById('edit-mode-box');
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    document.getElementById('item-id').value = item.id;
+                    document.getElementById('item-gestor').value = item.gestor;
+                    document.getElementById('item-name').value = item.name;
+                    document.getElementById('item-eval-date').value = item.date || todayStr;
+                    document.getElementById('item-ivcf20').value = item.ivcf20 !== undefined ? item.ivcf20 : (item.value || 0);
+                    document.getElementById('item-ivsf10').value = item.ivsf10 || 0;
+                    document.getElementById('item-only-correct').checked = true;
+                    if (editBox) editBox.classList.remove('hidden');
+                    calculateAutoProfileFromIvcf();
+                }
+            } else {
+                if (editBox) editBox.classList.add('hidden');
+            }
+        }
+
+        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
+
+        function saveItem(e) {
+            e.preventDefault();
+            let id = document.getElementById('item-id').value;
+            let gestor = document.getElementById('item-gestor').value.trim();
+            let name = document.getElementById('item-name').value.trim();
+            let evalDate = document.getElementById('item-eval-date').value || new Date().toISOString().split('T')[0];
+            let ivcf20 = parseInt(document.getElementById('item-ivcf20').value) || 0;
+            let ivsf10 = parseInt(document.getElementById('item-ivsf10').value) || 0;
+            calculateAutoProfileFromIvcf();
+            let profile = parseInt(document.getElementById('item-profile').value) || 90;
+            let nextStr = calculateValidDate(evalDate, profile);
+
+            let class20 = ivcf20 >= 15 ? "Idoso Frágil" : (ivcf20 >= 7 ? "Risco de Fragilização" : "Idoso Robusto");
+            let class10 = ivsf10 >= 10 ? "Alta Vulnerabilidade" : (ivsf10 >= 5 ? "Média Vulnerabilidade" : "Baixa Vulnerabilidade");
+
+            if (id) {
+                let item = db.items.find(i => i.id === id);
+                if (item) {
+                    let onlyCorrect = document.getElementById('item-only-correct').checked;
+                    if (!Array.isArray(item.history) || item.history.length === 0) {
+                        item.history = [{ ivcf20, ivsf10, date: evalDate, profile }];
+                    } else if (onlyCorrect) {
+                        item.history[item.history.length - 1] = { ivcf20, ivsf10, date: evalDate, profile };
+                    } else {
+                        item.history.push({ ivcf20, ivsf10, date: evalDate, profile });
+                        db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, ivsf10, date: evalDate });
+                    }
+
+                    item.gestor = gestor;
+                    item.name = name;
+                    item.ivcf20 = ivcf20;
+                    item.ivsf10 = ivsf10;
+                    item.class20 = class20;
+                    item.class10 = class10;
+                    item.value = ivcf20;
+                    item.profile = profile;
+                    item.date = evalDate;
+                    item.nextDate = nextStr;
+                }
+            } else {
+                db.items.push({
+                    id: Date.now().toString(),
+                    userEmail: currentUser.email,
+                    gestor,
+                    name,
+                    ivcf20,
+                    ivsf10,
+                    class20,
+                    class10,
+                    value: ivcf20,
+                    profile,
+                    date: evalDate,
+                    nextDate: nextStr,
+                    history: [{ ivcf20, ivsf10, date: evalDate, profile }]
+                });
+                db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, ivsf10, date: evalDate });
+            }
+            persistDB();
+            closeItemModal();
+            refreshAllViews();
+        }
+
+        function editItem(id) { openItemModal(id); }
+        function deleteItem(id) { if (confirm("Excluir avaliação?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        function openRevenueModal(id = null) {
+            document.getElementById('revenue-modal').classList.remove('hidden');
+            document.getElementById('revenue-form').reset();
+            document.getElementById('revenue-id').value = '';
+            document.getElementById('revenue-medico').value = 'Dr. Andrey';
+            document.getElementById('medication-rows-container').innerHTML = '';
+            let todayStr = new Date().toISOString().split('T')[0];
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) {
+                    document.getElementById('revenue-id').value = rev.id;
+                    document.getElementById('revenue-gestor').value = rev.gestor;
+                    document.getElementById('revenue-paciente').value = rev.paciente || '';
+                    document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
+                    (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
+                }
+            } else {
+                addMedicationRow('', '30', '', todayStr);
+            }
+        }
+
+        function closeRevenueModal() { document.getElementById('revenue-modal').classList.add('hidden'); }
+
+        function saveRevenue(e) {
+            e.preventDefault();
+            let id = document.getElementById('revenue-id').value;
+            let gestor = document.getElementById('revenue-gestor').value.trim();
+            let paciente = document.getElementById('revenue-paciente').value.trim();
+            let medico = document.getElementById('revenue-medico').value.trim();
+            let medications = [];
+            document.querySelectorAll('#medication-rows-container > div').forEach(row => {
+                let name = row.querySelector('input[name="med_name"]').value.trim();
+                let medDate = row.querySelector('input[name="med_date"]').value;
+                let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
+                let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
+                let obs = row.querySelector('input[name="med_obs"]').value.trim();
+                if (name && medDate) medications.push({ name, cycleDays: cycleDays || 30, obs, baseDate: medDate });
+            });
+            if (medications.length === 0) return;
+            if (id) {
+                let rev = db.revenues.find(i => i.id === id);
+                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
+            } else {
+                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
+            }
+            persistDB(); closeRevenueModal(); refreshAllViews();
+        }
+
+        function deleteRevenue(id) { if (confirm("Excluir receita?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        function addHoliday() {
+            let date = document.getElementById('holiday-date').value;
+            let desc = document.getElementById('holiday-desc').value.trim();
+            if (!date || !desc) return;
+            db.holidays.push({ date, desc });
+            persistDB(); renderHolidays();
+        }
+
+        function renderHolidays() {
+            let container = document.getElementById('holiday-list');
+            if (!container) return;
+            container.innerHTML = (db.holidays || []).map((h, idx) => `<div class="flex justify-between items-center bg-slate-50 p-2 rounded border"><span>${formatDateBR(h.date)} — ${h.desc}</span><button onclick="removeHoliday(${idx})" class="text-red-600 font-bold px-2 cursor-pointer">&times;</button></div>`).join('');
+        }
+
+        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
+
+        function saveVacations() {
+            let newVacations = [];
+            for (let i = 1; i <= 4; i++) {
+                let s = document.getElementById(`vac-start-${i}`).value;
+                let e = document.getElementById(`vac-end-${i}`).value;
+                if (s && e) newVacations.push({ period: i, start: s, end: e });
+            }
+            db.vacations = newVacations;
+            persistDB();
+            alert("Férias salvas na nuvem com sucesso!");
+        }
+
+        function renderVacationsInputs() {
+            for (let i = 1; i <= 4; i++) {
+                let vs = document.getElementById(`vac-start-${i}`);
+                let ve = document.getElementById(`vac-end-${i}`);
+                let saved = (db.vacations || [])[i - 1];
+                if (vs) vs.value = saved ? (saved.start || '') : '';
+                if (ve) ve.value = saved ? (saved.end || '') : '';
+            }
+        }
+
+        function renderCharts() {
+            if (typeof Chart === 'undefined' || !currentUser) return;
+            let ctx1El = document.getElementById('scoreChart');
+            if (ctx1El) {
+                let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+                if (scoreChartInstance) scoreChartInstance.destroy();
+                scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`), datasets: [{ label: 'IVCF-20', data: hist.map(h => h.value), borderColor: '#2563eb', fill: true }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+            let ctx2El = document.getElementById('revenueChart');
+            if (ctx2El) {
+                let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+                let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+                revList.forEach(r => (r.medications || []).forEach(m => {
+                    if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++;
+                }));
+                if (revenueChartInstance) revenueChartInstance.destroy();
+                revenueChartInstance = new Chart(ctx2El.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function renderUsers() {
+            let tbody = document.getElementById('users-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = (db.users || []).filter(u => u && u.email).map(u => `
+                <tr class="border-b">
+                    <td class="p-4 font-semibold">${u.email}</td>
+                    <td class="p-4 uppercase text-xs font-bold">${u.role || 'user'}</td>
+                    <td class="p-4">${u.status === 'inactive' ? 'Inativo' : 'Ativo'}</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold cursor-pointer">Redefinir Senha</button>
+                    </td>
+                </tr>`).join('');
+        }
+
+        function resetUserPassword(email) {
+            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            if (!u) return;
+            let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
+            if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada!"); }
+        }
+
+        function openInviteModal() { document.getElementById('invite-modal').classList.remove('hidden'); }
+        function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
+
+        function sendInvite(e) {
+            e.preventDefault();
+            let email = document.getElementById('invite-email').value.trim().toLowerCase();
+            let role = document.getElementById('invite-role').value;
+            let password = document.getElementById('invite-pass').value;
+            if (db.users.find(u => u && u.email && u.email.toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
+            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
+            persistDB(); closeInviteModal(); renderUsers();
+        }
+
+        function exportBackupJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0]; if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    normalizeDatabaseObject(JSON.parse(evt.target.result));
+                    persistDB(); refreshAllViews();
+                    alert("Backup restaurado e sincronizado na nuvem com sucesso!");
+                } catch (err) { alert("Erro ao ler arquivo JSON."); }
+            };
+            reader.readAsText(file);
+        }
+
+        function downloadPatientPDF(id) {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            let rev = db.revenues.find(i => i.id === id); if (!rev) return;
+            doc.text(`Paciente: ${rev.paciente} (Gestor: ${rev.gestor}) - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (rev.medications || []).map(m => [m.name, `${m.cycleDays}d`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
+            doc.autoTable({ startY: 28, head: [["Medicamento", "Ciclo", "Confecção", "Renovação"]], body: rows });
+            doc.save(`paciente_${rev.paciente}.pdf`);
+        }
+
+        function downloadGroupPDF(revId, targetDate) { downloadPatientPDF(revId); }
+        function exportAllPatientsPDF() { exportRevenuesPDF(); }
+        function exportCyclePDF(c) { exportRevenuesPDF(); }
+        function exportRenewalsSeparatedByUserPDF() { exportRenewalsPDF(); }
+
+        function exportRenewalsPDF() {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Renovação - v${CURRENT_VERSION}`, 14, 20);
+            let rows = [];
+            (db.revenues || []).forEach(r => (r.medications || []).forEach(m => rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, m.name, r.gestor])));
+            doc.autoTable({ startY: 28, head: [["Vencimento", "Paciente", "Medicamento", "Gestor"]], body: rows });
+            doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
+        }
+
+        function exportRevenuesPDF() {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Receitas - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.revenues || []).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => m.name).join(', ')]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos"]], body: rows });
+            doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
+        }
+
+        function exportPDF(type) {
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20);
+            let sortedItems = [...(db.items || [])].sort((a, b) => (parseInt(b.ivcf20 || b.value || 0)) - (parseInt(a.ivcf20 || a.value || 0)));
+            let rows = sortedItems.map(i => [i.gestor, i.name, i.ivcf20 !== undefined ? i.ivcf20 : i.value, i.ivsf10 || 0, formatDateBR(i.date), formatDateBR(i.nextDate)]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Data Aval.", "Próxima Data"]], body: rows });
+            doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
+        }
+
+        window.onload = initDB;
+    </script>
+</body>
+</html>
