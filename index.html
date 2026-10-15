@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="app-window-title">Gestão Segura ACS Marcelo 90/01 - v20.1 Cloud</title>
+    <title id="app-window-title">Gestão Segura ACS Marcelo 90/01 - v20.2 Cloud</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="style.css">
     <!-- Configuração PWA / Aplicativo Dinâmico -->
     <link rel="manifest" id="dynamic-manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-title" id="apple-app-title" content="ACS Marcelo v20.1">
-    <meta name="application-name" id="meta-app-name" content="ACS Marcelo v20.1">
+    <meta name="apple-mobile-web-app-title" id="apple-app-title" content="ACS Marcelo v20.2">
+    <meta name="application-name" id="meta-app-name" content="ACS Marcelo v20.2">
     <meta name="theme-color" content="#2563eb">
 </head>
 <body class="bg-slate-100 text-slate-800 h-full flex flex-col font-sans">
@@ -40,13 +40,13 @@
             <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100">
                 <div class="text-center mb-6">
                     <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-4">
-                        <i class="fa-solid fa-cloud-shield text-2xl"></i>
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.1</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.2</span>
                     </h1>
                     <p class="text-sm text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.1 Cloud</span> — Banco Online em Tempo Real
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.2 Cloud</span> — Banco Online em Tempo Real
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600" id="login-cloud-status">
                         <i class="fa-solid fa-circle-notch fa-spin text-blue-600"></i>
@@ -70,11 +70,180 @@
                     <div class="flex-grow border-t border-slate-200"></div>
                 </div>
 
-                <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
-                        <input type="email" id="login-email" autocomplete="username" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
+                        <input type="email" id="login-email" autocomplete="off" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
-                        <div class="
+                        <div class="relative">
+                            <input type="password" id="login-password" autocomplete="new-password" onkeydown="if(event.key==='Enter') executeDirectLogin()" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none" placeholder="••••••••">
+                            <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer" title="Mostrar/Ocultar Senha">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="executeDirectLogin()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition-all text-sm cursor-pointer">
+                        Entrar no Sistema
+                    </button>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+                    <p class="text-xs text-slate-500">ADM Master: <span class="font-mono font-bold text-blue-600">marcelo.doetz@gmail.com</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN SCREEN -->
+        <div id="main-screen" class="hidden flex-1 flex flex-col h-full overflow-hidden">
+            <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.2</span>
+                            </h2>
+                            <span id="header-cloud-badge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1">
+                                <i class="fa-solid fa-cloud"></i><span>Nuvem Ativa</span>
+                            </span>
+                        </div>
+                        <span id="badge-role" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"></span>
+                    </div>
+                </div>
+                
+                <!-- BARRA DE BUSCA GLOBAL -->
+                <div class="flex-1 max-w-md mx-6">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Pesquisar por paciente ou medicamento..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50">
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="text-right hidden sm:block">
+                        <p id="user-display-name" class="text-sm font-semibold text-slate-800"></p>
+                        <p id="user-display-email" class="text-xs text-slate-500"></p>
+                    </div>
+                    <button onclick="openChangePasswordModal()" class="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all flex items-center space-x-1 text-xs font-semibold border border-slate-200 cursor-pointer" title="Alterar Minha Senha">
+                        <i class="fa-solid fa-key"></i>
+                        <span class="hidden md:inline">Alterar Senha</span>
+                    </button>
+                    <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
+                </div>
+            </header>
+
+            <div class="flex-1 flex overflow-hidden">
+                <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex p-4">
+                    <div class="space-y-1.5">
+                        <button onclick="switchTab('evaluations')" id="tab-btn-evaluations" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 cursor-pointer">
+                            <i class="fa-solid fa-clipboard-list w-5"></i><span>IVCF-20 / IVSF-10</span>
+                        </button>
+                        <button onclick="switchTab('revenues')" id="tab-btn-revenues" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-wallet w-5"></i><span>Receitas & Afins</span>
+                        </button>
+                        <button onclick="switchTab('patients')" id="tab-btn-patients" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-users w-5 text-indigo-600"></i><span>Pacientes & Meds</span>
+                        </button>
+                        <button onclick="switchTab('cycles')" id="tab-btn-cycles" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-layer-group w-5 text-amber-600"></i><span>Por Dias de Prescrição</span>
+                        </button>
+                        <button onclick="switchTab('renewals')" id="tab-btn-renewals" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-calendar-days w-5 text-emerald-600"></i><span>Aba de Renovação</span>
+                        </button>
+                        <button onclick="switchTab('history')" id="tab-btn-history" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-chart-line w-5"></i><span>Históricos & Gráficos</span>
+                        </button>
+                        <button onclick="switchTab('reports')" id="tab-btn-reports" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-file-pdf w-5"></i><span>Relatórios em PDF</span>
+                        </button>
+                        <button onclick="switchTab('backup')" id="tab-btn-backup" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-cloud-arrow-up w-5 text-blue-600"></i><span>Nuvem & Backup</span>
+                        </button>
+                        <button id="admin-tab-btn" onclick="switchTab('admin')" class="w-full hidden items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
+                            <i class="fa-solid fa-shield-halved w-5 text-indigo-600"></i><span>Painel Master & Acessos</span>
+                        </button>
+                    </div>
+
+                    <!-- Rodapé do Menu Lateral com Identificador Automático da Versão -->
+                    <div class="pt-4 border-t border-slate-100 text-center">
+                        <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
+                            APK <span class="ver-full-label">Versão 20.2 Cloud</span>
+                        </span>
+                    </div>
+                </aside>
+
+                <main class="flex-1 bg-slate-100 overflow-y-auto p-6">
+                    <!-- ABA IVCF-20 / IVSF-10 -->
+                    <div id="tab-evaluations" class="space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Avaliações IVCF-20 & IVSF-10</h3>
+                                <p class="text-xs text-slate-500">Cadastre gestores, nomes, pontuações independentes e histórico preservado na nuvem.</p>
+                            </div>
+                            <button id="btn-new-item" onclick="openItemModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
+                                <i class="fa-solid fa-plus mr-2"></i>Adicionar Avaliação
+                            </button>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Nome / Paciente</th>
+                                        <th class="p-4">IVCF-20 (Principal)</th>
+                                        <th class="p-4">IVSF-10</th>
+                                        <th class="p-4">Próxima Data</th>
+                                        <th class="p-4 text-center">Ações / Histórico</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-state" class="hidden text-center py-12 text-slate-400">Nenhum registro encontrado.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA RECEITAS & AFINS -->
+                    <div id="tab-revenues" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Gestão de Receitas & Medicamentos (Dr. Andrey)</h3>
+                                <p class="text-xs text-slate-500">Adicione receitas completas com múltiplos medicamentos sincronizadas na nuvem.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="exportRevenuesPDF()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Receitas
+                                </button>
+                                <button onclick="openRevenueModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
+                                    <i class="fa-solid fa-plus mr-2"></i>Nova Receita
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
+                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Paciente</th>
+                                        <th class="p-4">Médico</th>
+                                        <th class="p-4">Qtd. Medicamentos</th>
+                                        <th class="p-4 text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="revenues-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
+                            </table>
+                            <div id="empty-revenue-state" class="hidden text-center py-12 text-slate-400">Nenhuma receita cadastrada.</div>
+                        </div>
+                    </div>
+
+                    <!-- ABA PACIENTES & MEDICAMENTOS -->
+                    <div id="tab-patients" class="hidden space-y-6 max-w-7xl mx-auto">
+                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-800">Lista de Pacientes Cadastrados</h3>
+                                <p class="
