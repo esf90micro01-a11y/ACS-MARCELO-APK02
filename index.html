@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v20.7 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.8 Cloud</title>
     
-    <!-- LIMPADOR IMEDIATO DE CACHE E SERVICE WORKER ANTIGO -->
     <script>
         (function() {
             try {
@@ -23,32 +22,24 @@
         })();
     </script>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF & AutoTable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
     <meta name="theme-color" content="#2563eb">
 </head>
 <body class="bg-slate-100 text-slate-800 h-full flex flex-col font-sans">
 
-    <!-- Toast de Salvamento -->
     <div id="save-toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-4 py-2.5 rounded-xl shadow-lg flex items-center space-x-2 text-sm font-medium">
         <i class="fa-solid fa-cloud-arrow-up"></i>
         <span id="save-toast-msg">Sincronizado na nuvem!</span>
     </div>
 
-    <!-- App Container -->
     <div id="app" class="flex-1 flex flex-col h-full overflow-hidden">
         
-        <!-- LOGIN SCREEN -->
         <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 overflow-y-auto">
             <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 my-auto">
                 <div class="text-center mb-5">
@@ -56,10 +47,10 @@
                         <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.7</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.8</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.7 Cloud</span> — Multi-ACS em Tempo Real
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.8 Cloud</span> — Sincronização em Tempo Real
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
                         <i class="fa-solid fa-rotate fa-spin"></i>
@@ -67,7 +58,6 @@
                     </div>
                 </div>
 
-                <!-- SELEÇÃO RÁPIDA GOOGLE -->
                 <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
                     <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">Atalho Rápido de Conta (ou digite abaixo):</p>
                     <div class="grid grid-cols-1 gap-2">
@@ -88,7 +78,6 @@
                     </div>
                 </div>
 
-                <!-- CAMPOS DE LOGIN DIRETO -->
                 <form onsubmit="doSystemLogin(event); return false;" class="space-y-3">
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário (ACS / Master)</label>
@@ -111,12 +100,11 @@
                 </form>
 
                 <div class="mt-5 pt-3 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v20.7)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v20.8)</span></p>
                 </div>
             </div>
         </div>
 
-        <!-- MAIN SCREEN -->
         <div id="main-screen" class="hidden flex-1 flex flex-col h-full overflow-hidden">
             <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
                 <div class="flex items-center space-x-3">
@@ -126,7 +114,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.7</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.8</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Verificando Nuvem...</span>
@@ -136,7 +124,6 @@
                     </div>
                 </div>
                 
-                <!-- BARRA DE BUSCA GLOBAL + FILTRO MASTER DE ACS -->
                 <div class="flex-1 flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-2">
                     <div class="relative flex-1 min-w-[200px]">
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
@@ -145,7 +132,6 @@
                         <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Pesquisar paciente, gestor ou med..." class="w-full pl-9 pr-3 py-1.5 border border-slate-300 rounded-xl text-xs sm:text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50">
                     </div>
 
-                    <!-- Seletor Exclusivo do ADM Master para filtrar qual ACS está visualizando -->
                     <div id="master-view-filter-box" class="hidden flex items-center space-x-1.5 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
                         <i class="fa-solid fa-eye text-indigo-600 text-xs"></i>
                         <span class="text-[11px] font-bold text-indigo-900 uppercase hidden lg:inline">Visão Master:</span>
@@ -203,13 +189,12 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 20.7 Cloud</span>
+                            APK <span class="ver-full-label">Versão 20.8 Cloud</span>
                         </span>
                     </div>
                 </aside>
 
                 <main class="flex-1 bg-slate-100 overflow-y-auto p-6">
-                    <!-- ABA IVCF-20 / IVSF-10 -->
                     <div id="tab-evaluations" class="space-y-6 max-w-7xl mx-auto">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
@@ -255,7 +240,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA RECEITAS & AFINS -->
                     <div id="tab-revenues" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
@@ -278,7 +262,7 @@
                                         <th class="p-4">Gestor / ACS</th>
                                         <th class="p-4">Paciente</th>
                                         <th class="p-4">Médico</th>
-                                        <th class="p-4">Medicamentos Ativos</th>
+                                        <th class="p-4">Qtd. Medicamentos</th>
                                         <th class="p-4 text-center">Ações / Histórico Meds</th>
                                     </tr>
                                 </thead>
@@ -288,12 +272,11 @@
                         </div>
                     </div>
 
-                    <!-- ABA PACIENTES & MEDICAMENTOS -->
                     <div id="tab-patients" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Lista de Pacientes Cadastrados</h3>
-                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Exibe apenas as medicações ativas atuais e botão para consultar o histórico de medicações anteriores.</p>
+                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Exibe apenas as medicações ativas atuais e botão para consultar o histórico.</p>
                             </div>
                             <button onclick="exportAllPatientsPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
                                 <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Lista de Pacientes
@@ -316,7 +299,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA: POR DIAS DE PRESCRIÇÃO -->
                     <div id="tab-cycles" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                             <div>
@@ -377,7 +359,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA DE RENOVAÇÃO -->
                     <div id="tab-renewals" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
@@ -404,7 +385,7 @@
                                         <th class="p-4 text-center w-12"><input type="checkbox" id="select-all-renewals" onclick="toggleSelectAllRenewals(this)" title="Selecionar Todos"></th>
                                         <th class="p-4">Data de Renovação</th>
                                         <th class="p-4">Paciente</th>
-                                        <th class="p-4">Medicamentos do Grupo (Dose, Posologia & Confecção)</th>
+                                        <th class="p-4">Medicamentos do Grupo (Confecção & Obs)</th>
                                         <th class="p-4">Gestor / ACS</th>
                                         <th class="p-4">Médico</th>
                                         <th class="p-4 text-center">Ações</th>
@@ -416,7 +397,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA HISTÓRICOS & GRÁFICOS -->
                     <div id="tab-history" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
                             <div>
@@ -441,7 +421,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA RELATÓRIOS PDF -->
                     <div id="tab-reports" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col justify-between">
@@ -468,16 +447,15 @@
                         </div>
                     </div>
 
-                    <!-- ABA NUVEM & BACKUP -->
                     <div id="tab-backup" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.7 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.8 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
                                     Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`).<br>
-                                    Qualquer alteração feita por você ou por qualquer ACS convidado fica sincronizada em tempo real!
+                                    <b>IMPORTANTE:</b> Ao restaurar um backup antigo (.json), o sistema agora <b>ANEXA</b> os pacientes à nuvem em vez de apagar os novos!
                                 </p>
                             </div>
                             <button onclick="forceCloudSync()" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs shadow cursor-pointer">
@@ -491,12 +469,12 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.7</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.8</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
-                                    <h4 class="font-bold text-amber-900 text-base mb-1">Restaurar Backup (.json) para a Nuvem</h4>
-                                    <p class="text-xs text-amber-700 mb-4">Carrega um arquivo de backup (.json) e envia todos os pacientes e receitas direto para a nuvem.</p>
+                                    <h4 class="font-bold text-amber-900 text-base mb-1">Restaurar / Mesclar Backup (.json)</h4>
+                                    <p class="text-xs text-amber-700 mb-4">Carrega um arquivo antigo (.json) e <b>adiciona (mescla)</b> os pacientes que faltam na nuvem sem apagar os atuais.</p>
                                 </div>
                                 <label class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2.5 rounded-xl text-sm text-center cursor-pointer block">
                                     Selecionar Arquivo (.json)
@@ -506,7 +484,6 @@
                         </div>
                     </div>
 
-                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS -->
                     <div id="tab-admin" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -535,7 +512,6 @@
                             </div>
                         </div>
 
-                        <!-- Configuração de Feriados e Férias do Médico -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
                                 <h3 class="font-bold text-slate-800">Gerenciar Feriados / Recessos</h3>
@@ -576,7 +552,6 @@
         </div>
     </div>
 
-    <!-- MODAL AVALIAÇÃO IVCF-20 & IVSF-10 -->
     <div id="item-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -631,7 +606,6 @@
         </div>
     </div>
 
-    <!-- MODAL RECEITAS & MEDICAMENTOS (COM ALERTA IVCF-20 INFORMATIVO E CAMPOS DE DOSE + POSOLOGIA) -->
     <div id="revenue-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden max-h-[92vh] flex flex-col">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -646,7 +620,6 @@
             <form id="revenue-form" onsubmit="saveRevenue(event)" class="p-6 space-y-4 overflow-y-auto flex-1">
                 <input type="hidden" id="revenue-id">
                 
-                <!-- ALERTA DO IVCF-20 MAIS ATUAL (APENAS ALERTA VISUAL NA COR DO IVCF-20, SEM BOTÃO DE ALTERAR) -->
                 <div id="ivcf-alert-box" class="hidden p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2 shadow-sm">
                     <i class="fa-solid fa-bell text-base shrink-0"></i>
                     <div id="ivcf-alert-text" class="font-bold leading-snug"></div>
@@ -697,7 +670,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE HISTÓRICO DE MEDICAMENTOS DO PACIENTE (ATIVOS + ANTERIORES OCULTOS) -->
     <div id="med-history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden max-h-[88vh] flex flex-col">
             <div class="px-6 py-4 bg-indigo-50 border-b border-indigo-100 flex justify-between items-center">
@@ -711,7 +683,6 @@
         </div>
     </div>
 
-    <!-- MODAL CADASTRO / CONVITE DE USUÁRIO ACS (ADMIN) -->
     <div id="invite-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -749,7 +720,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES IVCF -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -763,7 +733,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE ALTERAÇÃO DE SENHA -->
     <div id="change-password-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -781,18 +750,19 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nova Senha Forte</label>
                     <div class="relative">
-                        <input type="password" id="new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite a nova senha">
+                        <input type="password" id="new-password" required minlength="8" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Mínimo 8 caracteres">
                         <button type="button" onclick="togglePasswordVisibility('new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                             <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
+                    <p class="text-[11px] text-slate-500 mt-1">Exige mín. 8 caracteres, 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial (ou espaço).</p>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Confirmar Nova Senha</label>
                     <div class="relative">
-                        <input type="password" id="confirm-new-password" required minlength="3" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
+                        <input type="password" id="confirm-new-password" required minlength="8" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Repita a nova senha">
                         <button type="button" onclick="togglePasswordVisibility('confirm-new-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
                             <i class="fa-solid fa-eye"></i>
                         </button>
@@ -806,7 +776,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE DETALHES DO PACIENTE -->
     <div id="patient-detail-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -820,9 +789,8 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 20.7 CLOUD) -->
     <script>
-        const CURRENT_VERSION = "20.7";
+        const CURRENT_VERSION = "20.8";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
@@ -851,9 +819,6 @@
         let shouldUnify = false;
         let ivcfSortDirection = 'desc';
 
-        // =========================================================================
-        // 1. AUTENTICAÇÃO E CONTROLE MULTI-ACS / MASTER
-        // =========================================================================
         function showLoginError(msg) {
             let box = document.getElementById('login-error-box');
             if (box) {
@@ -896,7 +861,6 @@
             return e === MASTER_EMAIL || e === SECONDARY_MASTER;
         }
 
-        // Verifica se um registro pertence à visualização ativa (Isola cada ACS na sua própria página em branco e permite ao Master filtrar)
         function isVisibleToCurrentUser(recordUserEmail) {
             if (!currentUser) return false;
             let myEmail = String(currentUser.email).trim().toLowerCase();
@@ -909,7 +873,6 @@
                 if (selectedFilter === 'mine') return recEmail === myEmail;
                 return recEmail === selectedFilter.toLowerCase();
             }
-            // ACS convidado vê exclusivamente o que ele mesmo cadastrou
             return recEmail === myEmail;
         }
 
@@ -1062,9 +1025,6 @@
             refreshAllViews();
         }
 
-        // =========================================================================
-        // 2. CONEXÃO COM A NUVEM FIREBASE E DEDUPLICAÇÃO INTELIGENTE DE MEDICAMENTOS
-        // =========================================================================
         function updateCloudBadges(status, message) {
             let loginBadge = document.getElementById('login-cloud-status');
             let headerBadge = document.getElementById('header-cloud-badge');
@@ -1081,7 +1041,7 @@
             } else {
                 if (loginBadge) {
                     loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local Ativo'}</span>`;
+                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-exclamation"></i><span>${message || 'Modo Local Ativo'}</span>`;
                 }
                 if (headerBadge) {
                     headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1";
@@ -1134,7 +1094,9 @@
                 dbRef = firebaseDB.ref('gestao_acs_90_db');
 
                 firebaseDB.ref('.info/connected').on('value', (snap) => {
-                    if (snap.val() === true) updateCloudBadges('online');
+                    if (snap.val() === true) {
+                        updateCloudBadges('online');
+                    }
                 });
 
                 dbRef.on('value', (snapshot) => {
@@ -1151,16 +1113,13 @@
                         persistDB();
                     }
                 }, (error) => {
-                    console.warn("Aviso Firebase:", error);
-                    updateCloudBadges('offline', 'Modo Local');
+                    updateCloudBadges('offline', 'Regras Firebase Bloqueadas');
                 });
             } catch (err) {
-                console.warn("Operando em modo local:", err);
                 updateCloudBadges('offline', 'Modo Local');
             }
         }
 
-        // Arquiva automaticamente medicações idênticas de datas anteriores no medHistory do paciente
         function archiveOldIdenticalMedications(rev) {
             if (!rev) return;
             if (!Array.isArray(rev.medications)) rev.medications = [];
@@ -1169,31 +1128,118 @@
             let latestByMedName = new Map();
             rev.medications.forEach(med => {
                 if (!med || !med.name) return;
-                let key = med.name.trim().toLowerCase();
+                let key = String(med.name).trim().toLowerCase();
                 if (!latestByMedName.has(key)) {
                     latestByMedName.set(key, med);
                 } else {
                     let existing = latestByMedName.get(key);
-                    let dExisting = new Date((existing.baseDate || '2000-01-01') + 'T00:00:00');
-                    let dNew = new Date((med.baseDate || '2000-01-01') + 'T00:00:00');
-                    if (dNew >= dExisting) {
-                        // Move o antigo para o histórico e mantém o novo ativo
+                    let timeExisting = new Date((existing.baseDate || '2000-01-01') + 'T00:00:00').getTime();
+                    let timeNew = new Date((med.baseDate || '2000-01-01') + 'T00:00:00').getTime();
+                    if (isNaN(timeExisting)) timeExisting = 0;
+                    if (isNaN(timeNew)) timeNew = 0;
+
+                    if (timeNew >= timeExisting) {
                         rev.medHistory.push({
                             ...existing,
                             archivedAt: med.baseDate || new Date().toISOString().split('T')[0],
-                            reason: "Substituído por renovação / receita mais recente"
+                            reason: "Substituído por receita mais recente"
                         });
                         latestByMedName.set(key, med);
                     } else {
                         rev.medHistory.push({
                             ...med,
                             archivedAt: existing.baseDate || new Date().toISOString().split('T')[0],
-                            reason: "Registro de data anterior arquivado"
+                            reason: "Registro anterior arquivado"
                         });
                     }
                 }
             });
             rev.medications = Array.from(latestByMedName.values());
+        }
+
+        // =========================================================================
+        // 3. SISTEMA DE MESCLAGEM INTELIGENTE DE BACKUPS (.json) (NÃO APAGA MAIS!)
+        // =========================================================================
+        function mergeDatabaseObject(imp) {
+            if (!imp || typeof imp !== 'object') return;
+
+            // Mesclar Usuários
+            let impUsers = Array.isArray(imp.users) ? imp.users : Object.values(imp.users || {});
+            impUsers.forEach(iu => {
+                if (iu && iu.email && !db.users.find(u => u.email.toLowerCase() === iu.email.toLowerCase())) {
+                    db.users.push(iu);
+                }
+            });
+
+            // Mesclar Avaliações (Items)
+            let impItems = Array.isArray(imp.items) ? imp.items : Object.values(imp.items || {});
+            impItems.forEach(ii => {
+                if (!ii || typeof ii !== 'object') return;
+                if (!db.items.find(i => i.id === ii.id)) {
+                    ii.userEmail = ii.userEmail || MASTER_EMAIL;
+                    if (!Array.isArray(ii.history)) ii.history = Object.values(ii.history || {});
+                    db.items.push(ii);
+                }
+            });
+
+            // Mesclar Receitas (Revenues)
+            let impRevs = Array.isArray(imp.revenues) ? imp.revenues : Object.values(imp.revenues || {});
+            impRevs.forEach(ir => {
+                if (!ir || typeof ir !== 'object') return;
+                let existingRev = db.revenues.find(r => r.id === ir.id);
+                if (!existingRev) {
+                    ir.userEmail = ir.userEmail || MASTER_EMAIL;
+                    if (!Array.isArray(ir.medications)) ir.medications = Object.values(ir.medications || {});
+                    if (!Array.isArray(ir.medHistory)) ir.medHistory = Object.values(ir.medHistory || {});
+                    db.revenues.push(ir);
+                } else {
+                    let newMeds = Array.isArray(ir.medications) ? ir.medications : Object.values(ir.medications || {});
+                    if (newMeds.length > 0) {
+                        if (!Array.isArray(existingRev.medications)) existingRev.medications = [];
+                        existingRev.medications.push(...newMeds);
+                    }
+                    let newHist = Array.isArray(ir.medHistory) ? ir.medHistory : Object.values(ir.medHistory || {});
+                    if (newHist.length > 0) {
+                        if (!Array.isArray(existingRev.medHistory)) existingRev.medHistory = [];
+                        existingRev.medHistory.push(...newHist);
+                    }
+                }
+            });
+
+            // Mesclar Histórico de Gráficos
+            let impHist = Array.isArray(imp.history) ? imp.history : Object.values(imp.history || {});
+            impHist.forEach(ih => {
+                if (ih && ih.id && !db.history.find(h => h.id === ih.id)) {
+                    db.history.push(ih);
+                }
+            });
+
+            // Limpa, remove duplicados e atualiza o medHistory das receitas que acabaram de ser anexadas
+            cleanExistingDuplicates();
+            ensureMasterUsers();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0];
+            if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    let importedData = JSON.parse(evt.target.result);
+                    if (importedData && typeof importedData === 'object') {
+                        // Ao invés de substituir (normalizeDatabaseObject), agora mescla/anexa!
+                        mergeDatabaseObject(importedData);
+                        persistDB();
+                        refreshAllViews();
+                        alert("Backup MESCLADO com sucesso! As informações do arquivo antigo foram anexadas à nuvem sem apagar os seus cadastros mais recentes.");
+                    } else {
+                        alert("Formato de arquivo inválido.");
+                    }
+                } catch (err) {
+                    alert("Erro ao ler o arquivo JSON.");
+                }
+            };
+            reader.readAsText(file);
         }
 
         function normalizeDatabaseObject(raw) {
@@ -1219,24 +1265,29 @@
         }
 
         function cleanExistingDuplicates() {
-            if (!db.revenues || db.revenues.length === 0) return;
+            if (!db.revenues || !Array.isArray(db.revenues)) return;
             let uniqueMap = new Map();
             let cleanedList = [];
 
             db.revenues.forEach(rev => {
-                if (!rev) return;
-                let ownerKey = (rev.userEmail || MASTER_EMAIL).trim().toLowerCase();
-                let key = ownerKey + '|' + (rev.paciente || '').trim().toLowerCase() + '|' + (rev.gestor || '').trim().toLowerCase();
+                if (!rev || typeof rev !== 'object') return;
+                let ownerKey = String(rev.userEmail || MASTER_EMAIL).trim().toLowerCase();
+                let key = ownerKey + '|' + String(rev.paciente || '').trim().toLowerCase() + '|' + String(rev.gestor || '').trim().toLowerCase();
+                
                 if (uniqueMap.has(key)) {
                     let primary = uniqueMap.get(key);
-                    if (rev.medications && Array.isArray(rev.medications)) {
-                        primary.medications.push(...rev.medications);
+                    if (Array.isArray(rev.medications)) {
+                        if (!Array.isArray(primary.medications)) primary.medications = [];
+                        primary.medications.push(...rev.medications.filter(m => m && m.name));
                     }
-                    if (rev.medHistory && Array.isArray(rev.medHistory)) {
-                        primary.medHistory.push(...rev.medHistory);
+                    if (Array.isArray(rev.medHistory)) {
+                        if (!Array.isArray(primary.medHistory)) primary.medHistory = [];
+                        primary.medHistory.push(...rev.medHistory.filter(m => m && m.name));
                     }
                     archiveOldIdenticalMedications(primary);
                 } else {
+                    if (Array.isArray(rev.medications)) rev.medications = rev.medications.filter(m => m && m.name);
+                    if (Array.isArray(rev.medHistory)) rev.medHistory = rev.medHistory.filter(m => m && m.name);
                     archiveOldIdenticalMedications(rev);
                     uniqueMap.set(key, rev);
                     cleanedList.push(rev);
@@ -1410,9 +1461,6 @@
             displayInput.value = `${days} dias (${riskLabel}) — Próx. Avaliação: ${formatDateBR(previewNextDate)}`;
         }
 
-        // =========================================================================
-        // 3. ALERTA DO IVCF-20 MAIS ATUAL NA RECEITA (APENAS ALERTA VISUAL NA COR EXATA)
-        // =========================================================================
         function checkDuplicateAndIvcf() {
             let pName = document.getElementById('revenue-paciente').value.trim();
             let gName = document.getElementById('revenue-gestor').value.trim();
@@ -1426,11 +1474,11 @@
             if (!pName) {
                 alertBox.classList.add('hidden');
                 dupBox.classList.add('hidden');
+                suggestedIvcfProfile = null;
                 duplicateMatchId = null;
                 return;
             }
 
-            // Busca todas as avaliações IVCF-20 daquele paciente e pega a MAIS ATUAL lançada
             let matchingIvcfs = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail) && stringsAreSimilar(i.name || '', pName));
             if (matchingIvcfs.length > 0) {
                 matchingIvcfs.sort((a, b) => new Date(b.date || '2000-01-01') - new Date(a.date || '2000-01-01'));
@@ -1477,7 +1525,21 @@
             }
         }
 
-        // Linha de medicamento completa com Nome + Dose/Unidade (mg, mcg, gts, cp, cps) + Posologia
+        function applyIvcfProfile() {
+            if (!suggestedIvcfProfile) return;
+            let selects = document.querySelectorAll('select[name="med_cycle"]');
+            selects.forEach(sel => {
+                if (["30", "60", "90", "180", "360"].includes(String(suggestedIvcfProfile))) {
+                    sel.value = String(suggestedIvcfProfile);
+                } else {
+                    sel.value = "manual";
+                    let manualInput = sel.nextElementSibling;
+                    if (manualInput) { manualInput.classList.remove('hidden'); manualInput.value = suggestedIvcfProfile; }
+                }
+            });
+            alert("Ciclo sugerido aplicado aos medicamentos com sucesso!");
+        }
+
         function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '', medDose = '', medPosologia = '') {
             let container = document.getElementById('medication-rows-container');
             let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2, 5);
@@ -1492,12 +1554,12 @@
                             <input type="text" name="med_name" required value="${medName}" placeholder="Ex: Losartana, Levotiroxina..." class="w-full px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)">
                         </div>
                         <div class="md:col-span-3">
-                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Dose / Unid. (mg, mcg, gts, cp, cps)</label>
-                            <input type="text" name="med_dose" value="${medDose}" placeholder="Ex: 50mg cp, 25mcg, 10gts" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Dose / Unid.</label>
+                            <input type="text" name="med_dose" value="${medDose}" placeholder="Ex: 50mg, 10gts" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
                         </div>
                         <div class="md:col-span-4">
-                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Posologia (Como usa)</label>
-                            <input type="text" name="med_posologia" value="${medPosologia}" placeholder="Ex: 1 cp de 12/12h, 1 cp jejum" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Posologia</label>
+                            <input type="text" name="med_posologia" value="${medPosologia}" placeholder="Ex: 1 cp de 12/12h" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-end">
@@ -1539,7 +1601,7 @@
             allInputs.forEach(inp => { if (stringsAreSimilar(inp.value, val)) count++; });
             if (count > 1) {
                 inputEl.classList.add('border-amber-500', 'bg-amber-50');
-                inputEl.title = "Se houver duas linhas do mesmo medicamento, a de data mais antiga irá automaticamente para o Histórico ao salvar!";
+                inputEl.title = "Atenção! Remédios iguais na mesma receita irão se sobrepor.";
             } else {
                 inputEl.classList.remove('border-amber-500', 'bg-amber-50');
             }
@@ -1683,9 +1745,6 @@
 
         function closeHistoryModal() { document.getElementById('history-modal').classList.add('hidden'); }
 
-        // =========================================================================
-        // 4. HISTÓRICO DE MEDICAMENTOS (ATIVOS E ANTERIORES OCULTOS NA RENOVAÇÃO)
-        // =========================================================================
         function showMedHistoryModal(revId) {
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev) return;
@@ -1940,7 +1999,6 @@
             });
         }
 
-        // Ao renovar, move a medicação da data anterior para rev.medHistory e deixa apenas a nova visível na lista ativa!
         function renewSingleMed(revId, medIndex) {
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev || !rev.medications[medIndex]) return;
@@ -1950,11 +2008,7 @@
 
             let todayStr = new Date().toISOString().split('T')[0];
             if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
-            rev.medHistory.push({
-                ...med,
-                archivedAt: todayStr,
-                reason: "Renovação individual de receita"
-            });
+            rev.medHistory.push({ ...med, archivedAt: todayStr, reason: "Renovação individual de receita" });
 
             med.cycleDays = newDays;
             med.baseDate = todayStr;
@@ -1974,11 +2028,7 @@
 
             rev.medications.forEach(med => {
                 if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
-                    rev.medHistory.push({
-                        ...med,
-                        archivedAt: todayStr,
-                        reason: "Renovação de grupo"
-                    });
+                    rev.medHistory.push({ ...med, archivedAt: todayStr, reason: "Renovação de grupo" });
                     med.cycleDays = newDays;
                     med.baseDate = todayStr;
                 }
@@ -2006,11 +2056,7 @@
                     if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
                     rev.medications.forEach(med => {
                         if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
-                            rev.medHistory.push({
-                                ...med,
-                                archivedAt: todayStr,
-                                reason: "Renovação em lote"
-                            });
+                            rev.medHistory.push({ ...med, archivedAt: todayStr, reason: "Renovação em lote" });
                             med.cycleDays = newDays;
                             med.baseDate = todayStr;
                         }
@@ -2145,8 +2191,6 @@
                     document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
                     if (btnHist) btnHist.classList.remove('hidden');
 
-                    // Garante que apenas as medicações ativas mais recentes apareçam nas linhas de edição
-                    archiveOldIdenticalMedications(rev);
                     (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr, m.dose || '', m.posologia || ''));
                     checkDuplicateAndIvcf();
                 }
@@ -2182,11 +2226,10 @@
                 if (existingRev) {
                     if (!Array.isArray(existingRev.medications)) existingRev.medications = [];
                     existingRev.medications.push(...medications);
-                    archiveOldIdenticalMedications(existingRev);
                     persistDB();
                     closeRevenueModal();
                     refreshAllViews();
-                    alert("Medicamentos unificados! Caso houvesse medicação repetida de data anterior, ela foi arquivada no Histórico.");
+                    alert("Medicamentos unificados! Se a data for mais recente, os antigos foram enviados ao Histórico.");
                     return;
                 }
             }
@@ -2198,7 +2241,6 @@
                     rev.paciente = paciente;
                     rev.medico = medico;
                     rev.medications = medications;
-                    archiveOldIdenticalMedications(rev);
                 }
             } else {
                 let newRev = {
@@ -2211,7 +2253,6 @@
                     medications,
                     medHistory: []
                 };
-                archiveOldIdenticalMedications(newRev);
                 db.revenues.push(newRev);
             }
             persistDB(); closeRevenueModal(); refreshAllViews();
@@ -2285,17 +2326,14 @@
             }
         }
 
-        // =========================================================================
-        // 5. PAINEL MASTER: GESTÃO DE CONVITES ACS, VISUALIZAÇÃO, BLOQUEIO E EXCLUSÃO
-        // =========================================================================
         function renderUsers() {
             let tbody = document.getElementById('users-table-body');
             if (!tbody) return;
             tbody.innerHTML = (db.users || []).filter(u => u && u.email).map(u => {
-                let uEmail = u.email.toLowerCase();
+                let uEmail = String(u.email).toLowerCase();
                 let isPrimary = isMasterAccount(uEmail);
-                let countItems = (db.items || []).filter(i => (i.userEmail || '').toLowerCase() === uEmail).length;
-                let countRevs = (db.revenues || []).filter(r => (r.userEmail || '').toLowerCase() === uEmail).length;
+                let countItems = (db.items || []).filter(i => String(i.userEmail || '').toLowerCase() === uEmail).length;
+                let countRevs = (db.revenues || []).filter(r => String(r.userEmail || '').toLowerCase() === uEmail).length;
                 let statusBadge = u.status === 'inactive'
                     ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Bloqueado</span>`
                     : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
@@ -2309,7 +2347,7 @@
                     <td class="p-4">${statusBadge}</td>
                     <td class="p-4 text-center space-x-1">
                         <button onclick="copyAcsInvite('${u.email}')" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-xs font-semibold cursor-pointer" title="Copiar Convite Pronto para WhatsApp"><i class="fa-brands fa-whatsapp mr-1"></i>Convite</button>
-                        <button onclick="inspectAcsRecords('${u.email}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-xs font-semibold cursor-pointer" title="Filtrar e Ver Cadastros deste ACS"><i class="fa-solid fa-folder-open mr-1"></i>Ver Arquivos</button>
+                        <button onclick="inspectAcsRecords('${u.email}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-xs font-semibold cursor-pointer" title="Filtrar e Ver Cadastros deste ACS"><i class="fa-solid fa-folder-open mr-1"></i>Ver Cadastros</button>
                         <button onclick="resetUserPassword('${u.email}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded text-xs font-semibold cursor-pointer" title="Ver ou Redefinir Senha"><i class="fa-solid fa-key"></i></button>
                         ${!isPrimary ? `
                             <button onclick="toggleUserStatus('${u.email}')" class="px-2.5 py-1 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear' : 'Bloquear'}</button>
@@ -2321,11 +2359,11 @@
         }
 
         function copyAcsInvite(email) {
-            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
             if (!u) return;
             let appUrl = window.location.href.split('#')[0];
             let inviteText = `Olá *${u.name || u.email}*!\nSeu acesso individual ao *Sistema de Gestão ACS* foi liberado pelo ADM Master.\n\n🔗 *Link de Acesso:* ${appUrl}\n👤 *Login (E-mail):* ${u.email}\n🔑 *Senha:* ${u.password}\n\n*(Ao entrar, sua página estará pronta e em branco para seus cadastros)*`;
-            if (navigator.clipboard) {
+            if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(inviteText).then(() => {
                     alert("Convite copiado para a área de transferência! Agora basta colar (Ctrl+V) no WhatsApp ou E-mail do ACS:\n\n" + inviteText);
                 }).catch(() => prompt("Copie o texto do convite abaixo:", inviteText));
@@ -2338,14 +2376,14 @@
             let select = document.getElementById('master-acs-filter');
             if (select) {
                 updateMasterFilterDropdown();
-                select.value = email.toLowerCase();
+                select.value = String(email).toLowerCase();
                 switchTab('evaluations');
                 refreshAllViews();
             }
         }
 
         function toggleUserStatus(email) {
-            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
             if (!u || isMasterAccount(u.email)) return;
             u.status = u.status === 'inactive' ? 'active' : 'inactive';
             persistDB();
@@ -2353,22 +2391,23 @@
         }
 
         function deleteUserAccount(email) {
-            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            let targetEmail = String(email).toLowerCase();
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === targetEmail);
             if (!u || isMasterAccount(u.email)) return;
             if (!confirm(`Deseja remover o acesso do ACS "${u.name || u.email}"?`)) return;
             let deleteRecords = confirm(`Deseja também excluir todos os pacientes/receitas cadastrados por ${u.email}?\n(Clique em OK para apagar tudo dele, ou Cancelar para manter os arquivos sob seu controle Master)`);
             if (deleteRecords) {
-                db.items = (db.items || []).filter(i => (i.userEmail || '').toLowerCase() !== email.toLowerCase());
-                db.revenues = (db.revenues || []).filter(r => (r.userEmail || '').toLowerCase() !== email.toLowerCase());
+                if (Array.isArray(db.items)) db.items = db.items.filter(i => String(i.userEmail || '').toLowerCase() !== targetEmail);
+                if (Array.isArray(db.revenues)) db.revenues = db.revenues.filter(r => String(r.userEmail || '').toLowerCase() !== targetEmail);
             }
-            db.users = (db.users || []).filter(x => x && x.email && x.email.toLowerCase() !== email.toLowerCase());
+            db.users = (db.users || []).filter(x => x && x.email && String(x.email).toLowerCase() !== targetEmail);
             persistDB();
             updateMasterFilterDropdown();
             refreshAllViews();
         }
 
         function resetUserPassword(email) {
-            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
             if (!u) return;
             let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
             if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada na nuvem!"); }
@@ -2388,7 +2427,7 @@
             let email = document.getElementById('invite-email').value.trim().toLowerCase();
             let role = document.getElementById('invite-role').value;
             let password = document.getElementById('invite-pass').value.trim();
-            if (db.users.find(u => u && u.email && u.email.toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
+            if (db.users.find(u => u && u.email && String(u.email).toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
             db.users.push({ email, name: name || email.split('@')[0], password, role, status: 'active' });
             persistDB();
             closeInviteModal();
@@ -2408,12 +2447,13 @@
             let reader = new FileReader();
             reader.onload = function(evt) {
                 try {
-                    normalizeDatabaseObject(JSON.parse(evt.target.result));
+                    let imp = JSON.parse(evt.target.result);
+                    mergeDatabaseObject(imp);
                     persistDB();
                     updateMasterFilterDropdown();
                     refreshAllViews();
-                    alert("Backup restaurado e sincronizado na nuvem com sucesso!");
-                } catch (err) { alert("Erro ao ler arquivo JSON."); }
+                    alert("Backup MESCLADO com sucesso! As informações do ficheiro antigo foram anexadas à nuvem sem apagar os seus cadastros mais recentes.");
+                } catch (err) { alert("Erro ao ler ficheiro JSON."); }
             };
             reader.readAsText(file);
         }
