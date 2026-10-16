@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v20.6 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v20.7 Cloud</title>
     
     <!-- LIMPADOR IMEDIATO DE CACHE E SERVICE WORKER ANTIGO -->
     <script>
@@ -56,10 +56,10 @@
                         <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.6</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v20.7</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.6 Cloud</span> — Sincronização em Tempo Real
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 20.7 Cloud</span> — Multi-ACS em Tempo Real
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
                         <i class="fa-solid fa-rotate fa-spin"></i>
@@ -69,7 +69,7 @@
 
                 <!-- SELEÇÃO RÁPIDA GOOGLE -->
                 <div class="mb-4 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                    <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">1. Clique na sua Conta Google:</p>
+                    <p class="text-[11px] font-bold uppercase text-slate-500 mb-2 text-center">Atalho Rápido de Conta (ou digite abaixo):</p>
                     <div class="grid grid-cols-1 gap-2">
                         <button type="button" onclick="quickSelectAccount('marcelo.doetz@gmail.com')" class="w-full text-left p-2.5 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 transition-all flex items-center space-x-3 cursor-pointer shadow-sm">
                             <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">M</div>
@@ -88,14 +88,14 @@
                     </div>
                 </div>
 
-                <!-- CAMPOS DE LOGIN DIRETO (DENTRO DE FORM E COM BOTÃO DUPLO) -->
+                <!-- CAMPOS DE LOGIN DIRETO -->
                 <form onsubmit="doSystemLogin(event); return false;" class="space-y-3">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário</label>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail de Usuário (ACS / Master)</label>
                         <input type="text" id="login-email" value="marcelo.doetz@gmail.com" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 text-sm outline-none font-medium" placeholder="seu.email@gmail.com">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">2. Digite sua Senha de Acesso</label>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha de Acesso</label>
                         <div class="relative">
                             <input type="password" id="login-password" class="w-full px-4 py-2.5 pr-10 rounded-xl border border-blue-400 focus:ring-2 focus:ring-blue-600 text-sm outline-none bg-blue-50/30" placeholder="Digite sua senha aqui...">
                             <button type="button" onclick="togglePasswordVisibility('login-password', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-800 cursor-pointer" title="Mostrar/Ocultar Senha">
@@ -111,22 +111,22 @@
                 </form>
 
                 <div class="mt-5 pt-3 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v20.6)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v20.7)</span></p>
                 </div>
             </div>
         </div>
 
         <!-- MAIN SCREEN -->
         <div id="main-screen" class="hidden flex-1 flex flex-col h-full overflow-hidden">
-            <header class="bg-white border-b border-slate-200 px-6 py-3.5 flex items-center justify-between shadow-sm">
+            <header class="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shadow-sm">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow">
+                    <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow shrink-0">
                         <i class="fa-solid fa-hospital-user"></i>
                     </div>
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.6</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v20.7</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Verificando Nuvem...</span>
@@ -136,24 +136,34 @@
                     </div>
                 </div>
                 
-                <!-- BARRA DE BUSCA GLOBAL -->
-                <div class="flex-1 max-w-md mx-6">
-                    <div class="relative">
+                <!-- BARRA DE BUSCA GLOBAL + FILTRO MASTER DE ACS -->
+                <div class="flex-1 flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-2">
+                    <div class="relative flex-1 min-w-[200px]">
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-search"></i>
                         </span>
-                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Pesquisar por paciente ou medicamento..." class="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50">
+                        <input type="text" id="global-search" oninput="handleGlobalSearch()" placeholder="Pesquisar paciente, gestor ou med..." class="w-full pl-9 pr-3 py-1.5 border border-slate-300 rounded-xl text-xs sm:text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50">
+                    </div>
+
+                    <!-- Seletor Exclusivo do ADM Master para filtrar qual ACS está visualizando -->
+                    <div id="master-view-filter-box" class="hidden flex items-center space-x-1.5 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
+                        <i class="fa-solid fa-eye text-indigo-600 text-xs"></i>
+                        <span class="text-[11px] font-bold text-indigo-900 uppercase hidden lg:inline">Visão Master:</span>
+                        <select id="master-acs-filter" onchange="refreshAllViews()" class="bg-transparent text-xs font-bold text-indigo-800 outline-none cursor-pointer">
+                            <option value="all">Todos os ACS (Equipe Completa)</option>
+                            <option value="mine">Apenas Meus Cadastros</option>
+                        </select>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <div class="text-right hidden sm:block">
-                        <p id="user-display-name" class="text-sm font-semibold text-slate-800"></p>
-                        <p id="user-display-email" class="text-xs text-slate-500"></p>
+                <div class="flex items-center space-x-2">
+                    <div class="text-right hidden xl:block">
+                        <p id="user-display-name" class="text-xs font-bold text-slate-800"></p>
+                        <p id="user-display-email" class="text-[11px] text-slate-500"></p>
                     </div>
                     <button onclick="openChangePasswordModal()" class="p-2 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all flex items-center space-x-1 text-xs font-semibold border border-slate-200 cursor-pointer" title="Alterar Minha Senha">
                         <i class="fa-solid fa-key"></i>
-                        <span class="hidden md:inline">Alterar Senha</span>
+                        <span class="hidden md:inline">Senha</span>
                     </button>
                     <button onclick="logout()" class="p-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all cursor-pointer" title="Sair"><i class="fa-solid fa-power-off text-lg"></i></button>
                 </div>
@@ -187,13 +197,13 @@
                             <i class="fa-solid fa-cloud-arrow-up w-5 text-blue-600"></i><span>Nuvem & Backup</span>
                         </button>
                         <button id="admin-tab-btn" onclick="switchTab('admin')" class="w-full hidden items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100 cursor-pointer">
-                            <i class="fa-solid fa-shield-halved w-5 text-indigo-600"></i><span>Painel Master & Acessos</span>
+                            <i class="fa-solid fa-shield-halved w-5 text-indigo-600"></i><span>Painel Master & ACS</span>
                         </button>
                     </div>
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 20.6 Cloud</span>
+                            APK <span class="ver-full-label">Versão 20.7 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -204,7 +214,7 @@
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Avaliações IVCF-20 & IVSF-10</h3>
-                                <p class="text-xs text-slate-500">Ordenado do maior risco (Vermelho &rarr; Amarelo &rarr; Verde). Datas de avaliação editáveis.</p>
+                                <p class="text-xs text-slate-500">Ordenado automaticamente do maior risco (Vermelho &rarr; Amarelo &rarr; Verde). Datas de avaliação editáveis.</p>
                             </div>
                             <div class="flex flex-wrap items-center gap-3">
                                 <div class="flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
@@ -225,7 +235,7 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
-                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Gestor / ACS</th>
                                         <th class="p-4">Nome / Paciente</th>
                                         <th class="p-4 cursor-pointer hover:bg-blue-50/60 transition-all select-none" onclick="toggleIvcfSortOrder()" title="Clique para alternar entre Ordem Decrescente e Crescente">
                                             <div class="flex items-center space-x-1.5 text-blue-700">
@@ -241,16 +251,16 @@
                                 </thead>
                                 <tbody id="items-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                             </table>
-                            <div id="empty-state" class="hidden text-center py-12 text-slate-400">Nenhum registro encontrado.</div>
+                            <div id="empty-state" class="hidden text-center py-12 text-slate-400">Nenhum registro encontrado nesta visualização.</div>
                         </div>
                     </div>
 
                     <!-- ABA RECEITAS & AFINS -->
                     <div id="tab-revenues" class="hidden space-y-6 max-w-7xl mx-auto">
-                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Gestão de Receitas & Medicamentos (Dr. Andrey)</h3>
-                                <p class="text-xs text-slate-500">Adicione receitas completas com múltiplos medicamentos sincronizadas na nuvem.</p>
+                                <p class="text-xs text-slate-500">Múltiplos medicamentos com dosagem (mg/mcg/gts/cp/cps) e posologia. Renovações arquivam a receita anterior no histórico.</p>
                             </div>
                             <div class="flex space-x-2">
                                 <button onclick="exportRevenuesPDF()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
@@ -265,16 +275,16 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-xs font-bold uppercase">
-                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Gestor / ACS</th>
                                         <th class="p-4">Paciente</th>
                                         <th class="p-4">Médico</th>
-                                        <th class="p-4">Qtd. Medicamentos</th>
-                                        <th class="p-4 text-center">Ações</th>
+                                        <th class="p-4">Medicamentos Ativos</th>
+                                        <th class="p-4 text-center">Ações / Histórico Meds</th>
                                     </tr>
                                 </thead>
                                 <tbody id="revenues-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                             </table>
-                            <div id="empty-revenue-state" class="hidden text-center py-12 text-slate-400">Nenhuma receita cadastrada.</div>
+                            <div id="empty-revenue-state" class="hidden text-center py-12 text-slate-400">Nenhuma receita cadastrada nesta visualização.</div>
                         </div>
                     </div>
 
@@ -283,7 +293,7 @@
                         <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Lista de Pacientes Cadastrados</h3>
-                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Gerencie status e baixe relatórios.</p>
+                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Exibe apenas as medicações ativas atuais e botão para consultar o histórico de medicações anteriores.</p>
                             </div>
                             <button onclick="exportAllPatientsPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
                                 <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Lista de Pacientes
@@ -294,15 +304,15 @@
                                 <thead>
                                     <tr class="bg-indigo-50 border-b border-indigo-200 text-indigo-800 text-xs font-bold uppercase">
                                         <th class="p-4">Paciente</th>
-                                        <th class="p-4">Gestor</th>
-                                        <th class="p-4">Medicamentos, Ciclos & Observações</th>
+                                        <th class="p-4">Gestor / ACS</th>
+                                        <th class="p-4">Medicamentos Ativos (Dose, Posologia & Vencimento)</th>
                                         <th class="p-4">Status</th>
-                                        <th class="p-4 text-center">Ações</th>
+                                        <th class="p-4 text-center">Ações / Histórico</th>
                                     </tr>
                                 </thead>
                                 <tbody id="patients-table-body" class="divide-y divide-slate-100 text-sm"></tbody>
                             </table>
-                            <div id="empty-patient-state" class="hidden text-center py-12 text-slate-400">Nenhum paciente cadastrado.</div>
+                            <div id="empty-patient-state" class="hidden text-center py-12 text-slate-400">Nenhum paciente cadastrado nesta visualização.</div>
                         </div>
                     </div>
 
@@ -311,7 +321,7 @@
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800 mb-1">Pacientes Separados por Dias de Prescrição</h3>
-                                <p class="text-xs text-slate-500">Clique no nome do paciente para visualizar os detalhes da medicação. Use a busca ou baixe por período.</p>
+                                <p class="text-xs text-slate-500">Clique no nome do paciente para visualizar os detalhes da medicação e posologia.</p>
                             </div>
                             <div class="w-full md:w-72">
                                 <input type="text" id="cycle-search" oninput="renderCycles()" placeholder="Filtrar nesta aba..." class="w-full px-3 py-2 border rounded-xl text-sm bg-slate-50 outline-none focus:ring-2 focus:ring-amber-500">
@@ -369,17 +379,17 @@
 
                     <!-- ABA DE RENOVAÇÃO -->
                     <div id="tab-renewals" class="hidden space-y-6 max-w-7xl mx-auto">
-                        <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Aba de Renovação de Medicamentos</h3>
-                                <p class="text-xs text-slate-500">Agrupado por paciente e data. Cada data gera seu próprio relatório separado sem misturar.</p>
+                                <p class="text-xs text-slate-500">Ao renovar, a medicação da data anterior é ocultada da lista ativa e guardada automaticamente no Histórico de Medicamentos do paciente.</p>
                             </div>
                             <div class="flex flex-wrap gap-2">
                                 <button onclick="exportRenewalsPDF()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
                                     <i class="fa-solid fa-file-pdf mr-2"></i>PDF Lista Geral
                                 </button>
                                 <button onclick="exportRenewalsSeparatedByUserPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
-                                    <i class="fa-solid fa-file-pdf mr-2"></i>PDF Separado por Usuário
+                                    <i class="fa-solid fa-file-pdf mr-2"></i>PDF Separado por Paciente
                                 </button>
                                 <button onclick="renewSelectedGroups()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all flex items-center space-x-2 cursor-pointer">
                                     <i class="fa-solid fa-check-double"></i>
@@ -394,8 +404,8 @@
                                         <th class="p-4 text-center w-12"><input type="checkbox" id="select-all-renewals" onclick="toggleSelectAllRenewals(this)" title="Selecionar Todos"></th>
                                         <th class="p-4">Data de Renovação</th>
                                         <th class="p-4">Paciente</th>
-                                        <th class="p-4">Medicamentos do Grupo (Confecção & Obs)</th>
-                                        <th class="p-4">Gestor</th>
+                                        <th class="p-4">Medicamentos do Grupo (Dose, Posologia & Confecção)</th>
+                                        <th class="p-4">Gestor / ACS</th>
                                         <th class="p-4">Médico</th>
                                         <th class="p-4 text-center">Ações</th>
                                     </tr>
@@ -411,7 +421,7 @@
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800 mb-1">Central de Históricos e Gráficos</h3>
-                                <p class="text-xs text-slate-500">Acompanhe a evolução gráfica tanto das pontuações quanto do volume de receitas e medicamentos.</p>
+                                <p class="text-xs text-slate-500">Acompanhe a evolução gráfica tanto das pontuações quanto do volume de receitas e medicamentos ativos.</p>
                             </div>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -422,7 +432,7 @@
                                     </div>
                                 </div>
                                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-                                    <h4 class="font-bold text-slate-700 text-sm">Volume de Medicamentos por Ciclo</h4>
+                                    <h4 class="font-bold text-slate-700 text-sm">Volume de Medicamentos Ativos por Ciclo</h4>
                                     <div class="h-72 relative">
                                         <canvas id="revenueChart"></canvas>
                                     </div>
@@ -437,7 +447,7 @@
                             <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
                                     <h4 class="font-bold text-blue-900 text-base mb-1">Relatório Pacientes</h4>
-                                    <p class="text-xs text-blue-700 mb-4">Exporta a listagem alfabética de pacientes e medicamentos.</p>
+                                    <p class="text-xs text-blue-700 mb-4">Exporta a listagem alfabética de pacientes, medicamentos, dosagens e posologias.</p>
                                 </div>
                                 <button onclick="exportAllPatientsPDF()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar PDF Pacientes</button>
                             </div>
@@ -463,11 +473,11 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.6 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 20.7 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
                                     Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`).<br>
-                                    Qualquer alteração feita em um computador ou celular aparece automaticamente nos outros aparelhos!
+                                    Qualquer alteração feita por você ou por qualquer ACS convidado fica sincronizada em tempo real!
                                 </p>
                             </div>
                             <button onclick="forceCloudSync()" class="shrink-0 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs shadow cursor-pointer">
@@ -481,7 +491,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.6</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v20.7</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -496,27 +506,33 @@
                         </div>
                     </div>
 
-                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE USUÁRIOS -->
+                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS -->
                     <div id="tab-admin" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
-                            <div class="flex justify-between items-center">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                                 <div>
-                                    <h3 class="text-lg font-bold text-slate-800">Painel de Autorização & Segurança Master</h3>
-                                    <p class="text-xs text-slate-500">Apenas você (Master) pode cadastrar logins pré-determinados, redefinir senhas ou bloquear usuários.</p>
+                                    <h3 class="text-lg font-bold text-slate-800">Painel de Autorização & Convites para ACS</h3>
+                                    <p class="text-xs text-slate-500">Cada ACS convidado acessa sua própria página em branco isolada. Você (ADM Master) pode visualizar, incluir, editar, bloquear ou excluir qualquer ACS e seus arquivos.</p>
                                 </div>
-                                <button onclick="openInviteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow cursor-pointer">Cadastrar Novo Usuário</button>
+                                <button onclick="openInviteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow cursor-pointer shrink-0">
+                                    <i class="fa-solid fa-user-plus mr-2"></i>Convidar / Cadastrar Novo ACS
+                                </button>
                             </div>
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-slate-50 border-b text-xs font-bold uppercase">
-                                        <th class="p-4">E-mail (Login)</th>
-                                        <th class="p-4">Função</th>
-                                        <th class="p-4">Status de Autorização</th>
-                                        <th class="p-4 text-center">Ações Master</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="users-table-body" class="divide-y text-sm"></tbody>
-                            </table>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-slate-50 border-b text-xs font-bold uppercase text-slate-600">
+                                            <th class="p-4">Nome / Identificação</th>
+                                            <th class="p-4">E-mail (Login)</th>
+                                            <th class="p-4">Função</th>
+                                            <th class="p-4">Qtd. Cadastros</th>
+                                            <th class="p-4">Status</th>
+                                            <th class="p-4 text-center">Controle Master (Convite, Visão, Senha, Bloqueio)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body" class="divide-y text-sm"></tbody>
+                                </table>
+                            </div>
                         </div>
 
                         <!-- Configuração de Feriados e Férias do Médico -->
@@ -571,8 +587,8 @@
                 <input type="hidden" id="item-id">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
-                        <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor / ACS</label>
+                        <input type="text" id="item-gestor" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor/ACS">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-blue-700 mb-1">Data da Avaliação (Editável)</label>
@@ -615,98 +631,125 @@
         </div>
     </div>
 
-    <!-- MODAL RECEITAS & MEDICAMENTOS -->
+    <!-- MODAL RECEITAS & MEDICAMENTOS (COM ALERTA IVCF-20 INFORMATIVO E CAMPOS DE DOSE + POSOLOGIA) -->
     <div id="revenue-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden max-h-[90vh] flex flex-col">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-3xl overflow-hidden max-h-[92vh] flex flex-col">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 id="revenue-modal-title" class="font-bold">Nova Receita / Múltiplos Medicamentos</h3>
+                <div class="flex items-center space-x-3">
+                    <h3 id="revenue-modal-title" class="font-bold text-slate-800">Nova Receita / Múltiplos Medicamentos</h3>
+                    <button type="button" id="btn-modal-med-history" onclick="openMedHistoryFromRevenueModal()" class="hidden px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-semibold hover:bg-indigo-100 cursor-pointer">
+                        <i class="fa-solid fa-clock-rotate-left mr-1"></i>Ver Histórico de Meds Antigos
+                    </button>
+                </div>
                 <button onclick="closeRevenueModal()" class="cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form id="revenue-form" onsubmit="saveRevenue(event)" class="p-6 space-y-4 overflow-y-auto flex-1">
                 <input type="hidden" id="revenue-id">
                 
-                <div id="ivcf-alert-box" class="hidden p-4 rounded-xl border text-sm flex items-center justify-between">
-                    <div id="ivcf-alert-text" class="font-medium"></div>
-                    <button type="button" id="apply-ivcf-btn" onclick="applyIvcfProfile()" class="px-3 py-1.5 bg-white text-slate-800 border rounded-lg text-xs font-bold shadow-sm hover:bg-slate-50 cursor-pointer">Aplicar Ciclo Sugerido</button>
+                <!-- ALERTA DO IVCF-20 MAIS ATUAL (APENAS ALERTA VISUAL NA COR DO IVCF-20, SEM BOTÃO DE ALTERAR) -->
+                <div id="ivcf-alert-box" class="hidden p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2 shadow-sm">
+                    <i class="fa-solid fa-bell text-base shrink-0"></i>
+                    <div id="ivcf-alert-text" class="font-bold leading-snug"></div>
                 </div>
 
                 <div id="duplicate-alert-box" class="hidden p-4 rounded-xl border text-sm bg-amber-50 border-amber-300 text-amber-900 space-y-2">
-                    <div class="font-bold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-amber-600"></i> Nome Similar ou Duplicado Encontrado!</div>
+                    <div class="font-bold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2 text-amber-600"></i> Paciente Já Cadastrado Encontrado!</div>
                     <p id="duplicate-alert-msg" class="text-xs"></p>
                     <div class="flex space-x-2 pt-1">
-                        <button type="button" onclick="resolveDuplicate(true)" class="px-3 py-1 bg-amber-600 text-white rounded-lg text-xs font-semibold shadow hover:bg-amber-700 cursor-pointer">Unificar com Existente</button>
+                        <button type="button" onclick="resolveDuplicate(true)" class="px-3 py-1 bg-amber-600 text-white rounded-lg text-xs font-semibold shadow hover:bg-amber-700 cursor-pointer">Unificar com Existente (Renova Meds Iguais)</button>
                         <button type="button" onclick="resolveDuplicate(false)" class="px-3 py-1 bg-white border border-amber-400 text-amber-900 rounded-lg text-xs font-semibold hover:bg-amber-100 cursor-pointer">Criar Separado</button>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor</label>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Gestor / ACS</label>
                         <input type="text" id="revenue-gestor" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Gestor">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Paciente</label>
                         <input type="text" id="revenue-paciente" required oninput="checkDuplicateAndIvcf()" class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Nome do Paciente">
                     </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Médico</label>
-                    <input type="text" id="revenue-medico" required value="Dr. Andrey" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-50 font-semibold text-emerald-700">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome do Médico</label>
+                        <input type="text" id="revenue-medico" required value="Dr. Andrey" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-slate-50 font-semibold text-emerald-700">
+                    </div>
                 </div>
 
                 <div class="border-t pt-4">
                     <div class="flex justify-between items-center mb-2">
-                        <label class="block text-xs font-semibold uppercase text-slate-700">Lista de Medicamentos da Receita</label>
-                        <button type="button" onclick="addMedicationRow()" class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold hover:bg-emerald-200 cursor-pointer"><i class="fa-solid fa-plus mr-1"></i> Adicionar Remédio</button>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-700">Medicamentos Ativos da Receita</label>
+                            <p class="text-[11px] text-slate-500">Se lançar um medicamento idêntico com data mais nova, o antigo vai automaticamente para o Histórico.</p>
+                        </div>
+                        <button type="button" onclick="addMedicationRow()" class="px-3 py-1.5 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-bold hover:bg-emerald-200 cursor-pointer shrink-0">
+                            <i class="fa-solid fa-plus mr-1"></i> Adicionar Medicamento
+                        </button>
                     </div>
                     <div id="medication-rows-container" class="space-y-3"></div>
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeRevenueModal()" class="px-4 py-2 border rounded-xl text-sm cursor-pointer">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-sm font-semibold cursor-pointer">Salvar Receita</button>
+                    <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Salvar Receita</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL CADASTRO DE USUÁRIO (ADMIN) -->
+    <!-- MODAL DE HISTÓRICO DE MEDICAMENTOS DO PACIENTE (ATIVOS + ANTERIORES OCULTOS) -->
+    <div id="med-history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden max-h-[88vh] flex flex-col">
+            <div class="px-6 py-4 bg-indigo-50 border-b border-indigo-100 flex justify-between items-center">
+                <h3 class="font-bold text-indigo-950"><i class="fa-solid fa-pills mr-2 text-indigo-600"></i>Histórico Completo de Medicamentos & Posologia</h3>
+                <button onclick="closeMedHistoryModal()" class="cursor-pointer text-slate-500 hover:text-slate-800"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="med-history-modal-content" class="p-6 space-y-4 overflow-y-auto flex-1 text-sm"></div>
+            <div class="px-6 py-3 bg-slate-50 border-t flex justify-end">
+                <button onclick="closeMedHistoryModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-semibold cursor-pointer">Fechar Histórico</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CADASTRO / CONVITE DE USUÁRIO ACS (ADMIN) -->
     <div id="invite-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
-                <h3 class="font-bold">Cadastrar Usuário Pré-Determinado</h3>
+                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-user-plus mr-2 text-indigo-600"></i>Convidar / Cadastrar Novo ACS</h3>
                 <button onclick="closeInviteModal()" class="cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="sendInvite(event)" class="p-6 space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail (Login do Usuário)</label>
-                    <input type="email" id="invite-email" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="email@exemplo.com">
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Nome / Identificação do ACS</label>
+                    <input type="text" id="invite-name" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="Ex: ACS João - Micro 02">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Função de Acesso</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">E-mail (Login do ACS)</label>
+                    <input type="email" id="invite-email" required class="w-full px-4 py-2.5 border rounded-xl text-sm" placeholder="email.acs@gmail.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Permissão no Sistema</label>
                     <select id="invite-role" class="w-full px-4 py-2.5 border rounded-xl text-sm bg-white">
-                        <option value="user">Gestor Comum</option>
-                        <option value="admin">Administrador</option>
+                        <option value="user">ACS / Gestor (Página em Branco Isolada)</option>
+                        <option value="admin">Administrador Master (Acesso Total)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial</label>
+                    <label class="block text-xs font-semibold uppercase text-slate-600 mb-1">Senha Inicial de Acesso</label>
                     <div class="relative">
-                        <input type="password" id="invite-pass" required value="Mudar@123" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm font-mono outline-none">
-                        <button type="button" onclick="togglePasswordVisibility('invite-pass', this)" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
+                        <input type="text" id="invite-pass" required value="Saude@2026" class="w-full px-4 py-2.5 pr-10 border rounded-xl text-sm font-mono outline-none">
                     </div>
+                    <p class="text-[11px] text-slate-500 mt-1">Ao salvar, o convite já será copiado para você colar no WhatsApp do ACS!</p>
                 </div>
                 <div class="flex justify-end space-x-3 pt-4 border-t">
                     <button type="button" onclick="closeInviteModal()" class="px-4 py-2 border rounded-xl text-sm cursor-pointer">Cancelar</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold cursor-pointer">Cadastrar</button>
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold cursor-pointer">Cadastrar e Gerar Convite</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES -->
+    <!-- MODAL DE HISTÓRICO DE AVALIAÇÕES IVCF -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
             <div class="px-6 py-4 bg-slate-50 border-b flex justify-between items-center">
@@ -777,9 +820,9 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 20.6 CLOUD - LOGIN BLINDADO À PROVA DE FALHAS) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 20.7 CLOUD) -->
     <script>
-        const CURRENT_VERSION = "20.6";
+        const CURRENT_VERSION = "20.7";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
@@ -804,13 +847,12 @@
         let dbRef = null;
         let scoreChartInstance = null;
         let revenueChartInstance = null;
-        let suggestedIvcfProfile = null;
         let duplicateMatchId = null;
         let shouldUnify = false;
         let ivcfSortDirection = 'desc';
 
         // =========================================================================
-        // 1. LOGIN BLINDADO (ABRE A TELA IMEDIATAMENTE SEM RISCO DE TRAVAR)
+        // 1. AUTENTICAÇÃO E CONTROLE MULTI-ACS / MASTER
         // =========================================================================
         function showLoginError(msg) {
             let box = document.getElementById('login-error-box');
@@ -854,9 +896,51 @@
             return e === MASTER_EMAIL || e === SECONDARY_MASTER;
         }
 
+        // Verifica se um registro pertence à visualização ativa (Isola cada ACS na sua própria página em branco e permite ao Master filtrar)
+        function isVisibleToCurrentUser(recordUserEmail) {
+            if (!currentUser) return false;
+            let myEmail = String(currentUser.email).trim().toLowerCase();
+            let recEmail = String(recordUserEmail || MASTER_EMAIL).trim().toLowerCase();
+
+            if (isMasterAccount(myEmail) || currentUser.role === 'admin') {
+                let filterEl = document.getElementById('master-acs-filter');
+                let selectedFilter = filterEl ? filterEl.value : 'all';
+                if (selectedFilter === 'all') return true;
+                if (selectedFilter === 'mine') return recEmail === myEmail;
+                return recEmail === selectedFilter.toLowerCase();
+            }
+            // ACS convidado vê exclusivamente o que ele mesmo cadastrou
+            return recEmail === myEmail;
+        }
+
+        function updateMasterFilterDropdown() {
+            let box = document.getElementById('master-view-filter-box');
+            let select = document.getElementById('master-acs-filter');
+            if (!box || !select || !currentUser) return;
+
+            if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
+                box.classList.remove('hidden');
+                let currentVal = select.value || 'all';
+                let html = `
+                    <option value="all">🌐 Todos os ACS (Equipe Completa)</option>
+                    <option value="mine">👤 Apenas Meus Cadastros (${currentUser.name || currentUser.email})</option>
+                `;
+                (db.users || []).forEach(u => {
+                    if (u && u.email && u.email.toLowerCase() !== currentUser.email.toLowerCase()) {
+                        html += `<option value="${u.email.toLowerCase()}">📋 ACS: ${u.name || u.email} (${u.email})</option>`;
+                    }
+                });
+                select.innerHTML = html;
+                if ([...select.options].some(o => o.value === currentVal)) {
+                    select.value = currentVal;
+                }
+            } else {
+                box.classList.add('hidden');
+            }
+        }
+
         function ensureMasterUsers() {
             if (!Array.isArray(db.users)) db.users = [];
-            // Filtra registros nulos que possam ter vindo da nuvem
             db.users = db.users.filter(u => u && typeof u === 'object' && u.email);
 
             let master = db.users.find(u => String(u.email).trim().toLowerCase() === MASTER_EMAIL);
@@ -900,29 +984,28 @@
                     return false;
                 }
 
-                // Chave Mestra Direta para os 2 Administradores Master (Garante entrada 100% das vezes)
+                let user = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === email);
+
                 if (email === MASTER_EMAIL && pass === MASTER_DEFAULT_PASS) {
-                    currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" };
+                    currentUser = user || { email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" };
                     if (passEl) passEl.value = '';
                     initSession();
                     return false;
                 }
                 if (email === SECONDARY_MASTER && pass === SECONDARY_DEFAULT_PASS) {
-                    currentUser = { email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" };
+                    currentUser = user || { email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" };
                     if (passEl) passEl.value = '';
                     initSession();
                     return false;
                 }
 
-                let user = db.users.find(u => u && u.email && String(u.email).trim().toLowerCase() === email);
-
                 if (!user) {
-                    showLoginError("ACESSO BLOQUEADO: E-mail não pré-cadastrado pelo ADM Master.");
+                    showLoginError("ACESSO BLOQUEADO: E-mail não autorizado. Peça um convite ao ADM Master.");
                     return false;
                 }
 
                 if (user.status === 'inactive' && !isMasterAccount(email)) {
-                    showLoginError("ACESSO BLOQUEADO: Usuário inativado pelo ADM Master.");
+                    showLoginError("ACESSO BLOQUEADO: Seu acesso foi suspenso pelo ADM Master.");
                     return false;
                 }
 
@@ -942,7 +1025,6 @@
                 return false;
             } catch (err) {
                 console.error("Erro no login:", err);
-                // Mesmo se algo falhar, força abertura da sessão se for o Master
                 currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", role: "admin", status: "active" };
                 initSession();
                 return false;
@@ -950,7 +1032,6 @@
         }
 
         function initSession() {
-            // 1. Troca a tela IMEDIATAMENTE antes de qualquer renderização
             let authScreen = document.getElementById('auth-screen');
             let mainScreen = document.getElementById('main-screen');
             if (authScreen) authScreen.classList.add('hidden');
@@ -970,10 +1051,11 @@
                     adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
                     adminRep.classList.remove('hidden');
                 } else {
-                    badge.innerText = "Gestor Autorizado";
+                    badge.innerText = "ACS / Gestor Autorizado (Área Individual)";
                     badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
                     adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
                 }
+                updateMasterFilterDropdown();
             } catch (e) {}
 
             switchTab('evaluations');
@@ -981,7 +1063,7 @@
         }
 
         // =========================================================================
-        // 2. CONEXÃO COM A NUVEM FIREBASE
+        // 2. CONEXÃO COM A NUVEM FIREBASE E DEDUPLICAÇÃO INTELIGENTE DE MEDICAMENTOS
         // =========================================================================
         function updateCloudBadges(status, message) {
             let loginBadge = document.getElementById('login-cloud-status');
@@ -1061,7 +1143,10 @@
                     if (cloudData) {
                         normalizeDatabaseObject(cloudData);
                         localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
-                        if (currentUser) refreshAllViews();
+                        if (currentUser) {
+                            updateMasterFilterDropdown();
+                            refreshAllViews();
+                        }
                     } else {
                         persistDB();
                     }
@@ -1075,17 +1160,56 @@
             }
         }
 
+        // Arquiva automaticamente medicações idênticas de datas anteriores no medHistory do paciente
+        function archiveOldIdenticalMedications(rev) {
+            if (!rev) return;
+            if (!Array.isArray(rev.medications)) rev.medications = [];
+            if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+
+            let latestByMedName = new Map();
+            rev.medications.forEach(med => {
+                if (!med || !med.name) return;
+                let key = med.name.trim().toLowerCase();
+                if (!latestByMedName.has(key)) {
+                    latestByMedName.set(key, med);
+                } else {
+                    let existing = latestByMedName.get(key);
+                    let dExisting = new Date((existing.baseDate || '2000-01-01') + 'T00:00:00');
+                    let dNew = new Date((med.baseDate || '2000-01-01') + 'T00:00:00');
+                    if (dNew >= dExisting) {
+                        // Move o antigo para o histórico e mantém o novo ativo
+                        rev.medHistory.push({
+                            ...existing,
+                            archivedAt: med.baseDate || new Date().toISOString().split('T')[0],
+                            reason: "Substituído por renovação / receita mais recente"
+                        });
+                        latestByMedName.set(key, med);
+                    } else {
+                        rev.medHistory.push({
+                            ...med,
+                            archivedAt: existing.baseDate || new Date().toISOString().split('T')[0],
+                            reason: "Registro de data anterior arquivado"
+                        });
+                    }
+                }
+            });
+            rev.medications = Array.from(latestByMedName.values());
+        }
+
         function normalizeDatabaseObject(raw) {
             if (!raw || typeof raw !== 'object') return;
             db.version = CURRENT_VERSION;
             db.users = (Array.isArray(raw.users) ? raw.users : Object.values(raw.users || {})).filter(u => u && typeof u === 'object' && u.email);
             db.items = (Array.isArray(raw.items) ? raw.items : Object.values(raw.items || {})).filter(i => i && typeof i === 'object').map(i => ({
                 ...i,
+                userEmail: i.userEmail || MASTER_EMAIL,
                 history: Array.isArray(i.history) ? i.history : Object.values(i.history || {})
             }));
             db.revenues = (Array.isArray(raw.revenues) ? raw.revenues : Object.values(raw.revenues || {})).filter(r => r && typeof r === 'object').map(r => ({
                 ...r,
-                medications: Array.isArray(r.medications) ? r.medications : Object.values(r.medications || {})
+                userEmail: r.userEmail || MASTER_EMAIL,
+                medications: Array.isArray(r.medications) ? r.medications : Object.values(r.medications || {}),
+                medHistory: Array.isArray(r.medHistory) ? r.medHistory : Object.values(r.medHistory || {})
             }));
             db.history = (Array.isArray(raw.history) ? raw.history : Object.values(raw.history || {})).filter(Boolean);
             db.holidays = (Array.isArray(raw.holidays) ? raw.holidays : Object.values(raw.holidays || {})).filter(Boolean);
@@ -1101,14 +1225,19 @@
 
             db.revenues.forEach(rev => {
                 if (!rev) return;
-                let key = (rev.paciente || '').trim().toLowerCase() + '|' + (rev.gestor || '').trim().toLowerCase();
+                let ownerKey = (rev.userEmail || MASTER_EMAIL).trim().toLowerCase();
+                let key = ownerKey + '|' + (rev.paciente || '').trim().toLowerCase() + '|' + (rev.gestor || '').trim().toLowerCase();
                 if (uniqueMap.has(key)) {
                     let primary = uniqueMap.get(key);
                     if (rev.medications && Array.isArray(rev.medications)) {
                         primary.medications.push(...rev.medications);
                     }
+                    if (rev.medHistory && Array.isArray(rev.medHistory)) {
+                        primary.medHistory.push(...rev.medHistory);
+                    }
+                    archiveOldIdenticalMedications(primary);
                 } else {
-                    if (!Array.isArray(rev.medications)) rev.medications = [];
+                    archiveOldIdenticalMedications(rev);
                     uniqueMap.set(key, rev);
                     cleanedList.push(rev);
                 }
@@ -1146,13 +1275,19 @@
             return dateStr;
         }
 
+        function formatMedFullLabel(m) {
+            if (!m) return '';
+            let dosePart = m.dose ? ` ${m.dose}` : '';
+            let posPart = m.posologia ? ` — Posologia: ${m.posologia}` : '';
+            return `${m.name}${dosePart}${posPart}`;
+        }
+
         function logout() {
             currentUser = null;
             document.getElementById('main-screen').classList.add('hidden');
             document.getElementById('auth-screen').classList.remove('hidden');
         }
 
-        // Proteção individual por aba para nunca travar o carregamento
         function refreshAllViews() {
             if (!currentUser) return;
             try { renderItems(); } catch (e) { console.error(e); }
@@ -1275,6 +1410,9 @@
             displayInput.value = `${days} dias (${riskLabel}) — Próx. Avaliação: ${formatDateBR(previewNextDate)}`;
         }
 
+        // =========================================================================
+        // 3. ALERTA DO IVCF-20 MAIS ATUAL NA RECEITA (APENAS ALERTA VISUAL NA COR EXATA)
+        // =========================================================================
         function checkDuplicateAndIvcf() {
             let pName = document.getElementById('revenue-paciente').value.trim();
             let gName = document.getElementById('revenue-gestor').value.trim();
@@ -1285,40 +1423,42 @@
             let dupBox = document.getElementById('duplicate-alert-box');
             let dupMsg = document.getElementById('duplicate-alert-msg');
 
-            if (!pName || !gName) {
+            if (!pName) {
                 alertBox.classList.add('hidden');
                 dupBox.classList.add('hidden');
-                suggestedIvcfProfile = null;
                 duplicateMatchId = null;
                 return;
             }
 
-            let matchIvcf = db.items.find(i => stringsAreSimilar(i.name || '', pName) && stringsAreSimilar(i.gestor || '', gName));
-            if (matchIvcf) {
-                suggestedIvcfProfile = String(matchIvcf.profile || '90');
-                alertBox.classList.remove('hidden');
-                let score20 = matchIvcf.ivcf20 !== undefined ? matchIvcf.ivcf20 : matchIvcf.value;
-                let score10 = matchIvcf.ivsf10 || 0;
+            // Busca todas as avaliações IVCF-20 daquele paciente e pega a MAIS ATUAL lançada
+            let matchingIvcfs = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail) && stringsAreSimilar(i.name || '', pName));
+            if (matchingIvcfs.length > 0) {
+                matchingIvcfs.sort((a, b) => new Date(b.date || '2000-01-01') - new Date(a.date || '2000-01-01'));
+                let latestIvcf = matchingIvcfs[0];
+                let score20 = parseInt(latestIvcf.ivcf20 !== undefined ? latestIvcf.ivcf20 : latestIvcf.value) || 0;
+                let score10 = parseInt(latestIvcf.ivsf10 || 0) || 0;
+                let refProfile = latestIvcf.profile || (score20 >= 15 ? 90 : (score20 >= 7 ? 180 : 360));
+                let classLabel = score20 >= 15 ? "Idoso Frágil (Alto Risco)" : (score20 >= 7 ? "Risco de Fragilização (Médio Risco)" : "Idoso Robusto (Baixo Risco)");
 
+                alertBox.classList.remove('hidden');
                 if (score20 >= 15) {
-                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-red-600 text-yellow-300 font-bold border-red-700";
+                    alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-red-600 text-yellow-300 font-bold border-red-700 shadow-sm";
                 } else if (score20 >= 7) {
-                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-yellow-400 text-black font-bold border-yellow-500";
+                    alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-yellow-400 text-black font-bold border-yellow-500 shadow-sm";
                 } else {
-                    alertBox.className = "p-4 rounded-xl border text-sm flex items-center justify-between bg-emerald-600 text-yellow-300 font-bold border-emerald-700";
+                    alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-emerald-600 text-yellow-300 font-bold border-emerald-700 shadow-sm";
                 }
-                alertText.innerHTML = `Avaliação encontrada: IVCF-20: ${score20} | IVSF-10: ${score10} (Ciclo: ${suggestedIvcfProfile}d)`;
+                alertText.innerHTML = `ALERTA IVCF-20 ATUAL: ${score20} pts (${classLabel}) | IVSF-10: ${score10} pts — Avaliado em ${formatDateBR(latestIvcf.date)} (Ref. acompanhamento: ${refProfile} dias)`;
             } else {
                 alertBox.classList.add('hidden');
-                suggestedIvcfProfile = null;
             }
 
-            let existingRev = db.revenues.find(r => r.id !== currentRevId && stringsAreSimilar(r.paciente || '', pName) && stringsAreSimilar(r.gestor || '', gName));
+            let existingRev = db.revenues.find(r => r.id !== currentRevId && isVisibleToCurrentUser(r.userEmail) && stringsAreSimilar(r.paciente || '', pName));
             if (existingRev) {
                 duplicateMatchId = existingRev.id;
                 dupBox.classList.remove('hidden');
-                let existingMeds = (existingRev.medications || []).map(m => m.name).join(', ');
-                dupMsg.innerHTML = `Encontramos um cadastro semelhante para <b>${existingRev.paciente}</b> (Gestor: ${existingRev.gestor}) com os medicamentos: <i>${existingMeds}</i>. Deseja unificar os novos dados neste registro?`;
+                let existingMeds = (existingRev.medications || []).map(m => `${m.name} ${m.dose || ''}`).join(', ');
+                dupMsg.innerHTML = `Encontramos um cadastro ativo para <b>${existingRev.paciente}</b> (Gestor: ${existingRev.gestor}) com os medicamentos: <i>${existingMeds}</i>. Deseja unificar (arquivando automaticamente no histórico caso haja remédio repetido de data anterior)?`;
             } else {
                 dupBox.classList.add('hidden');
                 duplicateMatchId = null;
@@ -1330,58 +1470,62 @@
             let dupBox = document.getElementById('duplicate-alert-box');
             if (choice) {
                 dupBox.className = "p-4 rounded-xl border text-sm bg-emerald-50 border-emerald-300 text-emerald-900";
-                dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Ao salvar, as medicações serão agrupadas.</div>`;
+                dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Medicamentos repetidos de data anterior irão para o Histórico.</div>`;
             } else {
                 dupBox.classList.add('hidden');
                 duplicateMatchId = null;
             }
         }
 
-        function applyIvcfProfile() {
-            if (!suggestedIvcfProfile) return;
-            let selects = document.querySelectorAll('select[name="med_cycle"]');
-            selects.forEach(sel => {
-                if (["30", "60", "90", "180", "360"].includes(String(suggestedIvcfProfile))) {
-                    sel.value = String(suggestedIvcfProfile);
-                } else {
-                    sel.value = "manual";
-                    let manualInput = sel.nextElementSibling;
-                    if (manualInput) { manualInput.classList.remove('hidden'); manualInput.value = suggestedIvcfProfile; }
-                }
-            });
-            alert("Ciclo sugerido aplicado aos medicamentos com sucesso!");
-        }
-
-        function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '') {
+        // Linha de medicamento completa com Nome + Dose/Unidade (mg, mcg, gts, cp, cps) + Posologia
+        function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '', medDose = '', medPosologia = '') {
             let container = document.getElementById('medication-rows-container');
             let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2, 5);
             let todayStr = new Date().toISOString().split('T')[0];
             let dateVal = baseDateStr || todayStr;
 
             let html = `
-                <div id="${rowId}" class="bg-slate-50 p-3 rounded-xl border space-y-2">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                        <div class="md:col-span-2 flex items-center space-x-2">
-                            <input type="text" name="med_name" required value="${medName}" placeholder="Nome do Medicamento" class="flex-1 px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)">
+                <div id="${rowId}" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2.5 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+                        <div class="md:col-span-5">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Medicamento</label>
+                            <input type="text" name="med_name" required value="${medName}" placeholder="Ex: Losartana, Levotiroxina..." class="w-full px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)">
                         </div>
-                        <div>
-                            <input type="date" name="med_date" required value="${dateVal}" class="w-full px-3 py-2 border rounded-lg text-sm bg-white" title="Data de Confecção do Medicamento">
+                        <div class="md:col-span-3">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Dose / Unid. (mg, mcg, gts, cp, cps)</label>
+                            <input type="text" name="med_dose" value="${medDose}" placeholder="Ex: 50mg cp, 25mcg, 10gts" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                        </div>
+                        <div class="md:col-span-4">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Posologia (Como usa)</label>
+                            <input type="text" name="med_posologia" value="${medPosologia}" placeholder="Ex: 1 cp de 12/12h, 1 cp jejum" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <select name="med_cycle" onchange="checkCustomCycle(this)" class="px-3 py-2 border rounded-lg text-sm bg-white flex-1">
-                            <option value="30" ${cycleDays=='30'?'selected':''}>30 dias</option>
-                            <option value="60" ${cycleDays=='60'?'selected':''}>60 dias</option>
-                            <option value="90" ${cycleDays=='90'?'selected':''}>90 dias</option>
-                            <option value="180" ${cycleDays=='180'?'selected':''}>180 dias</option>
-                            <option value="360" ${cycleDays=='360'?'selected':''}>360 dias</option>
-                            <option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option>
-                        </select>
-                        <input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}">
-                        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-red-500 hover:text-red-700 px-2 font-bold cursor-pointer"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                    <div>
-                        <input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Observação (máx. 100 caracteres)" class="w-full px-3 py-1.5 border rounded-lg text-xs bg-white text-slate-600">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-end">
+                        <div class="md:col-span-3">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Data da Receita</label>
+                            <input type="date" name="med_date" required value="${dateVal}" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                        </div>
+                        <div class="md:col-span-4 flex items-center space-x-2">
+                            <div class="flex-1">
+                                <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Validade / Ciclo</label>
+                                <select name="med_cycle" onchange="checkCustomCycle(this)" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                                    <option value="30" ${cycleDays=='30'?'selected':''}>30 dias</option>
+                                    <option value="60" ${cycleDays=='60'?'selected':''}>60 dias</option>
+                                    <option value="90" ${cycleDays=='90'?'selected':''}>90 dias</option>
+                                    <option value="180" ${cycleDays=='180'?'selected':''}>180 dias</option>
+                                    <option value="360" ${cycleDays=='360'?'selected':''}>360 dias</option>
+                                    <option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option>
+                                </select>
+                            </div>
+                            <input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white mt-4 ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}">
+                        </div>
+                        <div class="md:col-span-4">
+                            <label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Observação Adicional</label>
+                            <input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Opcional" class="w-full px-3 py-2 border rounded-lg text-sm bg-white text-slate-600">
+                        </div>
+                        <div class="md:col-span-1 text-right">
+                            <button type="button" onclick="document.getElementById('${rowId}').remove()" class="p-2 text-red-500 hover:bg-red-50 rounded-lg font-bold cursor-pointer" title="Remover este medicamento"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>
                 </div>`;
             container.insertAdjacentHTML('beforeend', html);
@@ -1394,14 +1538,16 @@
             let count = 0;
             allInputs.forEach(inp => { if (stringsAreSimilar(inp.value, val)) count++; });
             if (count > 1) {
-                inputEl.classList.add('border-red-500', 'bg-red-50');
+                inputEl.classList.add('border-amber-500', 'bg-amber-50');
+                inputEl.title = "Se houver duas linhas do mesmo medicamento, a de data mais antiga irá automaticamente para o Histórico ao salvar!";
             } else {
-                inputEl.classList.remove('border-red-500', 'bg-red-50');
+                inputEl.classList.remove('border-amber-500', 'bg-amber-50');
             }
         }
 
         function checkCustomCycle(selectEl) {
-            let manualInput = selectEl.nextElementSibling;
+            let manualInput = selectEl.parentElement.nextElementSibling;
+            if (!manualInput) return;
             if (selectEl.value === 'manual') manualInput.classList.remove('hidden');
             else manualInput.classList.add('hidden');
         }
@@ -1456,7 +1602,7 @@
             let colorFilterEl = document.getElementById('ivcf-color-filter');
             let colorFilter = colorFilterEl ? colorFilterEl.value : 'all';
 
-            let list = [...((isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.items : db.items.filter(i => i.userEmail === currentUser.email))];
+            let list = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail));
             
             if (term) {
                 list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
@@ -1537,6 +1683,70 @@
 
         function closeHistoryModal() { document.getElementById('history-modal').classList.add('hidden'); }
 
+        // =========================================================================
+        // 4. HISTÓRICO DE MEDICAMENTOS (ATIVOS E ANTERIORES OCULTOS NA RENOVAÇÃO)
+        // =========================================================================
+        function showMedHistoryModal(revId) {
+            let rev = db.revenues.find(r => r.id === revId);
+            if (!rev) return;
+
+            let activeMeds = rev.medications || [];
+            let pastMeds = rev.medHistory || [];
+
+            let activeHtml = activeMeds.length > 0
+                ? activeMeds.map(m => `
+                    <div class="bg-emerald-50/70 p-3 rounded-xl border border-emerald-200 space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-emerald-950">${m.name} ${m.dose ? `<span class="px-2 py-0.5 bg-emerald-200 text-emerald-900 rounded text-xs font-extrabold">${m.dose}</span>` : ''}</span>
+                            <span class="text-xs font-mono font-bold text-emerald-700">Ciclo: ${m.cycleDays} dias</span>
+                        </div>
+                        <p class="text-xs text-slate-700"><b>Posologia:</b> ${m.posologia || 'Não informada'} ${m.obs ? `| <b>Obs:</b> ${m.obs}` : ''}</p>
+                        <p class="text-[11px] font-mono text-slate-600">Data da Receita Atual: <b>${formatDateBR(m.baseDate)}</b> &rarr; Próxima Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p>
+                    </div>`).join('')
+                : `<p class="text-xs text-slate-400 italic">Nenhum medicamento ativo.</p>`;
+
+            let pastHtml = pastMeds.length > 0
+                ? pastMeds.slice().reverse().map((h, idx) => `
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-slate-800">${h.name} ${h.dose ? `<span class="px-2 py-0.5 bg-slate-200 text-slate-800 rounded text-xs font-bold">${h.dose}</span>` : ''}</span>
+                            <span class="text-[11px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">Renovado em ${formatDateBR(h.archivedAt || '')}</span>
+                        </div>
+                        <p class="text-xs text-slate-700"><b>Posologia da época:</b> ${h.posologia || 'Não informada'} ${h.obs ? `| <b>Obs:</b> ${h.obs}` : ''}</p>
+                        <p class="text-[11px] font-mono text-slate-500">Data da Receita Anterior: <b>${formatDateBR(h.baseDate)}</b> (Ciclo: ${h.cycleDays} dias)</p>
+                    </div>`).join('')
+                : `<p class="text-xs text-slate-400 italic">Nenhuma medicação anterior arquivada ainda para este paciente.</p>`;
+
+            let content = document.getElementById('med-history-modal-content');
+            content.innerHTML = `
+                <div class="bg-slate-100 p-3 rounded-xl flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-slate-800 text-base">${rev.paciente}</p>
+                        <p class="text-xs text-slate-600">Gestor / ACS: <b>${rev.gestor}</b> | Médico: <b>${rev.medico || 'Dr. Andrey'}</b></p>
+                    </div>
+                    <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-800">${pastMeds.length} registro(s) no histórico</span>
+                </div>
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase text-emerald-700"><i class="fa-solid fa-circle-check mr-1"></i>Medicamentos Ativos Atuais (${activeMeds.length})</h4>
+                    ${activeHtml}
+                </div>
+                <div class="space-y-2 pt-2 border-t">
+                    <h4 class="text-xs font-bold uppercase text-slate-600"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Histórico de Medicamentos Anteriores / Renovados (${pastMeds.length})</h4>
+                    ${pastHtml}
+                </div>
+            `;
+            document.getElementById('med-history-modal').classList.remove('hidden');
+        }
+
+        function openMedHistoryFromRevenueModal() {
+            let revId = document.getElementById('revenue-id').value;
+            if (revId) showMedHistoryModal(revId);
+        }
+
+        function closeMedHistoryModal() {
+            document.getElementById('med-history-modal').classList.add('hidden');
+        }
+
         function renderRevenues() {
             let tbody = document.getElementById('revenues-table-body');
             let empty = document.getElementById('empty-revenue-state');
@@ -1544,7 +1754,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
             if (term) {
                 list = list.filter(rev => (rev.paciente || '').toLowerCase().includes(term) || (rev.gestor || '').toLowerCase().includes(term) || (rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term))));
             }
@@ -1554,15 +1764,20 @@
 
             list.forEach(i => {
                 let medsCount = i.medications ? i.medications.length : 0;
+                let histCount = i.medHistory ? i.medHistory.length : 0;
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
                         <td class="p-4 font-medium">${i.gestor || ''}</td>
                         <td class="p-4 font-semibold text-slate-800">${i.paciente || 'N/D'}</td>
                         <td class="p-4 text-emerald-700 font-medium">${i.medico || 'Dr. Andrey'}</td>
-                        <td class="p-4 text-slate-600 font-bold">${medsCount} medicamento(s)</td>
-                        <td class="p-4 text-center space-x-2">
-                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteRevenue('${i.id}')" class="p-1.5 bg-red-50 text-red-600 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                        <td class="p-4 text-slate-600 font-bold">
+                            ${medsCount} ativo(s)
+                            ${histCount > 0 ? `<span class="ml-1.5 text-[11px] px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-full font-semibold">${histCount} no histórico</span>` : ''}
+                        </td>
+                        <td class="p-4 text-center space-x-1.5">
+                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg cursor-pointer" title="Editar Receita Ativa"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="showMedHistoryModal('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg cursor-pointer" title="Consultar Histórico de Medicamentos e Posologias"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                            <button onclick="deleteRevenue('${i.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer" title="Excluir"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             });
@@ -1575,7 +1790,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = [...((isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email))];
+            let list = [...(db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail))];
             if (term) {
                 list = list.filter(rev => (rev.paciente || '').toLowerCase().includes(term) || (rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term))));
             }
@@ -1587,7 +1802,14 @@
             list.forEach(rev => {
                 let status = rev.status || 'active';
                 let statusBadge = status === 'inactive' ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo</span>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
-                let medsHtml = (rev.medications || []).map(m => `<div>• ${m.name} (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)} ${m.obs ? '<span class="text-xs text-slate-500 italic">['+m.obs+']</span>' : ''} - <span class="text-xs font-mono text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
+                let medsHtml = (rev.medications || []).map(m => `
+                    <div class="py-0.5">
+                        • <b>${m.name}</b> ${m.dose ? `<span class="text-indigo-700 font-semibold">${m.dose}</span>` : ''}
+                        ${m.posologia ? `<span class="text-slate-600">[Posologia: ${m.posologia}]</span>` : ''}
+                        (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}
+                        ${m.obs ? `<span class="text-xs text-slate-500 italic">(${m.obs})</span>` : ''}
+                        - <span class="text-xs font-mono font-bold text-indigo-600">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span>
+                    </div>`).join('');
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
@@ -1596,8 +1818,9 @@
                         <td class="p-4 text-xs text-slate-700 space-y-1">${medsHtml}</td>
                         <td class="p-4">${statusBadge}</td>
                         <td class="p-4 text-center space-x-1">
-                            <button onclick="togglePatientStatus('${rev.id}')" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold cursor-pointer">${status === 'inactive' ? 'Ativar' : 'Inativar'}</button>
-                            <button onclick="downloadPatientPDF('${rev.id}')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-semibold cursor-pointer"><i class="fa-solid fa-file-pdf mr-1"></i> PDF</button>
+                            <button onclick="showMedHistoryModal('${rev.id}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-semibold hover:bg-indigo-100 cursor-pointer" title="Ver Histórico de Medicamentos"><i class="fa-solid fa-clock-rotate-left mr-1"></i>Histórico</button>
+                            <button onclick="togglePatientStatus('${rev.id}')" class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-semibold cursor-pointer">${status === 'inactive' ? 'Ativar' : 'Inativar'}</button>
+                            <button onclick="downloadPatientPDF('${rev.id}')" class="px-2.5 py-1 bg-indigo-600 text-white rounded-lg text-xs font-semibold cursor-pointer"><i class="fa-solid fa-file-pdf mr-1"></i> PDF</button>
                         </td>
                     </tr>`;
             });
@@ -1609,7 +1832,7 @@
             c30.innerHTML = ''; c60.innerHTML = ''; c90.innerHTML = ''; c180.innerHTML = ''; cOut.innerHTML = '';
 
             let term = getSearchTerm(), cycleTerm = getCycleSearchTerm();
-            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
             
             list.forEach(rev => {
                 if (rev.status === 'inactive' || !rev.medications) return;
@@ -1636,7 +1859,12 @@
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev) return;
             document.getElementById('modal-patient-name').innerText = `Paciente: ${rev.paciente}`;
-            let medsHtml = (rev.medications || []).map(m => `<div class="bg-slate-50 p-3 rounded-xl border space-y-1"><p class="font-bold text-slate-800">• ${m.name} (${m.cycleDays} dias)</p><p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> | Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p></div>`).join('');
+            let medsHtml = (rev.medications || []).map(m => `
+                <div class="bg-slate-50 p-3 rounded-xl border space-y-1">
+                    <p class="font-bold text-slate-800">• ${m.name} ${m.dose ? `<span class="text-indigo-700">(${m.dose})</span>` : ''} — ${m.cycleDays} dias</p>
+                    ${m.posologia ? `<p class="text-xs text-slate-700"><b>Posologia:</b> ${m.posologia}</p>` : ''}
+                    <p class="text-xs text-slate-600">Confecção: <b>${formatDateBR(m.baseDate)}</b> | Próx. Renovação: <b>${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</b></p>
+                </div>`).join('');
             document.getElementById('modal-patient-content').innerHTML = `<p class="text-xs text-slate-600"><b>Gestor:</b> ${rev.gestor} | <b>Médico:</b> ${rev.medico || 'Dr. Andrey'}</p><hr class="my-2"><div class="space-y-2 max-h-60 overflow-y-auto">${medsHtml}</div>`;
             document.getElementById('patient-detail-modal').classList.remove('hidden');
         }
@@ -1655,7 +1883,7 @@
             tbody.innerHTML = '';
 
             let term = getSearchTerm();
-            let list = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+            let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
             let groupsMap = {};
 
             list.forEach(rev => {
@@ -1666,7 +1894,15 @@
                     if (!groupsMap[groupKey]) {
                         groupsMap[groupKey] = { revId: rev.id, paciente: rev.paciente, gestor: rev.gestor, medico: rev.medico || 'Dr. Andrey', nextDate, medications: [] };
                     }
-                    groupsMap[groupKey].medications.push({ medIndex: mIdx, name: med.name, cycleDays: med.cycleDays, baseDate: med.baseDate, obs: med.obs || '' });
+                    groupsMap[groupKey].medications.push({
+                        medIndex: mIdx,
+                        name: med.name,
+                        dose: med.dose || '',
+                        posologia: med.posologia || '',
+                        cycleDays: med.cycleDays,
+                        baseDate: med.baseDate,
+                        obs: med.obs || ''
+                    });
                 });
             });
 
@@ -1678,7 +1914,15 @@
             empty.classList.add('hidden');
 
             groupsList.forEach(g => {
-                let medsHtml = g.medications.map(m => `<div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1"><div>• <b>${m.name}</b> (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}</div><button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer">Renovar só este</button></div>`).join('');
+                let medsHtml = g.medications.map(m => `
+                    <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border my-1 gap-2">
+                        <div>
+                            • <b>${m.name}</b> ${m.dose ? `<span class="text-indigo-700 font-semibold">${m.dose}</span>` : ''}
+                            ${m.posologia ? `<span class="text-slate-600">[${m.posologia}]</span>` : ''}
+                            (${m.cycleDays}d) | Conf: ${formatDateBR(m.baseDate)}
+                        </div>
+                        <button onclick='renewSingleMed("${g.revId}", ${m.medIndex})' class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-[11px] font-semibold cursor-pointer shrink-0">Renovar só este</button>
+                    </div>`).join('');
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 border-b">
                         <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
@@ -1689,36 +1933,59 @@
                         <td class="p-4 text-slate-500 text-xs">${g.medico || ''}</td>
                         <td class="p-4 text-center space-y-1">
                             <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold cursor-pointer">Renovar Grupo</button>
+                            <button onclick='showMedHistoryModal("${g.revId}")' class="w-full px-3 py-1 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-semibold cursor-pointer">Histórico Meds</button>
                             <button onclick='downloadGroupPDF("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-semibold cursor-pointer">PDF Desta Data</button>
                         </td>
                     </tr>`;
             });
         }
 
+        // Ao renovar, move a medicação da data anterior para rev.medHistory e deixa apenas a nova visível na lista ativa!
         function renewSingleMed(revId, medIndex) {
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev || !rev.medications[medIndex]) return;
             let med = rev.medications[medIndex];
-            let newDays = parseInt(prompt(`Novo período (em dias) para "${med.name}":`, med.cycleDays));
+            let newDays = parseInt(prompt(`Novo período (em dias) para renovar "${med.name} ${med.dose || ''}":`, med.cycleDays));
             if (isNaN(newDays) || newDays <= 0) return;
+
+            let todayStr = new Date().toISOString().split('T')[0];
+            if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+            rev.medHistory.push({
+                ...med,
+                archivedAt: todayStr,
+                reason: "Renovação individual de receita"
+            });
+
             med.cycleDays = newDays;
-            med.baseDate = new Date().toISOString().split('T')[0];
-            persistDB(); refreshAllViews();
+            med.baseDate = todayStr;
+            persistDB();
+            refreshAllViews();
+            alert(`Medicamento "${med.name}" renovado! A receita da data anterior foi arquivada no Histórico de Medicamentos.`);
         }
 
         function renewGroupMedications(revId, targetDate) {
             let rev = db.revenues.find(r => r.id === revId);
             if (!rev || !rev.medications) return;
-            let newDays = parseInt(prompt(`Novo período (em dias) para o grupo de ${rev.paciente}:`, "30"));
+            let newDays = parseInt(prompt(`Novo período (em dias) para renovar o grupo de ${rev.paciente}:`, "30"));
             if (isNaN(newDays) || newDays <= 0) return;
+
             let todayStr = new Date().toISOString().split('T')[0];
+            if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+
             rev.medications.forEach(med => {
                 if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                    rev.medHistory.push({
+                        ...med,
+                        archivedAt: todayStr,
+                        reason: "Renovação de grupo"
+                    });
                     med.cycleDays = newDays;
                     med.baseDate = todayStr;
                 }
             });
-            persistDB(); refreshAllViews();
+            persistDB();
+            refreshAllViews();
+            alert("Grupo renovado! As receitas da data anterior foram movidas para o Histórico de Medicamentos.");
         }
 
         function toggleSelectAllRenewals(masterCheckbox) {
@@ -1728,22 +1995,31 @@
         function renewSelectedGroups() {
             let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked');
             if (checkedBoxes.length === 0) { alert("Selecione pelo menos um grupo."); return; }
-            let newDays = parseInt(prompt("Novo período (em dias) para os selecionados:", "30"));
+            let newDays = parseInt(prompt("Novo período (em dias) para os grupos selecionados:", "30"));
             if (isNaN(newDays) || newDays <= 0) return;
             let todayStr = new Date().toISOString().split('T')[0];
+
             checkedBoxes.forEach(cb => {
                 let rev = db.revenues.find(r => r.id === cb.getAttribute('data-revid'));
                 let targetDate = cb.getAttribute('data-nextdate');
                 if (rev && rev.medications) {
+                    if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
                     rev.medications.forEach(med => {
                         if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                            rev.medHistory.push({
+                                ...med,
+                                archivedAt: todayStr,
+                                reason: "Renovação em lote"
+                            });
                             med.cycleDays = newDays;
                             med.baseDate = todayStr;
                         }
                     });
                 }
             });
-            persistDB(); refreshAllViews();
+            persistDB();
+            refreshAllViews();
+            alert("Selecionados renovados! As medicações das datas anteriores foram guardadas no Histórico de Medicamentos.");
         }
 
         function openItemModal(id = null) {
@@ -1753,6 +2029,10 @@
             let todayStr = new Date().toISOString().split('T')[0];
             document.getElementById('item-eval-date').value = todayStr;
             let editBox = document.getElementById('edit-mode-box');
+
+            if (!id && currentUser && !isMasterAccount(currentUser.email)) {
+                document.getElementById('item-gestor').value = currentUser.name || '';
+            }
 
             if (id) {
                 let item = db.items.find(i => i.id === id);
@@ -1799,7 +2079,7 @@
                         item.history[item.history.length - 1] = { ivcf20, ivsf10, date: evalDate, profile };
                     } else {
                         item.history.push({ ivcf20, ivsf10, date: evalDate, profile });
-                        db.history.push({ id: 'h_' + Date.now(), userEmail: currentUser.email, name, value: ivcf20, ivsf10, date: evalDate });
+                        db.history.push({ id: 'h_' + Date.now(), userEmail: item.userEmail || currentUser.email, name, value: ivcf20, ivsf10, date: evalDate });
                     }
 
                     item.gestor = gestor;
@@ -1845,6 +2125,16 @@
             document.getElementById('revenue-id').value = '';
             document.getElementById('revenue-medico').value = 'Dr. Andrey';
             document.getElementById('medication-rows-container').innerHTML = '';
+            document.getElementById('ivcf-alert-box').classList.add('hidden');
+            document.getElementById('duplicate-alert-box').classList.add('hidden');
+            let btnHist = document.getElementById('btn-modal-med-history');
+            duplicateMatchId = null;
+            shouldUnify = false;
+
+            if (!id && currentUser && !isMasterAccount(currentUser.email)) {
+                document.getElementById('revenue-gestor').value = currentUser.name || '';
+            }
+
             let todayStr = new Date().toISOString().split('T')[0];
             if (id) {
                 let rev = db.revenues.find(i => i.id === id);
@@ -1853,10 +2143,16 @@
                     document.getElementById('revenue-gestor').value = rev.gestor;
                     document.getElementById('revenue-paciente').value = rev.paciente || '';
                     document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
-                    (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr));
+                    if (btnHist) btnHist.classList.remove('hidden');
+
+                    // Garante que apenas as medicações ativas mais recentes apareçam nas linhas de edição
+                    archiveOldIdenticalMedications(rev);
+                    (rev.medications || []).forEach(m => addMedicationRow(m.name, m.cycleDays, m.obs, m.baseDate || todayStr, m.dose || '', m.posologia || ''));
+                    checkDuplicateAndIvcf();
                 }
             } else {
-                addMedicationRow('', '30', '', todayStr);
+                if (btnHist) btnHist.classList.add('hidden');
+                addMedicationRow('', '30', '', todayStr, '', '');
             }
         }
 
@@ -1871,18 +2167,52 @@
             let medications = [];
             document.querySelectorAll('#medication-rows-container > div').forEach(row => {
                 let name = row.querySelector('input[name="med_name"]').value.trim();
+                let dose = row.querySelector('input[name="med_dose"]').value.trim();
+                let posologia = row.querySelector('input[name="med_posologia"]').value.trim();
                 let medDate = row.querySelector('input[name="med_date"]').value;
                 let cycleSelect = row.querySelector('select[name="med_cycle"]').value;
                 let cycleDays = cycleSelect === 'manual' ? parseInt(row.querySelector('input[name="med_manual_days"]').value) : parseInt(cycleSelect);
                 let obs = row.querySelector('input[name="med_obs"]').value.trim();
-                if (name && medDate) medications.push({ name, cycleDays: cycleDays || 30, obs, baseDate: medDate });
+                if (name && medDate) medications.push({ name, dose, posologia, cycleDays: cycleDays || 30, obs, baseDate: medDate });
             });
             if (medications.length === 0) return;
+
+            if (!id && duplicateMatchId && shouldUnify) {
+                let existingRev = db.revenues.find(r => r.id === duplicateMatchId);
+                if (existingRev) {
+                    if (!Array.isArray(existingRev.medications)) existingRev.medications = [];
+                    existingRev.medications.push(...medications);
+                    archiveOldIdenticalMedications(existingRev);
+                    persistDB();
+                    closeRevenueModal();
+                    refreshAllViews();
+                    alert("Medicamentos unificados! Caso houvesse medicação repetida de data anterior, ela foi arquivada no Histórico.");
+                    return;
+                }
+            }
+
             if (id) {
                 let rev = db.revenues.find(i => i.id === id);
-                if (rev) { rev.gestor = gestor; rev.paciente = paciente; rev.medico = medico; rev.medications = medications; }
+                if (rev) {
+                    rev.gestor = gestor;
+                    rev.paciente = paciente;
+                    rev.medico = medico;
+                    rev.medications = medications;
+                    archiveOldIdenticalMedications(rev);
+                }
             } else {
-                db.revenues.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications });
+                let newRev = {
+                    id: Date.now().toString(),
+                    userEmail: currentUser.email,
+                    gestor,
+                    paciente,
+                    medico,
+                    status: 'active',
+                    medications,
+                    medHistory: []
+                };
+                archiveOldIdenticalMedications(newRev);
+                db.revenues.push(newRev);
             }
             persistDB(); closeRevenueModal(); refreshAllViews();
         }
@@ -1931,7 +2261,7 @@
             if (typeof Chart === 'undefined' || !currentUser) return;
             let ctx1El = document.getElementById('scoreChart');
             if (ctx1El) {
-                let hist = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.history : db.history.filter(h => h.userEmail === currentUser.email);
+                let hist = (db.history || []).filter(h => isVisibleToCurrentUser(h.userEmail));
                 if (scoreChartInstance) scoreChartInstance.destroy();
                 scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
                     type: 'line',
@@ -1941,7 +2271,7 @@
             }
             let ctx2El = document.getElementById('revenueChart');
             if (ctx2El) {
-                let revList = (isMasterAccount(currentUser.email) || currentUser.role === 'admin') ? db.revenues : db.revenues.filter(i => i.userEmail === currentUser.email);
+                let revList = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
                 let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
                 revList.forEach(r => (r.medications || []).forEach(m => {
                     if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++;
@@ -1949,44 +2279,122 @@
                 if (revenueChartInstance) revenueChartInstance.destroy();
                 revenueChartInstance = new Chart(ctx2El.getContext('2d'), {
                     type: 'bar',
-                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
+                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos Ativos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
                     options: { responsive: true, maintainAspectRatio: false }
                 });
             }
         }
 
+        // =========================================================================
+        // 5. PAINEL MASTER: GESTÃO DE CONVITES ACS, VISUALIZAÇÃO, BLOQUEIO E EXCLUSÃO
+        // =========================================================================
         function renderUsers() {
             let tbody = document.getElementById('users-table-body');
             if (!tbody) return;
-            tbody.innerHTML = (db.users || []).filter(u => u && u.email).map(u => `
-                <tr class="border-b">
-                    <td class="p-4 font-semibold">${u.email}</td>
-                    <td class="p-4 uppercase text-xs font-bold">${u.role || 'user'}</td>
-                    <td class="p-4">${u.status === 'inactive' ? 'Inativo' : 'Ativo'}</td>
-                    <td class="p-4 text-center space-x-2">
-                        <button onclick="resetUserPassword('${u.email}')" class="px-3 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold cursor-pointer">Redefinir Senha</button>
+            tbody.innerHTML = (db.users || []).filter(u => u && u.email).map(u => {
+                let uEmail = u.email.toLowerCase();
+                let isPrimary = isMasterAccount(uEmail);
+                let countItems = (db.items || []).filter(i => (i.userEmail || '').toLowerCase() === uEmail).length;
+                let countRevs = (db.revenues || []).filter(r => (r.userEmail || '').toLowerCase() === uEmail).length;
+                let statusBadge = u.status === 'inactive'
+                    ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Bloqueado</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
+
+                return `
+                <tr class="border-b hover:bg-slate-50">
+                    <td class="p-4 font-bold text-slate-800">${u.name || u.email.split('@')[0]}</td>
+                    <td class="p-4 font-mono text-xs text-slate-600">${u.email}</td>
+                    <td class="p-4 uppercase text-xs font-bold">${u.role === 'admin' ? 'ADM Master' : 'ACS (Isolado)'}</td>
+                    <td class="p-4 text-xs text-slate-600"><b>${countItems}</b> aval. | <b>${countRevs}</b> rec.</td>
+                    <td class="p-4">${statusBadge}</td>
+                    <td class="p-4 text-center space-x-1">
+                        <button onclick="copyAcsInvite('${u.email}')" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-xs font-semibold cursor-pointer" title="Copiar Convite Pronto para WhatsApp"><i class="fa-brands fa-whatsapp mr-1"></i>Convite</button>
+                        <button onclick="inspectAcsRecords('${u.email}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-xs font-semibold cursor-pointer" title="Filtrar e Ver Cadastros deste ACS"><i class="fa-solid fa-folder-open mr-1"></i>Ver Arquivos</button>
+                        <button onclick="resetUserPassword('${u.email}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded text-xs font-semibold cursor-pointer" title="Ver ou Redefinir Senha"><i class="fa-solid fa-key"></i></button>
+                        ${!isPrimary ? `
+                            <button onclick="toggleUserStatus('${u.email}')" class="px-2.5 py-1 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear' : 'Bloquear'}</button>
+                            <button onclick="deleteUserAccount('${u.email}')" class="px-2.5 py-1 bg-red-50 text-red-700 hover:bg-red-100 rounded text-xs font-semibold cursor-pointer" title="Excluir ACS"><i class="fa-solid fa-trash"></i></button>
+                        ` : ''}
                     </td>
-                </tr>`).join('');
+                </tr>`;
+            }).join('');
+        }
+
+        function copyAcsInvite(email) {
+            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            if (!u) return;
+            let appUrl = window.location.href.split('#')[0];
+            let inviteText = `Olá *${u.name || u.email}*!\nSeu acesso individual ao *Sistema de Gestão ACS* foi liberado pelo ADM Master.\n\n🔗 *Link de Acesso:* ${appUrl}\n👤 *Login (E-mail):* ${u.email}\n🔑 *Senha:* ${u.password}\n\n*(Ao entrar, sua página estará pronta e em branco para seus cadastros)*`;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(inviteText).then(() => {
+                    alert("Convite copiado para a área de transferência! Agora basta colar (Ctrl+V) no WhatsApp ou E-mail do ACS:\n\n" + inviteText);
+                }).catch(() => prompt("Copie o texto do convite abaixo:", inviteText));
+            } else {
+                prompt("Copie o texto do convite abaixo:", inviteText);
+            }
+        }
+
+        function inspectAcsRecords(email) {
+            let select = document.getElementById('master-acs-filter');
+            if (select) {
+                updateMasterFilterDropdown();
+                select.value = email.toLowerCase();
+                switchTab('evaluations');
+                refreshAllViews();
+            }
+        }
+
+        function toggleUserStatus(email) {
+            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            if (!u || isMasterAccount(u.email)) return;
+            u.status = u.status === 'inactive' ? 'active' : 'inactive';
+            persistDB();
+            renderUsers();
+        }
+
+        function deleteUserAccount(email) {
+            let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
+            if (!u || isMasterAccount(u.email)) return;
+            if (!confirm(`Deseja remover o acesso do ACS "${u.name || u.email}"?`)) return;
+            let deleteRecords = confirm(`Deseja também excluir todos os pacientes/receitas cadastrados por ${u.email}?\n(Clique em OK para apagar tudo dele, ou Cancelar para manter os arquivos sob seu controle Master)`);
+            if (deleteRecords) {
+                db.items = (db.items || []).filter(i => (i.userEmail || '').toLowerCase() !== email.toLowerCase());
+                db.revenues = (db.revenues || []).filter(r => (r.userEmail || '').toLowerCase() !== email.toLowerCase());
+            }
+            db.users = (db.users || []).filter(x => x && x.email && x.email.toLowerCase() !== email.toLowerCase());
+            persistDB();
+            updateMasterFilterDropdown();
+            refreshAllViews();
         }
 
         function resetUserPassword(email) {
             let u = db.users.find(x => x && x.email && x.email.toLowerCase() === email.toLowerCase());
             if (!u) return;
             let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
-            if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada!"); }
+            if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada na nuvem!"); }
         }
 
-        function openInviteModal() { document.getElementById('invite-modal').classList.remove('hidden'); }
+        function openInviteModal() {
+            document.getElementById('invite-name').value = '';
+            document.getElementById('invite-email').value = '';
+            document.getElementById('invite-pass').value = 'Saude@2026';
+            document.getElementById('invite-modal').classList.remove('hidden');
+        }
         function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
 
         function sendInvite(e) {
             e.preventDefault();
+            let name = document.getElementById('invite-name').value.trim();
             let email = document.getElementById('invite-email').value.trim().toLowerCase();
             let role = document.getElementById('invite-role').value;
-            let password = document.getElementById('invite-pass').value;
+            let password = document.getElementById('invite-pass').value.trim();
             if (db.users.find(u => u && u.email && u.email.toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
-            db.users.push({ email, name: email.split('@')[0], password, role, status: 'active' });
-            persistDB(); closeInviteModal(); renderUsers();
+            db.users.push({ email, name: name || email.split('@')[0], password, role, status: 'active' });
+            persistDB();
+            closeInviteModal();
+            updateMasterFilterDropdown();
+            renderUsers();
+            copyAcsInvite(email);
         }
 
         function exportBackupJSON() {
@@ -2001,7 +2409,9 @@
             reader.onload = function(evt) {
                 try {
                     normalizeDatabaseObject(JSON.parse(evt.target.result));
-                    persistDB(); refreshAllViews();
+                    persistDB();
+                    updateMasterFilterDropdown();
+                    refreshAllViews();
                     alert("Backup restaurado e sincronizado na nuvem com sucesso!");
                 } catch (err) { alert("Erro ao ler arquivo JSON."); }
             };
@@ -2012,8 +2422,8 @@
             const { jsPDF } = window.jspdf; let doc = new jsPDF();
             let rev = db.revenues.find(i => i.id === id); if (!rev) return;
             doc.text(`Paciente: ${rev.paciente} (Gestor: ${rev.gestor}) - v${CURRENT_VERSION}`, 14, 20);
-            let rows = (rev.medications || []).map(m => [m.name, `${m.cycleDays}d`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
-            doc.autoTable({ startY: 28, head: [["Medicamento", "Ciclo", "Confecção", "Renovação"]], body: rows });
+            let rows = (rev.medications || []).map(m => [formatMedFullLabel(m), `${m.cycleDays}d`, formatDateBR(m.baseDate), formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))]);
+            doc.autoTable({ startY: 28, head: [["Medicamento / Dose / Posologia", "Ciclo", "Confecção", "Renovação"]], body: rows });
             doc.save(`paciente_${rev.paciente}.pdf`);
         }
 
@@ -2026,23 +2436,23 @@
             const { jsPDF } = window.jspdf; let doc = new jsPDF();
             doc.text(`Relatório de Renovação - v${CURRENT_VERSION}`, 14, 20);
             let rows = [];
-            (db.revenues || []).forEach(r => (r.medications || []).forEach(m => rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, m.name, r.gestor])));
-            doc.autoTable({ startY: 28, head: [["Vencimento", "Paciente", "Medicamento", "Gestor"]], body: rows });
+            (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).forEach(r => (r.medications || []).forEach(m => rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, formatMedFullLabel(m), r.gestor])));
+            doc.autoTable({ startY: 28, head: [["Vencimento", "Paciente", "Medicamento / Dose / Posologia", "Gestor"]], body: rows });
             doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
         }
 
         function exportRevenuesPDF() {
             const { jsPDF } = window.jspdf; let doc = new jsPDF();
             doc.text(`Relatório de Receitas - v${CURRENT_VERSION}`, 14, 20);
-            let rows = (db.revenues || []).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => m.name).join(', ')]);
-            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos"]], body: rows });
+            let rows = (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => formatMedFullLabel(m)).join(' | ')]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos Ativos (Dose e Posologia)"]], body: rows });
             doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
         }
 
         function exportPDF(type) {
             const { jsPDF } = window.jspdf; let doc = new jsPDF();
             doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20);
-            let sortedItems = [...(db.items || [])].sort((a, b) => (parseInt(b.ivcf20 || b.value || 0)) - (parseInt(a.ivcf20 || a.value || 0)));
+            let sortedItems = [...(db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail))].sort((a, b) => (parseInt(b.ivcf20 || b.value || 0)) - (parseInt(a.ivcf20 || a.value || 0)));
             let rows = sortedItems.map(i => [i.gestor, i.name, i.ivcf20 !== undefined ? i.ivcf20 : i.value, i.ivsf10 || 0, formatDateBR(i.date), formatDateBR(i.nextDate)]);
             doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Data Aval.", "Próxima Data"]], body: rows });
             doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
