@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v21.7 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v21.8 Cloud</title>
     
     <!-- LIMPADOR IMEDIATO DE CACHE -->
     <script>
@@ -56,10 +56,10 @@
                         <i class="fa-solid fa-shield-cat text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.7</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.8</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.7 Cloud</span> — Acesso Direto (Apenas Credenciais)
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.8 Cloud</span> — Acesso Direto Blindado
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
                         <i class="fa-solid fa-cloud-check"></i>
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v21.7)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v21.8)</span></p>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.7</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.8</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Nuvem Ativa</span>
@@ -183,7 +183,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 21.7 Cloud</span>
+                            APK <span class="ver-full-label">Versão 21.8 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -465,10 +465,10 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.7 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.8 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
-                                    Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`) por Conexão Dupla (HTTPS + Firebase).<br>
+                                    Todos os dados são salvos automaticamente na nuvem (`gestao-acs-marcelo`) por Conexão Dupla (HTTPS + Firebase).<br>
                                     <b>IMPORTANTE:</b> Ao restaurar um backup antigo (.json), o sistema <b>ANEXA (mescla)</b> os pacientes à nuvem sem apagar os novos!
                                 </p>
                             </div>
@@ -483,7 +483,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.7</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.8</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -498,7 +498,7 @@
                         </div>
                     </div>
 
-                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS + FERIADOS AUTOMÁTICOS E FÉRIAS -->
+                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS -->
                     <div id="tab-admin" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -886,17 +886,17 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 21.7 CLOUD - URL CORRIGIDA PARA MAIÚSCULA 'Marcelo') -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 21.8 CLOUD - ENDEREÇO DA NUVEM CORRIGIDO PARA MINÚSCULAS) -->
     <script>
-        const CURRENT_VERSION = "21.7";
+        const CURRENT_VERSION = "21.8";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
         const SECONDARY_DEFAULT_PASS = "0limpic0";
 
-        // URL Oficial EXATA com o "M" maiúsculo como estava na versão 20.4 que funcionava perfeitamente!
-        const FIREBASE_DB_URL = "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com";
+        // URL Oficial CORRIGIDA para o padrão correto Firebase (Tudo em minúsculas)
+        const FIREBASE_DB_URL = "https://gestao-acs-marcelo-default-rtdb.firebaseio.com";
         const FIREBASE_REST_ENDPOINT = `${FIREBASE_DB_URL}/gestao_acs_90_db.json`;
 
         let db = {
@@ -930,29 +930,18 @@
         const HOLIDAY_CACHE_BY_YEAR = {};
 
         // =========================================================================
-        // 1. MOTOR DE LOGIN IMEDIATO E ACESSO FORÇADO
+        // 1. MOTOR DE LOGIN BLINDADO
         // =========================================================================
         function showLoginError(msg) {
             let box = document.getElementById('login-error-box');
-            if (box) {
-                box.innerText = msg;
-                box.classList.remove('hidden');
-            } else {
-                alert(msg);
-            }
+            if (box) { box.innerText = msg; box.classList.remove('hidden'); } else alert(msg);
         }
 
         function togglePasswordVisibility(inputId, btnEl) {
-            let input = document.getElementById(inputId);
-            if (!input) return;
+            let input = document.getElementById(inputId); if (!input) return;
             let icon = btnEl ? btnEl.querySelector('i') : null;
-            if (input.type === "password") {
-                input.type = "text";
-                if (icon) icon.className = "fa-solid fa-eye-slash";
-            } else {
-                input.type = "password";
-                if (icon) icon.className = "fa-solid fa-eye";
-            }
+            if (input.type === "password") { input.type = "text"; if (icon) icon.className = "fa-solid fa-eye-slash"; }
+            else { input.type = "password"; if (icon) icon.className = "fa-solid fa-eye"; }
             input.focus();
         }
 
@@ -975,13 +964,9 @@
 
         function doSystemLogin() {
             try {
-                let errBox = document.getElementById('login-error-box');
-                if (errBox) errBox.classList.add('hidden');
-
-                let emailEl = document.getElementById('login-email');
-                let passEl = document.getElementById('login-password');
-                let email = (emailEl ? emailEl.value : '').trim().toLowerCase();
-                let pass = (passEl ? passEl.value : '').trim();
+                let errBox = document.getElementById('login-error-box'); if (errBox) errBox.classList.add('hidden');
+                let emailEl = document.getElementById('login-email'); let passEl = document.getElementById('login-password');
+                let email = (emailEl ? emailEl.value : '').trim().toLowerCase(); let pass = (passEl ? passEl.value : '').trim();
 
                 if (!email) { showLoginError("Por favor, preencha o e-mail de usuário."); return; }
                 if (!pass) { showLoginError("Por favor, digite a sua senha de acesso."); if (passEl) passEl.focus(); return; }
@@ -1000,215 +985,49 @@
 
                 if (user && pass === String(user.password || '').trim()) {
                     if (user.status === 'inactive') { showLoginError("ACESSO BLOQUEADO: Seu acesso foi suspenso pelo ADM Master."); return; }
-                    currentUser = user;
-                    if (passEl) passEl.value = '';
-                    initSession();
-                    return;
-                } else if (user) {
-                    showLoginError("ACESSO NEGADO: Senha incorreta.");
-                    return;
-                }
+                    currentUser = user; if (passEl) passEl.value = ''; initSession(); return;
+                } else if (user) { showLoginError("ACESSO NEGADO: Senha incorreta."); return; }
                 showLoginError("ACESSO BLOQUEADO: E-mail não autorizado.");
             } catch (err) {
-                currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", role: "admin", status: "active" };
-                initSession();
+                currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", role: "admin", status: "active" }; initSession();
             }
         }
 
         function initSession() {
             try {
                 sessionStorage.setItem('acs_active_user', JSON.stringify(currentUser));
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-screen').classList.remove('hidden');
+                document.getElementById('auth-screen').classList.add('hidden'); document.getElementById('main-screen').classList.remove('hidden');
+                document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email; document.getElementById('user-display-email').innerText = currentUser.email;
 
-                document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
-                document.getElementById('user-display-email').innerText = currentUser.email;
-
-                let badge = document.getElementById('badge-role');
-                let adminTab = document.getElementById('admin-tab-btn');
-                let adminRep = document.getElementById('admin-report-card');
-
+                let badge = document.getElementById('badge-role'); let adminTab = document.getElementById('admin-tab-btn'); let adminRep = document.getElementById('admin-report-card');
                 if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
-                    badge.innerText = "Administrador Master";
-                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
-                    adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
-                    adminRep.classList.remove('hidden');
+                    badge.innerText = "Administrador Master"; badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
+                    adminTab.classList.remove('hidden'); adminTab.classList.add('flex'); adminRep.classList.remove('hidden');
                 } else {
-                    badge.innerText = "ACS / Gestor Autorizado (Área Individual)";
-                    badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
+                    badge.innerText = "ACS / Gestor Autorizado (Área Individual)"; badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-700";
                     adminTab.classList.add('hidden'); adminRep.classList.add('hidden');
                 }
-                updateMasterFilterDropdown();
-                initHolidayYearSelector();
+                updateMasterFilterDropdown(); initHolidayYearSelector();
             } catch (e) {}
-
-            try { switchTab('evaluations'); } catch(e) {}
-            try { refreshAllViews(); } catch(e) {}
+            try { switchTab('evaluations'); } catch(e) {} try { refreshAllViews(); } catch(e) {}
         }
 
         function logout() {
-            currentUser = null;
-            sessionStorage.removeItem('acs_active_user');
-            document.getElementById('main-screen').classList.add('hidden');
-            document.getElementById('auth-screen').classList.remove('hidden');
+            currentUser = null; sessionStorage.removeItem('acs_active_user');
+            document.getElementById('main-screen').classList.add('hidden'); document.getElementById('auth-screen').classList.remove('hidden');
         }
 
         // =========================================================================
-        // 2. CONTROLE DE IMPRESSÃO / SOLICITAÇÃO E TRAVA ANTI-DUPLICIDADE
-        // =========================================================================
-        function getNowTimeStr() {
-            let now = new Date();
-            return String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-        }
-
-        function getEarliestScheduledRenewal(rev, specificTargetDate = null) {
-            if (specificTargetDate) return specificTargetDate;
-            if (!rev || !Array.isArray(rev.medications) || rev.medications.length === 0) return toISODateString(new Date());
-            let dates = rev.medications.map(m => calculateValidDate(m.baseDate, m.cycleDays));
-            dates.sort();
-            return dates[0];
-        }
-
-        function getRecentPrintWithin2Days(rev) {
-            if (!rev || !Array.isArray(rev.printHistory) || rev.printHistory.length === 0) return null;
-            let todayStr = toISODateString(new Date());
-            let yesterdayObj = new Date();
-            yesterdayObj.setDate(yesterdayObj.getDate() - 1);
-            let yesterdayStr = toISODateString(yesterdayObj);
-
-            for (let i = rev.printHistory.length - 1; i >= 0; i--) {
-                let p = rev.printHistory[i];
-                if (p && (p.date === todayStr || p.date === yesterdayStr)) return p;
-            }
-            return null;
-        }
-
-        function getPrintStatusBadgeHtml(rev) {
-            if (!rev || !Array.isArray(rev.printHistory) || rev.printHistory.length === 0) return '';
-            let lastPrint = rev.printHistory[rev.printHistory.length - 1];
-            let recent = getRecentPrintWithin2Days(rev);
-            if (recent) {
-                let dayLabel = recent.date === toISODateString(new Date()) ? 'HOJE' : 'ONTEM';
-                return `<div class="mt-1 inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-red-100 border border-red-300 text-red-800 text-[10px] font-bold" title="Motivo: ${recent.reason || 'Regular'}">
-                    <i class="fa-solid fa-print"></i><span>Já impressa ${dayLabel} (${formatDateBR(recent.date).slice(0,5)} às ${recent.time || ''})</span>
-                </div>`;
-            }
-            return `<div class="mt-1 inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-medium">
-                <i class="fa-solid fa-print"></i><span>Últ. imp: ${formatDateBR(lastPrint.date)}</span>
-            </div>`;
-        }
-
-        function recordPrintLog(rev, actionLabel, scheduledDate, reasonText, isEarly, isDuplicateConsecutive) {
-            if (!rev) return;
-            if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
-            rev.printHistory.push({
-                id: 'prt_' + Date.now(),
-                date: toISODateString(new Date()),
-                time: getNowTimeStr(),
-                userEmail: currentUser ? currentUser.email : MASTER_EMAIL,
-                userName: currentUser ? (currentUser.name || currentUser.email) : 'Master',
-                action: actionLabel,
-                scheduledDate: scheduledDate,
-                isEarly: !!isEarly,
-                isDuplicateConsecutive: !!isDuplicateConsecutive,
-                reason: reasonText || "Impressão / Solicitação no prazo regular"
-            });
-            persistDB(); refreshAllViews();
-        }
-
-        function verifyAndExecutePrintOrRenewal(revId, actionLabel, targetDateStr, callbackFn) {
-            let rev = db.revenues.find(r => r.id === revId);
-            if (!rev) return;
-
-            let todayStr = toISODateString(new Date());
-            let scheduledDate = getEarliestScheduledRenewal(rev, targetDateStr);
-            let recentPrint = getRecentPrintWithin2Days(rev);
-            let isEarlyRequest = todayStr < scheduledDate;
-
-            if (!recentPrint && !isEarlyRequest) {
-                recordPrintLog(rev, actionLabel, scheduledDate, "No prazo regular de renovação", false, false);
-                callbackFn();
-                return;
-            }
-
-            pendingPrintContext = { revId, actionLabel, scheduledDate, isEarlyRequest, isDuplicateConsecutive: !!recentPrint, callbackFn };
-
-            let headerEl = document.getElementById('print-confirm-header');
-            let titleEl = document.getElementById('print-confirm-title');
-            let alertBoxEl = document.getElementById('print-confirm-alert-text');
-            let selectEl = document.getElementById('print-reason-select');
-            let customBoxEl = document.getElementById('print-reason-custom-box');
-            let customInputEl = document.getElementById('print-reason-custom');
-
-            selectEl.value = ''; customInputEl.value = ''; customBoxEl.classList.add('hidden');
-            let messagesHtml = `<p class="font-bold text-slate-900 text-sm mb-1">Paciente: ${rev.paciente}</p>`;
-
-            if (recentPrint) {
-                headerEl.className = "px-6 py-4 bg-red-50 border-b border-red-200 flex justify-between items-center";
-                titleEl.className = "font-bold text-red-900 text-sm sm:text-base flex items-center";
-                titleEl.innerHTML = `<i class="fa-solid fa-ban mr-2 text-red-600"></i>Bloqueio de Receita em Dias Seguidos!`;
-                alertBoxEl.className = "p-3.5 rounded-xl border bg-red-50 border-red-300 text-red-900 text-xs leading-relaxed space-y-1.5";
-                messagesHtml += `<p class="font-bold text-red-800">🚨 ATENÇÃO: Esta receita já foi impressa/solicitada em <u>${formatDateBR(recentPrint.date)} às ${recentPrint.time || ''}</u> por ${recentPrint.userName || recentPrint.userEmail}!</p><p>• Último motivo registrado: <i>"${recentPrint.reason}"</i></p><p class="font-semibold">O sistema bloqueia a emissão da mesma receita em dias seguidos. Caso seja realmente necessária uma 2ª via, informe o motivo abaixo:</p>`;
-            } else if (isEarlyRequest) {
-                let dToday = new Date(todayStr + 'T00:00:00'); let dSched = new Date(scheduledDate + 'T00:00:00');
-                let daysLeft = Math.round((dSched.getTime() - dToday.getTime()) / (1000 * 60 * 60 * 24));
-                headerEl.className = "px-6 py-4 bg-amber-50 border-b border-amber-200 flex justify-between items-center";
-                titleEl.className = "font-bold text-amber-900 text-sm sm:text-base flex items-center";
-                titleEl.innerHTML = `<i class="fa-solid fa-clock mr-2 text-amber-600"></i>Pedido Antes da Data de Renovação`;
-                alertBoxEl.className = "p-3.5 rounded-xl border bg-amber-50 border-amber-300 text-amber-950 text-xs leading-relaxed space-y-1.5";
-                messagesHtml += `<p class="font-bold text-amber-900">⏳ A data programada de renovação desta receita é apenas em <u>${formatDateBR(scheduledDate)}</u> (faltam ${daysLeft} dia(s)).</p><p>Como este pedido de impressão/renovação está sendo feito antes do prazo, confirme obrigatoriamente o motivo abaixo para registrar no histórico:</p>`;
-            }
-            alertBoxEl.innerHTML = messagesHtml;
-            document.getElementById('print-confirm-modal').classList.remove('hidden');
-        }
-
-        function toggleCustomPrintReason() {
-            let sel = document.getElementById('print-reason-select').value;
-            let box = document.getElementById('print-reason-custom-box');
-            if (sel === 'custom') { box.classList.remove('hidden'); document.getElementById('print-reason-custom').focus(); }
-            else { box.classList.add('hidden'); }
-        }
-
-        function closePrintConfirmModal() { document.getElementById('print-confirm-modal').classList.add('hidden'); pendingPrintContext = null; }
-
-        function confirmPrintWithReason() {
-            if (!pendingPrintContext) return;
-            let sel = document.getElementById('print-reason-select').value;
-            let customText = document.getElementById('print-reason-custom').value.trim();
-            if (!sel) { alert("Por favor, selecione o motivo da impressão/solicitação para continuar."); return; }
-            let finalReason = sel === 'custom' ? customText : sel;
-            if (!finalReason || finalReason.length < 3) { alert("Por favor, descreva o motivo da impressão."); return; }
-
-            let ctx = pendingPrintContext; let rev = db.revenues.find(r => r.id === ctx.revId);
-            closePrintConfirmModal();
-            if (rev) { recordPrintLog(rev, ctx.actionLabel, ctx.scheduledDate, finalReason, ctx.isEarlyRequest, ctx.isDuplicateConsecutive); ctx.callbackFn(); }
-        }
-
-        // =========================================================================
-        // 3. CONEXÃO DUPLA COM A NUVEM (HTTPS REST DIRETO + FIREBASE SDK)
+        // 2. CONEXÃO DUPLA COM A NUVEM (HTTPS REST DIRETO + FIREBASE SDK)
         // =========================================================================
         function updateCloudBadges(status, message) {
-            let loginBadge = document.getElementById('login-cloud-status');
-            let headerBadge = document.getElementById('header-cloud-badge');
-
+            let loginBadge = document.getElementById('login-cloud-status'); let headerBadge = document.getElementById('header-cloud-badge');
             if (status === 'online') {
-                if (loginBadge) {
-                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Banco Online Conectado (Firebase v${CURRENT_VERSION})</span>`;
-                }
-                if (headerBadge) {
-                    headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1";
-                    headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada (v${CURRENT_VERSION})</span>`;
-                }
+                if (loginBadge) { loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700"; loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Banco Online Conectado (Firebase v${CURRENT_VERSION})</span>`; }
+                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1"; headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada (v${CURRENT_VERSION})</span>`; }
             } else {
-                if (loginBadge) {
-                    loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800";
-                    loginBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local Ativo'}</span>`;
-                }
-                if (headerBadge) {
-                    headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1";
-                    headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>${message || 'Modo Local'}</span>`;
-                }
+                if (loginBadge) { loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800"; loginBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local Ativo'}</span>`; }
+                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1"; headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>${message || 'Modo Local'}</span>`; }
             }
         }
 
@@ -1216,11 +1035,9 @@
             try {
                 const response = await fetch(FIREBASE_REST_ENDPOINT, { method: 'GET', cache: 'no-store' });
                 if (response.ok) {
-                    updateCloudBadges('online');
-                    const cloudData = await response.json();
+                    updateCloudBadges('online'); const cloudData = await response.json();
                     if (cloudData && typeof cloudData === 'object') {
-                        mergeDatabaseObject(cloudData);
-                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+                        mergeDatabaseObject(cloudData); localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
                         if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); }
                     }
                 }
@@ -1232,44 +1049,227 @@
             try {
                 if (typeof firebase === 'undefined') return;
                 const firebaseConfig = {
-                    apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic",
-                    authDomain: "gestao-acs-marcelo.firebaseapp.com",
-                    databaseURL: FIREBASE_DB_URL,
-                    projectId: "gestao-acs-marcelo",
-                    storageBucket: "gestao-acs-marcelo.firebasestorage.app",
-                    messagingSenderId: "962078506582",
-                    appId: "1:962078506582:web:51cdd7e1434dc50fd845f7",
-                    measurementId: "G-34KHWRJ336"
+                    apiKey: "AIzaSyCjtHwSZL_dHk-GtJLq_BVmKdbKac_U4Ic", authDomain: "gestao-acs-marcelo.firebaseapp.com", databaseURL: FIREBASE_DB_URL, projectId: "gestao-acs-marcelo", storageBucket: "gestao-acs-marcelo.firebasestorage.app", messagingSenderId: "962078506582", appId: "1:962078506582:web:51cdd7e1434dc50fd845f7", measurementId: "G-34KHWRJ336"
                 };
-
                 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
                 firebaseDB = firebase.database(); dbRef = firebaseDB.ref('gestao_acs_90_db');
                 dbRef.on('value', (snapshot) => {
-                    updateCloudBadges('online');
-                    const cloudData = snapshot.val();
-                    if (cloudData) {
-                        normalizeDatabaseObject(cloudData);
-                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
-                        if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); }
-                    }
+                    updateCloudBadges('online'); const cloudData = snapshot.val();
+                    if (cloudData) { normalizeDatabaseObject(cloudData); localStorage.setItem('ivcf_db_v3', JSON.stringify(db)); if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); } }
                 });
             } catch (err) {}
         }
 
         function persistDB() {
-            db.version = CURRENT_VERSION;
-            let cleanCopy = JSON.parse(JSON.stringify(db));
-            localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
-
+            db.version = CURRENT_VERSION; let cleanCopy = JSON.parse(JSON.stringify(db)); localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
             fetch(FIREBASE_REST_ENDPOINT, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanCopy) }).then(res => { if (res.ok) updateCloudBadges('online'); }).catch(() => {});
             if (dbRef) dbRef.set(cleanCopy).then(() => updateCloudBadges('online')).catch(() => {});
-
-            let toast = document.getElementById('save-toast');
-            if (toast) { toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000); }
+            let toast = document.getElementById('save-toast'); if (toast) { toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000); }
         }
 
         function forceCloudSync() { persistDB(); fetchCloudViaRest(); alert(`Sincronização com a nuvem (v${CURRENT_VERSION}) concluída com sucesso!`); }
 
+        // =========================================================================
+        // 3. CONTROLE DE IMPRESSÃO / SOLICITAÇÃO (2 DIAS SEGUIDOS)
+        // =========================================================================
+        function getNowTimeStr() { let now = new Date(); return String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0'); }
+        function getEarliestScheduledRenewal(rev, specificTargetDate = null) {
+            if (specificTargetDate) return specificTargetDate;
+            if (!rev || !Array.isArray(rev.medications) || rev.medications.length === 0) return toISODateString(new Date());
+            let dates = rev.medications.map(m => calculateValidDate(m.baseDate, m.cycleDays)); dates.sort(); return dates[0];
+        }
+
+        function getRecentPrintWithin2Days(rev) {
+            if (!rev || !Array.isArray(rev.printHistory) || rev.printHistory.length === 0) return null;
+            let todayStr = toISODateString(new Date()); let yesterdayObj = new Date(); yesterdayObj.setDate(yesterdayObj.getDate() - 1); let yesterdayStr = toISODateString(yesterdayObj);
+            for (let i = rev.printHistory.length - 1; i >= 0; i--) { let p = rev.printHistory[i]; if (p && (p.date === todayStr || p.date === yesterdayStr)) return p; }
+            return null;
+        }
+
+        function getPrintStatusBadgeHtml(rev) {
+            if (!rev || !Array.isArray(rev.printHistory) || rev.printHistory.length === 0) return '';
+            let lastPrint = rev.printHistory[rev.printHistory.length - 1]; let recent = getRecentPrintWithin2Days(rev);
+            if (recent) {
+                let dayLabel = recent.date === toISODateString(new Date()) ? 'HOJE' : 'ONTEM';
+                return `<div class="mt-1 inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-red-100 border border-red-300 text-red-800 text-[10px] font-bold" title="Motivo: ${recent.reason || 'Regular'}"><i class="fa-solid fa-print"></i><span>Já impressa ${dayLabel} (${formatDateBR(recent.date).slice(0,5)} às ${recent.time || ''})</span></div>`;
+            }
+            return `<div class="mt-1 inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-medium"><i class="fa-solid fa-print"></i><span>Últ. imp: ${formatDateBR(lastPrint.date)}</span></div>`;
+        }
+
+        function recordPrintLog(rev, actionLabel, scheduledDate, reasonText, isEarly, isDuplicateConsecutive) {
+            if (!rev) return; if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
+            rev.printHistory.push({ id: 'prt_' + Date.now(), date: toISODateString(new Date()), time: getNowTimeStr(), userEmail: currentUser ? currentUser.email : MASTER_EMAIL, userName: currentUser ? (currentUser.name || currentUser.email) : 'Master', action: actionLabel, scheduledDate: scheduledDate, isEarly: !!isEarly, isDuplicateConsecutive: !!isDuplicateConsecutive, reason: reasonText || "Impressão / Solicitação no prazo regular" });
+            persistDB(); refreshAllViews();
+        }
+
+        function verifyAndExecutePrintOrRenewal(revId, actionLabel, targetDateStr, callbackFn) {
+            let rev = db.revenues.find(r => r.id === revId); if (!rev) return;
+            let todayStr = toISODateString(new Date()); let scheduledDate = getEarliestScheduledRenewal(rev, targetDateStr); let recentPrint = getRecentPrintWithin2Days(rev); let isEarlyRequest = todayStr < scheduledDate;
+            if (!recentPrint && !isEarlyRequest) { recordPrintLog(rev, actionLabel, scheduledDate, "No prazo regular de renovação", false, false); callbackFn(); return; }
+            pendingPrintContext = { revId, actionLabel, scheduledDate, isEarlyRequest, isDuplicateConsecutive: !!recentPrint, callbackFn };
+            let headerEl = document.getElementById('print-confirm-header'); let titleEl = document.getElementById('print-confirm-title'); let alertBoxEl = document.getElementById('print-confirm-alert-text'); let selectEl = document.getElementById('print-reason-select'); let customBoxEl = document.getElementById('print-reason-custom-box'); let customInputEl = document.getElementById('print-reason-custom');
+            selectEl.value = ''; customInputEl.value = ''; customBoxEl.classList.add('hidden');
+            let messagesHtml = `<p class="font-bold text-slate-900 text-sm mb-1">Paciente: ${rev.paciente}</p>`;
+            if (recentPrint) {
+                headerEl.className = "px-6 py-4 bg-red-50 border-b border-red-200 flex justify-between items-center"; titleEl.className = "font-bold text-red-900 text-sm sm:text-base flex items-center"; titleEl.innerHTML = `<i class="fa-solid fa-ban mr-2 text-red-600"></i>Bloqueio de Receita em Dias Seguidos!`; alertBoxEl.className = "p-3.5 rounded-xl border bg-red-50 border-red-300 text-red-900 text-xs leading-relaxed space-y-1.5";
+                messagesHtml += `<p class="font-bold text-red-800">🚨 ATENÇÃO: Esta receita já foi impressa/solicitada em <u>${formatDateBR(recentPrint.date)} às ${recentPrint.time || ''}</u> por ${recentPrint.userName || recentPrint.userEmail}!</p><p>• Último motivo registrado: <i>"${recentPrint.reason}"</i></p><p class="font-semibold">O sistema bloqueia a emissão da mesma receita em dias seguidos. Caso seja realmente necessária uma 2ª via, informe o motivo abaixo:</p>`;
+            } else if (isEarlyRequest) {
+                let dToday = new Date(todayStr + 'T00:00:00'); let dSched = new Date(scheduledDate + 'T00:00:00'); let daysLeft = Math.round((dSched.getTime() - dToday.getTime()) / (1000 * 60 * 60 * 24));
+                headerEl.className = "px-6 py-4 bg-amber-50 border-b border-amber-200 flex justify-between items-center"; titleEl.className = "font-bold text-amber-900 text-sm sm:text-base flex items-center"; titleEl.innerHTML = `<i class="fa-solid fa-clock mr-2 text-amber-600"></i>Pedido Antes da Data de Renovação`; alertBoxEl.className = "p-3.5 rounded-xl border bg-amber-50 border-amber-300 text-amber-950 text-xs leading-relaxed space-y-1.5";
+                messagesHtml += `<p class="font-bold text-amber-900">⏳ A data programada de renovação desta receita é apenas em <u>${formatDateBR(scheduledDate)}</u> (faltam ${daysLeft} dia(s)).</p><p>Como este pedido de impressão/renovação está sendo feito antes do prazo, confirme obrigatoriamente o motivo abaixo para registrar no histórico:</p>`;
+            }
+            alertBoxEl.innerHTML = messagesHtml; document.getElementById('print-confirm-modal').classList.remove('hidden');
+        }
+
+        function toggleCustomPrintReason() {
+            let sel = document.getElementById('print-reason-select').value; let box = document.getElementById('print-reason-custom-box');
+            if (sel === 'custom') { box.classList.remove('hidden'); document.getElementById('print-reason-custom').focus(); } else box.classList.add('hidden');
+        }
+
+        function closePrintConfirmModal() { document.getElementById('print-confirm-modal').classList.add('hidden'); pendingPrintContext = null; }
+
+        function confirmPrintWithReason() {
+            if (!pendingPrintContext) return;
+            let sel = document.getElementById('print-reason-select').value; let customText = document.getElementById('print-reason-custom').value.trim();
+            if (!sel) { alert("Por favor, selecione o motivo da impressão/solicitação para continuar."); return; }
+            let finalReason = sel === 'custom' ? customText : sel; if (!finalReason || finalReason.length < 3) { alert("Por favor, descreva o motivo da impressão."); return; }
+            let ctx = pendingPrintContext; let rev = db.revenues.find(r => r.id === ctx.revId); closePrintConfirmModal();
+            if (rev) { recordPrintLog(rev, ctx.actionLabel, ctx.scheduledDate, finalReason, ctx.isEarlyRequest, ctx.isDuplicateConsecutive); ctx.callbackFn(); }
+        }
+
+        // =========================================================================
+        // 4. MESCLAGEM INTELIGENTE E GESTÃO DE COMORBIDADES
+        // =========================================================================
+        function autoGuessComorbidities(meds) {
+            let detected = new Set();
+            meds.forEach(m => {
+                if (!m.name) return; let n = String(m.name).toLowerCase();
+                if (n.includes('losartana') || n.includes('enalapril') || n.includes('captopril') || n.includes('atenolol') || n.includes('propranolol') || n.includes('anlodipino') || n.includes('hidroclorotiazida') || n.includes('furosemida') || n.includes('espironolactona') || n.includes('carvedilol') || n.includes('nifedipino') || n.includes('cilostazol') || n.includes('amiodarona') || n.includes('clopidogrel') || n.includes('aas') || n.includes('ácido acetil') || n.includes('valsartana') || n.includes('amlodipina')) detected.add('Hipertensão / Cardíaca');
+                else if (n.includes('metformina') || n.includes('gliclazida') || n.includes('glibenclamida') || n.includes('insulina') || n.includes('dapagliflozina') || n.includes('empagliflozina') || n.includes('sitagliptina') || n.includes('vildagliptina') || n.includes('galvus') || n.includes('forxiga') || n.includes('jardiance') || n.includes('glimepirida') || n.includes('diamicron')) detected.add('Diabetes');
+                else if (n.includes('clonazepam') || n.includes('diazepam') || n.includes('alprazolam') || n.includes('bromazepam') || n.includes('fluoxetina') || n.includes('sertralina') || n.includes('amitriptilina') || n.includes('nortriptilina') || n.includes('escitalopram') || n.includes('citalopram') || n.includes('fenobarbital') || n.includes('carbamazepina') || n.includes('valpro') || n.includes('haloperidol') || n.includes('risperidona') || n.includes('quetiapina') || n.includes('biperideno') || n.includes('clorpromazina') || n.includes('levomepromazina') || n.includes('duloxetina') || n.includes('venlafaxina') || n.includes('desvenlafaxina') || n.includes('pregabalina') || n.includes('gabapentina') || n.includes('zolpidem') || n.includes('rivotril') || n.includes('lexapro')) detected.add('Saúde Mental / Neuro');
+                else if (n.includes('sinvastatina') || n.includes('atorvastatina') || n.includes('rosuvastatina') || n.includes('ciprofibrato') || n.includes('fenofibrato')) detected.add('Colesterol / Dislipidemia');
+                else if (n.includes('levotiroxina') || n.includes('puran') || n.includes('synthroid') || n.includes('euthyrox') || n.includes('tapazol')) detected.add('Tireoide');
+                else if (n.includes('aerolin') || n.includes('salbutamol') || n.includes('formoterol') || n.includes('budesonida') || n.includes('alenia') || n.includes('symbicort') || n.includes('brometo')) detected.add('Asma / DPOC');
+            });
+            return Array.from(detected);
+        }
+
+        function archiveOldIdenticalMedications(rev) {
+            if (!rev) return;
+            if (!Array.isArray(rev.medications)) rev.medications = [];
+            if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+            if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
+            if (!Array.isArray(rev.comorbidades)) rev.comorbidades = [];
+
+            let latestByMedName = new Map();
+            rev.medications.forEach(med => {
+                if (!med || !med.name) return;
+                let key = String(med.name).trim().toLowerCase();
+                if (!latestByMedName.has(key)) latestByMedName.set(key, med);
+                else {
+                    let existing = latestByMedName.get(key);
+                    let timeExisting = new Date((existing.baseDate || '2000-01-01') + 'T00:00:00').getTime();
+                    let timeNew = new Date((med.baseDate || '2000-01-01') + 'T00:00:00').getTime();
+                    if (isNaN(timeExisting)) timeExisting = 0; if (isNaN(timeNew)) timeNew = 0;
+                    if (timeNew >= timeExisting) { rev.medHistory.push({ ...existing, archivedAt: med.baseDate || new Date().toISOString().split('T')[0], reason: "Substituído por receita mais recente" }); latestByMedName.set(key, med); }
+                    else rev.medHistory.push({ ...med, archivedAt: existing.baseDate || new Date().toISOString().split('T')[0], reason: "Registro anterior arquivado" });
+                }
+            });
+            rev.medications = Array.from(latestByMedName.values());
+        }
+
+        function mergeDatabaseObject(imp) {
+            if (!imp || typeof imp !== 'object') return;
+            let impUsers = Array.isArray(imp.users) ? imp.users : Object.values(imp.users || {});
+            impUsers.forEach(iu => { if (iu && iu.email && !db.users.find(u => u.email.toLowerCase() === iu.email.toLowerCase())) db.users.push(iu); });
+
+            let impItems = Array.isArray(imp.items) ? imp.items : Object.values(imp.items || {});
+            impItems.forEach(ii => {
+                if (!ii || typeof ii !== 'object') return;
+                if (!db.items.find(i => i.id === ii.id)) {
+                    ii.userEmail = ii.userEmail || MASTER_EMAIL;
+                    if (!Array.isArray(ii.history)) ii.history = Object.values(ii.history || {});
+                    db.items.push(ii);
+                }
+            });
+
+            let impRevs = Array.isArray(imp.revenues) ? imp.revenues : Object.values(imp.revenues || {});
+            impRevs.forEach(ir => {
+                if (!ir || typeof ir !== 'object') return;
+                let existingRev = db.revenues.find(r => r.id === ir.id);
+                if (!existingRev) {
+                    ir.userEmail = ir.userEmail || MASTER_EMAIL;
+                    if (!Array.isArray(ir.medications)) ir.medications = Object.values(ir.medications || {});
+                    if (!Array.isArray(ir.medHistory)) ir.medHistory = Object.values(ir.medHistory || {});
+                    if (!Array.isArray(ir.printHistory)) ir.printHistory = Object.values(ir.printHistory || {});
+                    if (!Array.isArray(ir.comorbidades)) ir.comorbidades = Object.values(ir.comorbidades || []);
+                    db.revenues.push(ir);
+                } else {
+                    let newMeds = Array.isArray(ir.medications) ? ir.medications : Object.values(ir.medications || {});
+                    if (newMeds.length > 0) { if (!Array.isArray(existingRev.medications)) existingRev.medications = []; existingRev.medications.push(...newMeds); }
+                    let newHist = Array.isArray(ir.medHistory) ? ir.medHistory : Object.values(ir.medHistory || {});
+                    if (newHist.length > 0) { if (!Array.isArray(existingRev.medHistory)) existingRev.medHistory = []; existingRev.medHistory.push(...newHist); }
+                    let newPrints = Array.isArray(ir.printHistory) ? ir.printHistory : Object.values(ir.printHistory || {});
+                    if (newPrints.length > 0) {
+                        if (!Array.isArray(existingRev.printHistory)) existingRev.printHistory = [];
+                        newPrints.forEach(np => { if (np && !existingRev.printHistory.find(ep => ep.id === np.id)) existingRev.printHistory.push(np); });
+                    }
+                    if (ir.comorbidades && Array.isArray(ir.comorbidades) && ir.comorbidades.length > 0) existingRev.comorbidades = ir.comorbidades;
+                }
+            });
+
+            let impHist = Array.isArray(imp.history) ? imp.history : Object.values(imp.history || {});
+            impHist.forEach(ih => { if (ih && ih.id && !db.history.find(h => h.id === ih.id)) db.history.push(ih); });
+            let impIgnored = Array.isArray(imp.ignoredHolidays) ? imp.ignoredHolidays : Object.values(imp.ignoredHolidays || {});
+            impIgnored.forEach(dStr => { if (dStr && !db.ignoredHolidays.includes(dStr)) db.ignoredHolidays.push(dStr); });
+            if (imp.vacations) { let impVac = Array.isArray(imp.vacations) ? imp.vacations : Object.values(imp.vacations || {}); if (impVac.length > 0 && db.vacations.length === 0) db.vacations = impVac.filter(Boolean); }
+            cleanExistingDuplicates(); ensureMasterUsers();
+        }
+
+        function normalizeDatabaseObject(raw) {
+            if (!raw || typeof raw !== 'object') return;
+            db.version = CURRENT_VERSION;
+            db.users = (Array.isArray(raw.users) ? raw.users : Object.values(raw.users || {})).filter(u => u && typeof u === 'object' && u.email);
+            db.items = (Array.isArray(raw.items) ? raw.items : Object.values(raw.items || {})).filter(i => i && typeof i === 'object').map(i => ({ ...i, userEmail: i.userEmail || MASTER_EMAIL, history: Array.isArray(i.history) ? i.history : Object.values(i.history || {}) }));
+            db.revenues = (Array.isArray(raw.revenues) ? raw.revenues : Object.values(raw.revenues || {})).filter(r => r && typeof r === 'object').map(r => ({
+                ...r, userEmail: r.userEmail || MASTER_EMAIL, medications: Array.isArray(r.medications) ? r.medications : Object.values(r.medications || {}), medHistory: Array.isArray(r.medHistory) ? r.medHistory : Object.values(r.medHistory || {}), printHistory: Array.isArray(r.printHistory) ? r.printHistory : Object.values(r.printHistory || {}), comorbidades: Array.isArray(r.comorbidades) ? r.comorbidades : Object.values(r.comorbidades || [])
+            }));
+            db.history = (Array.isArray(raw.history) ? raw.history : Object.values(raw.history || {})).filter(Boolean);
+            db.holidays = (Array.isArray(raw.holidays) ? raw.holidays : Object.values(raw.holidays || {})).filter(Boolean);
+            db.ignoredHolidays = (Array.isArray(raw.ignoredHolidays) ? raw.ignoredHolidays : Object.values(raw.ignoredHolidays || {})).filter(Boolean);
+            db.vacations = (Array.isArray(raw.vacations) ? raw.vacations : Object.values(raw.vacations || {})).filter(Boolean);
+            cleanExistingDuplicates(); ensureMasterUsers();
+        }
+
+        function cleanExistingDuplicates() {
+            if (!db.revenues || !Array.isArray(db.revenues)) return;
+            let uniqueMap = new Map(); let cleanedList = [];
+            db.revenues.forEach(rev => {
+                if (!rev || typeof rev !== 'object') return;
+                let ownerKey = String(rev.userEmail || MASTER_EMAIL).trim().toLowerCase();
+                let key = ownerKey + '|' + String(rev.paciente || '').trim().toLowerCase() + '|' + String(rev.gestor || '').trim().toLowerCase();
+                if (uniqueMap.has(key)) {
+                    let primary = uniqueMap.get(key);
+                    if (Array.isArray(rev.medications)) { if (!Array.isArray(primary.medications)) primary.medications = []; primary.medications.push(...rev.medications.filter(m => m && m.name)); }
+                    if (Array.isArray(rev.medHistory)) { if (!Array.isArray(primary.medHistory)) primary.medHistory = []; primary.medHistory.push(...rev.medHistory.filter(m => m && m.name)); }
+                    if (Array.isArray(rev.printHistory)) { if (!Array.isArray(primary.printHistory)) primary.printHistory = []; primary.printHistory.push(...rev.printHistory.filter(Boolean)); }
+                    if (Array.isArray(rev.comorbidades) && rev.comorbidades.length > 0) primary.comorbidades = rev.comorbidades;
+                    archiveOldIdenticalMedications(primary);
+                } else {
+                    if (Array.isArray(rev.medications)) rev.medications = rev.medications.filter(m => m && m.name);
+                    if (Array.isArray(rev.medHistory)) rev.medHistory = rev.medHistory.filter(m => m && m.name);
+                    if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
+                    if (!Array.isArray(rev.comorbidades)) rev.comorbidades = [];
+                    archiveOldIdenticalMedications(rev);
+                    uniqueMap.set(key, rev); cleanedList.push(rev);
+                }
+            });
+            db.revenues = cleanedList;
+        }
+
+        // =========================================================================
+        // CALENDÁRIO PERPÉTUO E FUNÇÕES DE FORMATAÇÃO
+        // =========================================================================
         function addDaysToDate(dateObj, days) { let d = new Date(dateObj.getTime()); d.setDate(d.getDate() + days); return d; }
         function toISODateString(d) { let yyyy = d.getFullYear(); let mm = String(d.getMonth() + 1).padStart(2, '0'); let dd = String(d.getDate()).padStart(2, '0'); return `${yyyy}-${mm}-${dd}`; }
         function getEasterSunday(year) {
@@ -1341,170 +1341,17 @@
             return { finalDate: finalDateStr, finalWeekday: finalWeekdayName, exactDueDate: exactDueStr, exactWeekday: exactWeekdayName, diffDays: diffDays, reasons: reasonsArray, hadVacationBlock, hadHolidayBlock, summaryText };
         }
 
-        function calculateValidDate(baseDateStr, addDays) { return getRenewalDateDetails(baseDateStr, addDays).finalDate; }
-
-        function isVisibleToCurrentUser(recordUserEmail) {
-            if (!currentUser) return false;
-            let myEmail = String(currentUser.email).trim().toLowerCase(); let recEmail = String(recordUserEmail || MASTER_EMAIL).trim().toLowerCase();
-            if (isMasterAccount(myEmail) || currentUser.role === 'admin') {
-                let filterEl = document.getElementById('master-acs-filter'); let selectedFilter = filterEl ? filterEl.value : 'all';
-                if (selectedFilter === 'all') return true; if (selectedFilter === 'mine') return recEmail === myEmail; return recEmail === selectedFilter.toLowerCase();
-            }
-            return recEmail === myEmail;
-        }
-
-        function updateMasterFilterDropdown() {
-            let box = document.getElementById('master-view-filter-box'); let select = document.getElementById('master-acs-filter');
-            if (!box || !select || !currentUser) return;
-            let myEmail = String(currentUser.email).trim().toLowerCase();
-            if (myEmail === MASTER_EMAIL || myEmail === SECONDARY_MASTER || currentUser.role === 'admin') {
-                box.classList.remove('hidden'); let currentVal = select.value || 'all';
-                let html = `<option value="all">🌐 Todos os ACS (Equipe Completa)</option><option value="mine">👤 Apenas Meus Cadastros (${currentUser.name || currentUser.email})</option>`;
-                (db.users || []).forEach(u => { if (u && u.email && String(u.email).toLowerCase() !== myEmail) html += `<option value="${String(u.email).toLowerCase()}">📋 ACS: ${u.name || u.email} (${u.email})</option>`; });
-                select.innerHTML = html; if ([...select.options].some(o => o.value === currentVal)) select.value = currentVal;
-            } else box.classList.add('hidden');
-        }
-
-        // =========================================================================
-        // 5. MESCLAGEM INTELIGENTE E GESTÃO DE DADOS
-        // =========================================================================
-        function autoGuessComorbidities(meds) {
-            let detected = new Set();
-            meds.forEach(m => {
-                if (!m.name) return; let n = String(m.name).toLowerCase();
-                if (n.includes('losartana') || n.includes('enalapril') || n.includes('captopril') || n.includes('atenolol') || n.includes('propranolol') || n.includes('anlodipino') || n.includes('hidroclorotiazida') || n.includes('furosemida') || n.includes('espironolactona') || n.includes('carvedilol') || n.includes('nifedipino') || n.includes('cilostazol') || n.includes('amiodarona') || n.includes('clopidogrel') || n.includes('aas') || n.includes('ácido acetil') || n.includes('valsartana') || n.includes('amlodipina')) detected.add('Hipertensão / Cardíaca');
-                else if (n.includes('metformina') || n.includes('gliclazida') || n.includes('glibenclamida') || n.includes('insulina') || n.includes('dapagliflozina') || n.includes('empagliflozina') || n.includes('sitagliptina') || n.includes('vildagliptina') || n.includes('galvus') || n.includes('forxiga') || n.includes('jardiance') || n.includes('glimepirida') || n.includes('diamicron')) detected.add('Diabetes');
-                else if (n.includes('clonazepam') || n.includes('diazepam') || n.includes('alprazolam') || n.includes('bromazepam') || n.includes('fluoxetina') || n.includes('sertralina') || n.includes('amitriptilina') || n.includes('nortriptilina') || n.includes('escitalopram') || n.includes('citalopram') || n.includes('fenobarbital') || n.includes('carbamazepina') || n.includes('valpro') || n.includes('haloperidol') || n.includes('risperidona') || n.includes('quetiapina') || n.includes('biperideno') || n.includes('clorpromazina') || n.includes('levomepromazina') || n.includes('duloxetina') || n.includes('venlafaxina') || n.includes('desvenlafaxina') || n.includes('pregabalina') || n.includes('gabapentina') || n.includes('zolpidem') || n.includes('rivotril') || n.includes('lexapro')) detected.add('Saúde Mental / Neuro');
-                else if (n.includes('sinvastatina') || n.includes('atorvastatina') || n.includes('rosuvastatina') || n.includes('ciprofibrato') || n.includes('fenofibrato')) detected.add('Colesterol / Dislipidemia');
-                else if (n.includes('levotiroxina') || n.includes('puran') || n.includes('synthroid') || n.includes('euthyrox') || n.includes('tapazol')) detected.add('Tireoide');
-                else if (n.includes('aerolin') || n.includes('salbutamol') || n.includes('formoterol') || n.includes('budesonida') || n.includes('alenia') || n.includes('symbicort') || n.includes('brometo')) detected.add('Asma / DPOC');
-            });
-            return Array.from(detected);
-        }
-
-        function archiveOldIdenticalMedications(rev) {
-            if (!rev) return;
-            if (!Array.isArray(rev.medications)) rev.medications = [];
-            if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
-            if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
-            if (!Array.isArray(rev.comorbidades)) rev.comorbidades = [];
-
-            let latestByMedName = new Map();
-            rev.medications.forEach(med => {
-                if (!med || !med.name) return;
-                let key = String(med.name).trim().toLowerCase();
-                if (!latestByMedName.has(key)) latestByMedName.set(key, med);
-                else {
-                    let existing = latestByMedName.get(key);
-                    let timeExisting = new Date((existing.baseDate || '2000-01-01') + 'T00:00:00').getTime();
-                    let timeNew = new Date((med.baseDate || '2000-01-01') + 'T00:00:00').getTime();
-                    if (isNaN(timeExisting)) timeExisting = 0; if (isNaN(timeNew)) timeNew = 0;
-                    if (timeNew >= timeExisting) { rev.medHistory.push({ ...existing, archivedAt: med.baseDate || new Date().toISOString().split('T')[0], reason: "Substituído por receita mais recente" }); latestByMedName.set(key, med); }
-                    else { rev.medHistory.push({ ...med, archivedAt: existing.baseDate || new Date().toISOString().split('T')[0], reason: "Registro anterior arquivado" }); }
-                }
-            });
-            rev.medications = Array.from(latestByMedName.values());
-        }
-
-        function mergeDatabaseObject(imp) {
-            if (!imp || typeof imp !== 'object') return;
-            let impUsers = Array.isArray(imp.users) ? imp.users : Object.values(imp.users || {});
-            impUsers.forEach(iu => { if (iu && iu.email && !db.users.find(u => u.email.toLowerCase() === iu.email.toLowerCase())) db.users.push(iu); });
-
-            let impItems = Array.isArray(imp.items) ? imp.items : Object.values(imp.items || {});
-            impItems.forEach(ii => {
-                if (!ii || typeof ii !== 'object') return;
-                if (!db.items.find(i => i.id === ii.id)) {
-                    ii.userEmail = ii.userEmail || MASTER_EMAIL;
-                    if (!Array.isArray(ii.history)) ii.history = Object.values(ii.history || {});
-                    db.items.push(ii);
-                }
-            });
-
-            let impRevs = Array.isArray(imp.revenues) ? imp.revenues : Object.values(imp.revenues || {});
-            impRevs.forEach(ir => {
-                if (!ir || typeof ir !== 'object') return;
-                let existingRev = db.revenues.find(r => r.id === ir.id);
-                if (!existingRev) {
-                    ir.userEmail = ir.userEmail || MASTER_EMAIL;
-                    if (!Array.isArray(ir.medications)) ir.medications = Object.values(ir.medications || {});
-                    if (!Array.isArray(ir.medHistory)) ir.medHistory = Object.values(ir.medHistory || {});
-                    if (!Array.isArray(ir.printHistory)) ir.printHistory = Object.values(ir.printHistory || {});
-                    if (!Array.isArray(ir.comorbidades)) ir.comorbidades = Object.values(ir.comorbidades || []);
-                    db.revenues.push(ir);
-                } else {
-                    let newMeds = Array.isArray(ir.medications) ? ir.medications : Object.values(ir.medications || {});
-                    if (newMeds.length > 0) { if (!Array.isArray(existingRev.medications)) existingRev.medications = []; existingRev.medications.push(...newMeds); }
-                    let newHist = Array.isArray(ir.medHistory) ? ir.medHistory : Object.values(ir.medHistory || {});
-                    if (newHist.length > 0) { if (!Array.isArray(existingRev.medHistory)) existingRev.medHistory = []; existingRev.medHistory.push(...newHist); }
-                    let newPrints = Array.isArray(ir.printHistory) ? ir.printHistory : Object.values(ir.printHistory || {});
-                    if (newPrints.length > 0) {
-                        if (!Array.isArray(existingRev.printHistory)) existingRev.printHistory = [];
-                        newPrints.forEach(np => { if (np && !existingRev.printHistory.find(ep => ep.id === np.id)) existingRev.printHistory.push(np); });
-                    }
-                    if (ir.comorbidades && Array.isArray(ir.comorbidades) && ir.comorbidades.length > 0) existingRev.comorbidades = ir.comorbidades;
-                }
-            });
-
-            let impHist = Array.isArray(imp.history) ? imp.history : Object.values(imp.history || {});
-            impHist.forEach(ih => { if (ih && ih.id && !db.history.find(h => h.id === ih.id)) db.history.push(ih); });
-            let impIgnored = Array.isArray(imp.ignoredHolidays) ? imp.ignoredHolidays : Object.values(imp.ignoredHolidays || {});
-            impIgnored.forEach(dStr => { if (dStr && !db.ignoredHolidays.includes(dStr)) db.ignoredHolidays.push(dStr); });
-            if (imp.vacations) {
-                let impVac = Array.isArray(imp.vacations) ? imp.vacations : Object.values(imp.vacations || {});
-                if (impVac.length > 0 && db.vacations.length === 0) db.vacations = impVac.filter(Boolean);
-            }
-            cleanExistingDuplicates(); ensureMasterUsers();
-        }
-
-        function normalizeDatabaseObject(raw) {
-            if (!raw || typeof raw !== 'object') return;
-            db.version = CURRENT_VERSION;
-            db.users = (Array.isArray(raw.users) ? raw.users : Object.values(raw.users || {})).filter(u => u && typeof u === 'object' && u.email);
-            db.items = (Array.isArray(raw.items) ? raw.items : Object.values(raw.items || {})).filter(i => i && typeof i === 'object').map(i => ({ ...i, userEmail: i.userEmail || MASTER_EMAIL, history: Array.isArray(i.history) ? i.history : Object.values(i.history || {}) }));
-            db.revenues = (Array.isArray(raw.revenues) ? raw.revenues : Object.values(raw.revenues || {})).filter(r => r && typeof r === 'object').map(r => ({
-                ...r, userEmail: r.userEmail || MASTER_EMAIL, medications: Array.isArray(r.medications) ? r.medications : Object.values(r.medications || {}), medHistory: Array.isArray(r.medHistory) ? r.medHistory : Object.values(r.medHistory || {}), printHistory: Array.isArray(r.printHistory) ? r.printHistory : Object.values(r.printHistory || {}), comorbidades: Array.isArray(r.comorbidades) ? r.comorbidades : Object.values(r.comorbidades || [])
-            }));
-            db.history = (Array.isArray(raw.history) ? raw.history : Object.values(raw.history || {})).filter(Boolean);
-            db.holidays = (Array.isArray(raw.holidays) ? raw.holidays : Object.values(raw.holidays || {})).filter(Boolean);
-            db.ignoredHolidays = (Array.isArray(raw.ignoredHolidays) ? raw.ignoredHolidays : Object.values(raw.ignoredHolidays || {})).filter(Boolean);
-            db.vacations = (Array.isArray(raw.vacations) ? raw.vacations : Object.values(raw.vacations || {})).filter(Boolean);
-            cleanExistingDuplicates(); ensureMasterUsers();
-        }
-
-        function cleanExistingDuplicates() {
-            if (!db.revenues || !Array.isArray(db.revenues)) return;
-            let uniqueMap = new Map(); let cleanedList = [];
-            db.revenues.forEach(rev => {
-                if (!rev || typeof rev !== 'object') return;
-                let ownerKey = String(rev.userEmail || MASTER_EMAIL).trim().toLowerCase();
-                let key = ownerKey + '|' + String(rev.paciente || '').trim().toLowerCase() + '|' + String(rev.gestor || '').trim().toLowerCase();
-                if (uniqueMap.has(key)) {
-                    let primary = uniqueMap.get(key);
-                    if (Array.isArray(rev.medications)) { if (!Array.isArray(primary.medications)) primary.medications = []; primary.medications.push(...rev.medications.filter(m => m && m.name)); }
-                    if (Array.isArray(rev.medHistory)) { if (!Array.isArray(primary.medHistory)) primary.medHistory = []; primary.medHistory.push(...rev.medHistory.filter(m => m && m.name)); }
-                    if (Array.isArray(rev.printHistory)) { if (!Array.isArray(primary.printHistory)) primary.printHistory = []; primary.printHistory.push(...rev.printHistory.filter(Boolean)); }
-                    if (Array.isArray(rev.comorbidades) && rev.comorbidades.length > 0) primary.comorbidades = rev.comorbidades;
-                    archiveOldIdenticalMedications(primary);
-                } else {
-                    if (Array.isArray(rev.medications)) rev.medications = rev.medications.filter(m => m && m.name);
-                    if (Array.isArray(rev.medHistory)) rev.medHistory = rev.medHistory.filter(m => m && m.name);
-                    if (!Array.isArray(rev.printHistory)) rev.printHistory = [];
-                    if (!Array.isArray(rev.comorbidades)) rev.comorbidades = [];
-                    archiveOldIdenticalMedications(rev);
-                    uniqueMap.set(key, rev); cleanedList.push(rev);
-                }
-            });
-            db.revenues = cleanedList;
-        }
-
         function formatDateBR(dateStr) {
             if (!dateStr) return ''; let parts = String(dateStr).split('-'); if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`; return dateStr;
         }
+
         function formatMedFullLabel(m) {
             if (!m) return ''; let dosePart = m.dose ? ` ${m.dose}` : ''; let posPart = m.posologia ? ` — Posologia: ${m.posologia}` : ''; return `${m.name}${dosePart}${posPart}`;
         }
 
+        // =========================================================================
+        // DASHBOARD E RENDERIZAÇÃO
+        // =========================================================================
         function refreshAllViews() {
             if (!currentUser) return;
             try { renderItems(); } catch (e) {} try { renderRevenues(); } catch (e) {} try { renderPatients(); } catch (e) {} try { renderCycles(); } catch (e) {} try { renderRenewals(); } catch (e) {} try { renderUsers(); } catch (e) {} try { renderHolidays(); } catch (e) {} try { renderVacationsInputs(); } catch (e) {} try { renderCharts(); } catch (e) {}
@@ -1517,30 +1364,13 @@
             });
             let target = document.getElementById(`tab-${tab}`); if (target) target.classList.remove('hidden');
             let activeBtn = document.getElementById(`tab-btn-${tab}`); if (activeBtn) activeBtn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 cursor-pointer";
-            try {
-                if (tab === 'patients') renderPatients(); if (tab === 'cycles') renderCycles(); if (tab === 'renewals') renderRenewals(); if (tab === 'evaluations') renderItems(); if (tab === 'revenues') renderRevenues(); if (tab === 'history') renderCharts(); if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); }
-            } catch (e) {}
-        }
-
-        function openChangePasswordModal() { document.getElementById('change-password-form').reset(); document.getElementById('change-password-modal').classList.remove('hidden'); }
-        function closeChangePasswordModal() { document.getElementById('change-password-modal').classList.add('hidden'); }
-        function handleChangePassword(e) {
-            e.preventDefault();
-            let currPass = document.getElementById('current-password').value; let newPass = document.getElementById('new-password').value; let confPass = document.getElementById('confirm-new-password').value;
-            if (!currentUser) return;
-            if (currPass !== currentUser.password && !(currentUser.email.toLowerCase() === MASTER_EMAIL && currPass === MASTER_DEFAULT_PASS)) { alert("A senha atual informada está incorreta."); return; }
-            if (newPass !== confPass) { alert("A nova senha e a confirmação não coincidem."); return; }
-            let userInDb = db.users.find(u => u && u.email && String(u.email).toLowerCase() === String(currentUser.email).toLowerCase());
-            if (userInDb) { userInDb.password = newPass; currentUser.password = newPass; persistDB(); closeChangePasswordModal(); alert("Sua senha foi alterada e salva na nuvem com sucesso!"); }
+            try { if (tab === 'patients') renderPatients(); if (tab === 'cycles') renderCycles(); if (tab === 'renewals') renderRenewals(); if (tab === 'evaluations') renderItems(); if (tab === 'revenues') renderRevenues(); if (tab === 'history') renderCharts(); if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); } } catch (e) {}
         }
 
         function handleGlobalSearch() { refreshAllViews(); }
         function getSearchTerm() { let el = document.getElementById('global-search'); return el ? el.value.trim().toLowerCase() : ''; }
         function getCycleSearchTerm() { let el = document.getElementById('cycle-search'); return el ? el.value.trim().toLowerCase() : ''; }
-        function stringsAreSimilar(str1, str2) {
-            let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase();
-            if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1);
-        }
+        function stringsAreSimilar(str1, str2) { let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase(); if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1); }
 
         function calculateAutoProfileFromIvcf() {
             let val20 = parseInt(document.getElementById('item-ivcf20').value); let val10 = parseInt(document.getElementById('item-ivsf10').value); let evalDateStr = document.getElementById('item-eval-date').value || new Date().toISOString().split('T')[0]; let profileInput = document.getElementById('item-profile'); let displayInput = document.getElementById('item-profile-display');
@@ -1572,6 +1402,38 @@
         function resolveDuplicate(choice) {
             shouldUnify = choice; let dupBox = document.getElementById('duplicate-alert-box');
             if (choice) { dupBox.className = "p-4 rounded-xl border text-sm bg-emerald-50 border-emerald-300 text-emerald-900"; dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Medicamentos repetidos de data anterior irão para o Histórico.</div>`; } else { dupBox.classList.add('hidden'); duplicateMatchId = null; }
+        }
+
+        function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '', medDose = '', medPosologia = '') {
+            let container = document.getElementById('medication-rows-container'); let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2, 5); let todayStr = new Date().toISOString().split('T')[0]; let dateVal = baseDateStr || todayStr;
+            let html = `
+                <div id="${rowId}" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2.5 shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+                        <div class="md:col-span-5"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Medicamento</label><input type="text" name="med_name" required value="${medName}" placeholder="Ex: Losartana..." class="w-full px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)"></div>
+                        <div class="md:col-span-3"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Dose / Unid.</label><input type="text" name="med_dose" value="${medDose}" placeholder="Ex: 50mg, 10gts" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
+                        <div class="md:col-span-4"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Posologia</label><input type="text" name="med_posologia" value="${medPosologia}" placeholder="Ex: 1 cp de 12/12h" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-end">
+                        <div class="md:col-span-3"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Data da Receita</label><input type="date" name="med_date" required value="${dateVal}" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
+                        <div class="md:col-span-4 flex items-center space-x-2"><div class="flex-1"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Validade / Ciclo</label><select name="med_cycle" onchange="checkCustomCycle(this)" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"><option value="30" ${cycleDays=='30'?'selected':''}>30 dias</option><option value="60" ${cycleDays=='60'?'selected':''}>60 dias</option><option value="90" ${cycleDays=='90'?'selected':''}>90 dias</option><option value="180" ${cycleDays=='180'?'selected':''}>180 dias</option><option value="360" ${cycleDays=='360'?'selected':''}>360 dias</option><option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option></select></div><input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white mt-4 ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}"></div>
+                        <div class="md:col-span-4"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Observação</label><input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Opcional" class="w-full px-3 py-2 border rounded-lg text-sm bg-white text-slate-600"></div>
+                        <div class="md:col-span-1 text-right"><button type="button" onclick="document.getElementById('${rowId}').remove()" class="p-2 text-red-500 hover:bg-red-50 rounded-lg font-bold cursor-pointer" title="Remover este medicamento"><i class="fa-solid fa-trash"></i></button></div>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+        }
+
+        function checkSimilarMedicaments(inputEl) {
+            let val = inputEl.value.trim().toLowerCase(); if (val.length < 3) return;
+            let allInputs = document.querySelectorAll('input[name="med_name"]'); let count = 0;
+            allInputs.forEach(inp => { if (stringsAreSimilar(inp.value, val)) count++; });
+            if (count > 1) { inputEl.classList.add('border-amber-500', 'bg-amber-50'); inputEl.title = "Atenção! Remédios iguais na mesma receita irão arquivar o de data anterior."; }
+            else { inputEl.classList.remove('border-amber-500', 'bg-amber-50'); }
+        }
+
+        function checkCustomCycle(selectEl) {
+            let manualInput = selectEl.parentElement.nextElementSibling; if (!manualInput) return;
+            if (selectEl.value === 'manual') manualInput.classList.remove('hidden'); else manualInput.classList.add('hidden');
         }
 
         function toggleIvcfSortOrder() {
