@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v21.6 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v21.7 Cloud</title>
     
     <!-- LIMPADOR IMEDIATO DE CACHE -->
     <script>
@@ -56,10 +56,10 @@
                         <i class="fa-solid fa-shield-cat text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.6</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.7</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.6 Cloud</span> — Acesso Direto (Apenas Credenciais)
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.7 Cloud</span> — Acesso Direto (Apenas Credenciais)
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
                         <i class="fa-solid fa-cloud-check"></i>
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v21.6)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-Marcelo (v21.7)</span></p>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.6</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.7</span>
                             </h2>
                             <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1">
                                 <i class="fa-solid fa-cloud"></i><span>Nuvem Ativa</span>
@@ -183,7 +183,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 21.6 Cloud</span>
+                            APK <span class="ver-full-label">Versão 21.7 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -273,7 +273,7 @@
                         <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-800">Lista de Pacientes Cadastrados</h3>
-                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética com Comorbidades Registradas e Status de Impressão.</p>
+                                <p class="text-xs text-slate-500">Ordenado em ordem alfabética. Controla solicitações de impressão antecipadas ou repetidas em dias seguidos.</p>
                             </div>
                             <button onclick="exportAllPatientsPDF()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-semibold shadow transition-all cursor-pointer">
                                 <i class="fa-solid fa-file-pdf mr-2"></i>Baixar PDF Lista de Pacientes
@@ -465,10 +465,10 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.6 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.7 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
-                                    Todos os dados são salvos automaticamente na nuvem (`gestao-acs-marcelo`) por Conexão Dupla (HTTPS + Firebase).<br>
+                                    Todos os dados são salvos automaticamente na nuvem (`gestao-acs-Marcelo`) por Conexão Dupla (HTTPS + Firebase).<br>
                                     <b>IMPORTANTE:</b> Ao restaurar um backup antigo (.json), o sistema <b>ANEXA (mescla)</b> os pacientes à nuvem sem apagar os novos!
                                 </p>
                             </div>
@@ -483,7 +483,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.6</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.7</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -498,7 +498,7 @@
                         </div>
                     </div>
 
-                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS -->
+                    <!-- ABA ADMIN & CONTROLE EXCLUSIVO DE ACS + FERIADOS AUTOMÁTICOS E FÉRIAS -->
                     <div id="tab-admin" class="hidden space-y-6 max-w-7xl mx-auto">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -728,6 +728,7 @@
                     </div>
                 </div>
 
+                <!-- PAINEL DE COMORBIDADES DO PACIENTE -->
                 <div class="border-t border-slate-200 pt-4 pb-2">
                     <label class="block text-xs font-bold uppercase text-slate-700 mb-2">Comorbidades do Paciente (Para o Gráfico Epidemiológico)</label>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-[11px] font-semibold text-slate-700 mb-3" id="comorb-checkboxes">
@@ -885,16 +886,17 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 21.6 CLOUD - ACESSO FORÇADO E BLINDADO) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 21.7 CLOUD - URL CORRIGIDA PARA MAIÚSCULA 'Marcelo') -->
     <script>
-        const CURRENT_VERSION = "21.6";
+        const CURRENT_VERSION = "21.7";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
         const SECONDARY_DEFAULT_PASS = "0limpic0";
 
-        const FIREBASE_DB_URL = "https://gestao-acs-marcelo-default-rtdb.firebaseio.com";
+        // URL Oficial EXATA com o "M" maiúsculo como estava na versão 20.4 que funcionava perfeitamente!
+        const FIREBASE_DB_URL = "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com";
         const FIREBASE_REST_ENDPOINT = `${FIREBASE_DB_URL}/gestao_acs_90_db.json`;
 
         let db = {
@@ -1026,7 +1028,7 @@
                 let adminTab = document.getElementById('admin-tab-btn');
                 let adminRep = document.getElementById('admin-report-card');
 
-                if (currentUser.email === MASTER_EMAIL || currentUser.email === SECONDARY_MASTER || currentUser.role === 'admin') {
+                if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') {
                     badge.innerText = "Administrador Master";
                     badge.className = "text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700";
                     adminTab.classList.remove('hidden'); adminTab.classList.add('flex');
@@ -1073,6 +1075,7 @@
             let yesterdayObj = new Date();
             yesterdayObj.setDate(yesterdayObj.getDate() - 1);
             let yesterdayStr = toISODateString(yesterdayObj);
+
             for (let i = rev.printHistory.length - 1; i >= 0; i--) {
                 let p = rev.printHistory[i];
                 if (p && (p.date === todayStr || p.date === yesterdayStr)) return p;
@@ -1534,7 +1537,10 @@
         function handleGlobalSearch() { refreshAllViews(); }
         function getSearchTerm() { let el = document.getElementById('global-search'); return el ? el.value.trim().toLowerCase() : ''; }
         function getCycleSearchTerm() { let el = document.getElementById('cycle-search'); return el ? el.value.trim().toLowerCase() : ''; }
-        function stringsAreSimilar(str1, str2) { let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase(); if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1); }
+        function stringsAreSimilar(str1, str2) {
+            let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase();
+            if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1);
+        }
 
         function calculateAutoProfileFromIvcf() {
             let val20 = parseInt(document.getElementById('item-ivcf20').value); let val10 = parseInt(document.getElementById('item-ivsf10').value); let evalDateStr = document.getElementById('item-eval-date').value || new Date().toISOString().split('T')[0]; let profileInput = document.getElementById('item-profile'); let displayInput = document.getElementById('item-profile-display');
@@ -1554,7 +1560,7 @@
                 alertBox.classList.remove('hidden');
                 if (score20 >= 15) alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-red-600 text-yellow-300 font-bold border-red-700 shadow-sm"; else if (score20 >= 7) alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-yellow-400 text-black font-bold border-yellow-500 shadow-sm"; else alertBox.className = "p-3.5 rounded-xl border text-xs sm:text-sm flex items-center space-x-2.5 bg-emerald-600 text-yellow-300 font-bold border-emerald-700 shadow-sm";
                 alertText.innerHTML = `ALERTA IVCF-20 ATUAL: ${score20} pts (${classLabel}) | IVSF-10: ${score10} pts — Avaliado em ${formatDateBR(latestIvcf.date)} (Ref. acompanhamento: ${refProfile} dias)`;
-            } else alertBox.classList.add('hidden');
+            } else { alertBox.classList.add('hidden'); }
 
             let existingRev = db.revenues.find(r => r.id !== currentRevId && isVisibleToCurrentUser(r.userEmail) && stringsAreSimilar(r.paciente || '', pName));
             if (existingRev) {
@@ -1566,38 +1572,6 @@
         function resolveDuplicate(choice) {
             shouldUnify = choice; let dupBox = document.getElementById('duplicate-alert-box');
             if (choice) { dupBox.className = "p-4 rounded-xl border text-sm bg-emerald-50 border-emerald-300 text-emerald-900"; dupBox.innerHTML = `<div class="font-bold"><i class="fa-solid fa-check mr-2"></i> Unificação confirmada! Medicamentos repetidos de data anterior irão para o Histórico.</div>`; } else { dupBox.classList.add('hidden'); duplicateMatchId = null; }
-        }
-
-        function addMedicationRow(medName = '', cycleDays = '30', medObs = '', baseDateStr = '', medDose = '', medPosologia = '') {
-            let container = document.getElementById('medication-rows-container'); let rowId = 'med_row_' + Date.now() + Math.random().toString(36).substring(2, 5); let todayStr = new Date().toISOString().split('T')[0]; let dateVal = baseDateStr || todayStr;
-            let html = `
-                <div id="${rowId}" class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2.5 shadow-sm">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2">
-                        <div class="md:col-span-5"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Medicamento</label><input type="text" name="med_name" required value="${medName}" placeholder="Ex: Losartana..." class="w-full px-3 py-2 border rounded-lg text-sm bg-white" oninput="checkSimilarMedicaments(this)"></div>
-                        <div class="md:col-span-3"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Dose / Unid.</label><input type="text" name="med_dose" value="${medDose}" placeholder="Ex: 50mg, 10gts" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
-                        <div class="md:col-span-4"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Posologia</label><input type="text" name="med_posologia" value="${medPosologia}" placeholder="Ex: 1 cp de 12/12h" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-end">
-                        <div class="md:col-span-3"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Data da Receita</label><input type="date" name="med_date" required value="${dateVal}" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"></div>
-                        <div class="md:col-span-4 flex items-center space-x-2"><div class="flex-1"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Validade / Ciclo</label><select name="med_cycle" onchange="checkCustomCycle(this)" class="w-full px-3 py-2 border rounded-lg text-sm bg-white"><option value="30" ${cycleDays=='30'?'selected':''}>30 dias</option><option value="60" ${cycleDays=='60'?'selected':''}>60 dias</option><option value="90" ${cycleDays=='90'?'selected':''}>90 dias</option><option value="180" ${cycleDays=='180'?'selected':''}>180 dias</option><option value="360" ${cycleDays=='360'?'selected':''}>360 dias</option><option value="manual" ${!['30','60','90','180','360'].includes(String(cycleDays))?'selected':''}>Outro (Manual)</option></select></div><input type="number" name="med_manual_days" min="1" value="${!['30','60','90','180','360'].includes(String(cycleDays))?cycleDays:45}" placeholder="Dias" class="w-20 px-3 py-2 border rounded-lg text-sm bg-white mt-4 ${['30','60','90','180','360'].includes(String(cycleDays))?'hidden':''}"></div>
-                        <div class="md:col-span-4"><label class="block text-[10px] font-bold uppercase text-slate-500 mb-0.5">Observação</label><input type="text" name="med_obs" maxlength="100" value="${medObs}" placeholder="Opcional" class="w-full px-3 py-2 border rounded-lg text-sm bg-white text-slate-600"></div>
-                        <div class="md:col-span-1 text-right"><button type="button" onclick="document.getElementById('${rowId}').remove()" class="p-2 text-red-500 hover:bg-red-50 rounded-lg font-bold cursor-pointer" title="Remover este medicamento"><i class="fa-solid fa-trash"></i></button></div>
-                    </div>
-                </div>`;
-            container.insertAdjacentHTML('beforeend', html);
-        }
-
-        function checkSimilarMedicaments(inputEl) {
-            let val = inputEl.value.trim().toLowerCase(); if (val.length < 3) return;
-            let allInputs = document.querySelectorAll('input[name="med_name"]'); let count = 0;
-            allInputs.forEach(inp => { if (stringsAreSimilar(inp.value, val)) count++; });
-            if (count > 1) { inputEl.classList.add('border-amber-500', 'bg-amber-50'); inputEl.title = "Atenção! Remédios iguais na mesma receita irão arquivar o de data anterior."; }
-            else { inputEl.classList.remove('border-amber-500', 'bg-amber-50'); }
-        }
-
-        function checkCustomCycle(selectEl) {
-            let manualInput = selectEl.parentElement.nextElementSibling; if (!manualInput) return;
-            if (selectEl.value === 'manual') manualInput.classList.remove('hidden'); else manualInput.classList.add('hidden');
         }
 
         function toggleIvcfSortOrder() {
@@ -1648,9 +1622,9 @@
                         <td class="p-4 font-mono text-xs text-slate-600"><span class="bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 font-semibold">${evalDateFormatted}</span></td>
                         <td class="p-4 font-mono text-xs font-bold text-blue-700">${formatDateBR(calcNext)} (${i.profile || 90}d)</td>
                         <td class="p-4 text-center space-x-1">
-                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg cursor-pointer" title="Editar Avaliação ou Alterar Data"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="showItemHistory('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg cursor-pointer" title="Ver Histórico de Avaliações"><i class="fa-solid fa-clock-rotate-left"></i></button>
-                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer" title="Excluir"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="editItem('${i.id}')" class="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg cursor-pointer"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="showItemHistory('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg cursor-pointer"><i class="fa-solid fa-clock-rotate-left"></i></button>
+                            <button onclick="deleteItem('${i.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             });
@@ -1720,7 +1694,7 @@
                             ${printCount > 0 ? `<span class="ml-1.5 text-[11px] px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full font-semibold">${printCount} imp.</span>` : ''}
                         </td>
                         <td class="p-4 text-center space-x-1.5">
-                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg cursor-pointer" title="Editar Receita & Comorbidades"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="openRevenueModal('${i.id}')" class="p-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg cursor-pointer" title="Editar Receita Ativa"><i class="fa-solid fa-pen"></i></button>
                             <button onclick="showMedHistoryModal('${i.id}')" class="p-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg cursor-pointer" title="Consultar Histórico de Medicamentos e Impressões"><i class="fa-solid fa-clock-rotate-left"></i></button>
                             <button onclick="downloadPatientPDF('${i.id}')" class="p-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg cursor-pointer" title="Imprimir / Gerar PDF com Controle de Duplicidade"><i class="fa-solid fa-print"></i></button>
                             <button onclick="deleteRevenue('${i.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer" title="Excluir"><i class="fa-solid fa-trash"></i></button>
@@ -1956,7 +1930,6 @@
                     document.getElementById('revenue-id').value = rev.id; document.getElementById('revenue-gestor').value = rev.gestor; document.getElementById('revenue-paciente').value = rev.paciente || ''; document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
                     if (btnHist) btnHist.classList.remove('hidden');
                     let comorbs = Array.isArray(rev.comorbidades) ? rev.comorbidades : [];
-                    if (comorbs.length === 0 && rev.medications) comorbs = autoGuessComorbidities(rev.medications);
                     let outrasList = [];
                     comorbs.forEach(c => { let cTrim = c.trim(); let cb = document.querySelector(`.comorb-cb[value="${cTrim}"]`); if (cb) cb.checked = true; else outrasList.push(cTrim); });
                     document.getElementById('comorb-outras').value = outrasList.join(', ');
@@ -2033,7 +2006,7 @@
             container.innerHTML = html;
         }
 
-        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); refreshAllViews(); }
+        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
 
         function saveVacations() {
             let newVacations = [];
@@ -2052,37 +2025,179 @@
             }
         }
 
+        function renderCharts() {
+            if (typeof Chart === 'undefined' || !currentUser) return;
+            let revList = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+
+            let ctx1El = document.getElementById('scoreChart');
+            if (ctx1El) {
+                let hist = (db.history || []).filter(h => isVisibleToCurrentUser(h.userEmail));
+                if (scoreChartInstance) scoreChartInstance.destroy();
+                scoreChartInstance = new Chart(ctx1El.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: hist.map(h => `${formatDateBR(h.date)} (${h.name})`), datasets: [{ label: 'IVCF-20', data: hist.map(h => h.value), borderColor: '#2563eb', fill: true }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            let ctx2El = document.getElementById('revenueChart');
+            if (ctx2El) {
+                let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+                revList.forEach(r => (r.medications || []).forEach(m => {
+                    if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++;
+                }));
+                if (revenueChartInstance) revenueChartInstance.destroy();
+                revenueChartInstance = new Chart(ctx2El.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: ['30d', '60d', '90d', '180d', 'Outros'], datasets: [{ label: 'Medicamentos Ativos', data: [c['30d'], c['60d'], c['90d'], c['180d'], c['Outros']], backgroundColor: '#10b981' }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            let ctx3El = document.getElementById('cycleIntersectionChart');
+            if (ctx3El) {
+                let comboCounts = {};
+                revList.forEach(r => {
+                    if (r.status === 'inactive' || !r.medications || r.medications.length === 0) return;
+                    let cycles = Array.from(new Set(r.medications.map(m => m.cycleDays))).sort((a,b) => a - b);
+                    let comboKey = cycles.map(c => c + 'd').join(' + ');
+                    comboCounts[comboKey] = (comboCounts[comboKey] || 0) + 1;
+                });
+                
+                let sortedCombos = Object.entries(comboCounts).sort((a, b) => b[1] - a[1]);
+                let topCombos = sortedCombos.slice(0, 5);
+                let otherCombosCount = sortedCombos.slice(5).reduce((sum, item) => sum + item[1], 0);
+                if (otherCombosCount > 0) topCombos.push(['Outras Combinações', otherCombosCount]);
+                
+                if (cycleIntersectionChartInst) cycleIntersectionChartInst.destroy();
+                cycleIntersectionChartInst = new Chart(ctx3El.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: topCombos.map(i => i[0]),
+                        datasets: [{ label: 'Qtd. de Pacientes', data: topCombos.map(i => i[1]), backgroundColor: '#f59e0b' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            let ctx4El = document.getElementById('topMedsChart');
+            if (ctx4El) {
+                let medCounts = {};
+                revList.forEach(r => {
+                    if (r.status === 'inactive' || !r.medications) return;
+                    r.medications.forEach(m => {
+                        if (!m.name) return;
+                        let n = m.name.trim().toLowerCase(); n = n.charAt(0).toUpperCase() + n.slice(1);
+                        medCounts[n] = (medCounts[n] || 0) + 1;
+                    });
+                });
+                let sortedMeds = Object.entries(medCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+                if (topMedsChartInst) topMedsChartInst.destroy();
+                topMedsChartInst = new Chart(ctx4El.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: sortedMeds.map(i => i[0]), datasets: [{ label: 'Qtd. Prescrições', data: sortedMeds.map(i => i[1]), backgroundColor: '#3b82f6' }] },
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            let ctx5El = document.getElementById('comorbidityChart');
+            if (ctx5El) {
+                let comorbCounts = {};
+                revList.forEach(r => {
+                    if (r.status === 'inactive') return;
+                    let cList = Array.isArray(r.comorbidades) && r.comorbidades.length > 0 ? r.comorbidades : [];
+                    if (cList.length === 0) cList = ['Não Informada'];
+                    cList.forEach(c => { let key = c.trim(); if(key) comorbCounts[key] = (comorbCounts[key] || 0) + 1; });
+                });
+
+                let sortedC = Object.entries(comorbCounts).sort((a,b) => b[1] - a[1]);
+                let finalC = {}; let otherC = 0;
+                sortedC.forEach((item, idx) => { if (idx < 6) finalC[item[0]] = item[1]; else otherC += item[1]; });
+                if (otherC > 0) finalC['Outras Comorbidades'] = otherC;
+
+                if (comorbidityChartInst) comorbidityChartInst.destroy();
+                comorbidityChartInst = new Chart(ctx5El.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(finalC),
+                        datasets: [{ data: Object.values(finalC), backgroundColor: ['#ef4444', '#3b82f6', '#eab308', '#10b981', '#8b5cf6', '#f97316', '#64748b'] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 10 } } } } }
+                });
+            }
+        }
+
+        // =========================================================================
+        // FUNÇÕES RESTANTES DE RENDERIZAÇÃO
+        // =========================================================================
         function renderUsers() {
-            let tbody = document.getElementById('users-table-body'); if (!tbody) return;
+            let tbody = document.getElementById('users-table-body');
+            if (!tbody) return;
             tbody.innerHTML = (db.users || []).filter(u => u && u.email).map(u => {
-                let uEmail = String(u.email).toLowerCase(); let isPrimary = isMasterAccount(uEmail);
+                let uEmail = String(u.email).toLowerCase();
+                let isPrimary = isMasterAccount(uEmail);
                 let countItems = (db.items || []).filter(i => String(i.userEmail || '').toLowerCase() === uEmail).length;
                 let countRevs = (db.revenues || []).filter(r => String(r.userEmail || '').toLowerCase() === uEmail).length;
-                let statusBadge = u.status === 'inactive' ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Bloqueado</span>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
-                return `<tr class="border-b hover:bg-slate-50"><td class="p-4 font-bold text-slate-800">${u.name || u.email.split('@')[0]}</td><td class="p-4 font-mono text-xs text-slate-600">${u.email}</td><td class="p-4 uppercase text-xs font-bold">${u.role === 'admin' ? 'ADM Master' : 'ACS (Isolado)'}</td><td class="p-4 text-xs text-slate-600"><b>${countItems}</b> aval. | <b>${countRevs}</b> rec.</td><td class="p-4">${statusBadge}</td><td class="p-4 text-center space-x-1"><button onclick="copyAcsInvite('${u.email}')" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-xs font-semibold cursor-pointer"><i class="fa-brands fa-whatsapp mr-1"></i>Convite</button><button onclick="inspectAcsRecords('${u.email}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-xs font-semibold cursor-pointer"><i class="fa-solid fa-folder-open mr-1"></i>Ver Cadastros</button><button onclick="resetUserPassword('${u.email}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded text-xs font-semibold cursor-pointer"><i class="fa-solid fa-key"></i></button>${!isPrimary ? `<button onclick="toggleUserStatus('${u.email}')" class="px-2.5 py-1 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear' : 'Bloquear'}</button><button onclick="deleteUserAccount('${u.email}')" class="px-2.5 py-1 bg-red-50 text-red-700 hover:bg-red-100 rounded text-xs font-semibold cursor-pointer"><i class="fa-solid fa-trash"></i></button>` : ''}</td></tr>`;
+                let statusBadge = u.status === 'inactive'
+                    ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Bloqueado</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
+
+                return `
+                <tr class="border-b hover:bg-slate-50">
+                    <td class="p-4 font-bold text-slate-800">${u.name || u.email.split('@')[0]}</td>
+                    <td class="p-4 font-mono text-xs text-slate-600">${u.email}</td>
+                    <td class="p-4 uppercase text-xs font-bold">${u.role === 'admin' ? 'ADM Master' : 'ACS (Isolado)'}</td>
+                    <td class="p-4 text-xs text-slate-600"><b>${countItems}</b> aval. | <b>${countRevs}</b> rec.</td>
+                    <td class="p-4">${statusBadge}</td>
+                    <td class="p-4 text-center space-x-1">
+                        <button onclick="copyAcsInvite('${u.email}')" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-xs font-semibold cursor-pointer" title="Copiar Convite Pronto para WhatsApp"><i class="fa-brands fa-whatsapp mr-1"></i>Convite</button>
+                        <button onclick="inspectAcsRecords('${u.email}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded text-xs font-semibold cursor-pointer" title="Filtrar e Ver Cadastros deste ACS"><i class="fa-solid fa-folder-open mr-1"></i>Ver Cadastros</button>
+                        <button onclick="resetUserPassword('${u.email}')" class="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded text-xs font-semibold cursor-pointer" title="Ver ou Redefinir Senha"><i class="fa-solid fa-key"></i></button>
+                        ${!isPrimary ? `
+                            <button onclick="toggleUserStatus('${u.email}')" class="px-2.5 py-1 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded text-xs font-semibold cursor-pointer">${u.status === 'inactive' ? 'Desbloquear' : 'Bloquear'}</button>
+                            <button onclick="deleteUserAccount('${u.email}')" class="px-2.5 py-1 bg-red-50 text-red-700 hover:bg-red-100 rounded text-xs font-semibold cursor-pointer" title="Excluir ACS"><i class="fa-solid fa-trash"></i></button>
+                        ` : ''}
+                    </td>
+                </tr>`;
             }).join('');
         }
 
         function copyAcsInvite(email) {
-            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase()); if (!u) return;
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
+            if (!u) return;
             let appUrl = window.location.href.split('#')[0];
             let inviteText = `Olá *${u.name || u.email}*!\nSeu acesso individual ao *Sistema de Gestão ACS* foi liberado pelo ADM Master.\n\n🔗 *Link de Acesso:* ${appUrl}\n👤 *Login (E-mail):* ${u.email}\n🔑 *Senha:* ${u.password}\n\n*(Ao entrar, sua página estará pronta e em branco para seus cadastros)*`;
-            if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(inviteText).then(() => { alert("Convite copiado para a área de transferência!"); }).catch(() => prompt("Copie o texto do convite abaixo:", inviteText)); } else { prompt("Copie o texto do convite abaixo:", inviteText); }
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(inviteText).then(() => {
+                    alert("Convite copiado para a área de transferência! Agora basta colar (Ctrl+V) no WhatsApp ou E-mail do ACS:\n\n" + inviteText);
+                }).catch(() => prompt("Copie o texto do convite abaixo:", inviteText));
+            } else {
+                prompt("Copie o texto do convite abaixo:", inviteText);
+            }
         }
 
         function inspectAcsRecords(email) {
             let select = document.getElementById('master-acs-filter');
-            if (select) { updateMasterFilterDropdown(); select.value = String(email).toLowerCase(); switchTab('evaluations'); refreshAllViews(); }
+            if (select) {
+                updateMasterFilterDropdown();
+                select.value = String(email).toLowerCase();
+                switchTab('evaluations');
+                refreshAllViews();
+            }
         }
 
         function toggleUserStatus(email) {
             let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
             if (!u || isMasterAccount(u.email)) return;
-            u.status = u.status === 'inactive' ? 'active' : 'inactive'; persistDB(); renderUsers();
+            u.status = u.status === 'inactive' ? 'active' : 'inactive';
+            persistDB();
+            renderUsers();
         }
 
         function deleteUserAccount(email) {
-            let targetEmail = String(email).toLowerCase(); let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === targetEmail);
+            let targetEmail = String(email).toLowerCase();
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === targetEmail);
             if (!u || isMasterAccount(u.email)) return;
             if (!confirm(`Deseja remover o acesso do ACS "${u.name || u.email}"?`)) return;
             let deleteRecords = confirm(`Deseja também excluir todos os pacientes/receitas cadastrados por ${u.email}?\n(Clique em OK para apagar tudo dele, ou Cancelar para manter os arquivos sob seu controle Master)`);
@@ -2091,62 +2206,125 @@
                 if (Array.isArray(db.revenues)) db.revenues = db.revenues.filter(r => String(r.userEmail || '').toLowerCase() !== targetEmail);
             }
             db.users = (db.users || []).filter(x => x && x.email && String(x.email).toLowerCase() !== targetEmail);
-            persistDB(); updateMasterFilterDropdown(); refreshAllViews();
+            persistDB();
+            updateMasterFilterDropdown();
+            refreshAllViews();
         }
 
         function resetUserPassword(email) {
-            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase()); if (!u) return;
+            let u = db.users.find(x => x && x.email && String(x.email).toLowerCase() === String(email).toLowerCase());
+            if (!u) return;
             let newPass = prompt(`Nova senha para ${u.email}:`, u.password);
             if (newPass) { u.password = newPass.trim(); persistDB(); alert("Senha atualizada na nuvem!"); }
         }
 
-        function openInviteModal() { document.getElementById('invite-name').value = ''; document.getElementById('invite-email').value = ''; document.getElementById('invite-pass').value = 'Saude@2026'; document.getElementById('invite-modal').classList.remove('hidden'); }
+        function openInviteModal() {
+            document.getElementById('invite-name').value = '';
+            document.getElementById('invite-email').value = '';
+            document.getElementById('invite-pass').value = 'Saude@2026';
+            document.getElementById('invite-modal').classList.remove('hidden');
+        }
         function closeInviteModal() { document.getElementById('invite-modal').classList.add('hidden'); }
+
         function sendInvite(e) {
             e.preventDefault();
-            let name = document.getElementById('invite-name').value.trim(); let email = document.getElementById('invite-email').value.trim().toLowerCase(); let role = document.getElementById('invite-role').value; let password = document.getElementById('invite-pass').value.trim();
+            let name = document.getElementById('invite-name').value.trim();
+            let email = document.getElementById('invite-email').value.trim().toLowerCase();
+            let role = document.getElementById('invite-role').value;
+            let password = document.getElementById('invite-pass').value.trim();
             if (db.users.find(u => u && u.email && String(u.email).toLowerCase() === email)) { alert("E-mail já cadastrado."); return; }
-            db.users.push({ email, name: name || email.split('@')[0], password, role, status: 'active' }); persistDB(); closeInviteModal(); updateMasterFilterDropdown(); renderUsers(); copyAcsInvite(email);
+            db.users.push({ email, name: name || email.split('@')[0], password, role, status: 'active' });
+            persistDB();
+            closeInviteModal();
+            updateMasterFilterDropdown();
+            renderUsers();
+            copyAcsInvite(email);
         }
 
-        function exportBackupJSON() { let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2)); let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`; document.body.appendChild(a); a.click(); a.remove(); }
-        function importBackupJSON(e) { let file = e.target.files[0]; if (!file) return; let reader = new FileReader(); reader.onload = function(evt) { try { let imp = JSON.parse(evt.target.result); mergeDatabaseObject(imp); persistDB(); updateMasterFilterDropdown(); refreshAllViews(); alert("Backup MESCLADO com sucesso!"); } catch (err) { alert("Erro ao ler arquivo JSON."); } }; reader.readAsText(file); }
+        function exportBackupJSON() {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+            let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`;
+            document.body.appendChild(a); a.click(); a.remove();
+        }
+
+        function importBackupJSON(e) {
+            let file = e.target.files[0]; if (!file) return;
+            let reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    let imp = JSON.parse(evt.target.result);
+                    mergeDatabaseObject(imp);
+                    persistDB();
+                    updateMasterFilterDropdown();
+                    refreshAllViews();
+                    alert("Backup MESCLADO com sucesso! As informações do arquivo antigo foram anexadas à nuvem sem apagar os seus cadastros mais recentes.");
+                } catch (err) { alert("Erro ao ler arquivo JSON."); }
+            };
+            reader.readAsText(file);
+        }
 
         function executeRawPatientPDF(id, targetDateFilter = null) {
             const { jsPDF } = window.jspdf; let doc = new jsPDF();
             let rev = db.revenues.find(i => i.id === id); if (!rev) return;
             let lastPrint = (rev.printHistory && rev.printHistory.length > 0) ? rev.printHistory[rev.printHistory.length - 1] : null;
 
-            doc.setFontSize(14); doc.text(`Solicitação / Receita do Paciente - v${CURRENT_VERSION}`, 14, 18); doc.setFontSize(10); doc.text(`Paciente: ${rev.paciente} | Gestor/ACS: ${rev.gestor} | Médico: ${rev.medico || 'Dr. Andrey'}`, 14, 26);
+            doc.setFontSize(14); doc.text(`Solicitação / Receita do Paciente - v${CURRENT_VERSION}`, 14, 18);
+            doc.setFontSize(10); doc.text(`Paciente: ${rev.paciente} | Gestor/ACS: ${rev.gestor} | Médico: ${rev.medico || 'Dr. Andrey'}`, 14, 26);
             if (lastPrint) doc.text(`Impressão registrada em: ${formatDateBR(lastPrint.date)} às ${lastPrint.time} — Motivo: ${lastPrint.reason}`, 14, 32);
 
             let medsToPrint = rev.medications || [];
             if (targetDateFilter) medsToPrint = medsToPrint.filter(m => calculateValidDate(m.baseDate, m.cycleDays) === targetDateFilter);
-            let rows = medsToPrint.map(m => { let det = getRenewalDateDetails(m.baseDate, m.cycleDays); return [formatMedFullLabel(m), `${m.cycleDays}d`, formatDateBR(m.baseDate), `${formatDateBR(det.finalDate)} (${det.finalWeekday})`, det.summaryText]; });
-            doc.autoTable({ startY: 38, head: [["Medicamento / Dose / Posologia", "Ciclo", "Confecção", "Renovação", "Motivo / Status"]], body: rows }); doc.save(`receita_${rev.paciente.replace(/\s+/g, '_')}.pdf`);
+            let rows = medsToPrint.map(m => {
+                let det = getRenewalDateDetails(m.baseDate, m.cycleDays);
+                return [formatMedFullLabel(m), `${m.cycleDays}d`, formatDateBR(m.baseDate), `${formatDateBR(det.finalDate)} (${det.finalWeekday})`, det.summaryText];
+            });
+            doc.autoTable({ startY: 38, head: [["Medicamento / Dose / Posologia", "Ciclo", "Confecção", "Renovação", "Motivo / Status"]], body: rows });
+            doc.save(`receita_${rev.paciente.replace(/\s+/g, '_')}.pdf`);
         }
 
-        function downloadPatientPDF(id) { let rev = db.revenues.find(i => i.id === id); if (!rev) return; let earliestDate = getEarliestScheduledRenewal(rev, null); verifyAndExecutePrintOrRenewal(id, "Impressão de Receita Individual (PDF)", earliestDate, function() { executeRawPatientPDF(id, null); }); }
-        function downloadGroupPDF(revId, targetDate) { verifyAndExecutePrintOrRenewal(revId, `Impressão de Grupo de Renovação (${formatDateBR(targetDate)})`, targetDate, function() { executeRawPatientPDF(revId, targetDate); }); }
+        function downloadPatientPDF(id) {
+            let rev = db.revenues.find(i => i.id === id); if (!rev) return;
+            let earliestDate = getEarliestScheduledRenewal(rev, null);
+            verifyAndExecutePrintOrRenewal(id, "Impressão de Receita Individual (PDF)", earliestDate, function() { executeRawPatientPDF(id, null); });
+        }
+
+        function downloadGroupPDF(revId, targetDate) {
+            verifyAndExecutePrintOrRenewal(revId, `Impressão de Grupo de Renovação (${formatDateBR(targetDate)})`, targetDate, function() { executeRawPatientPDF(revId, targetDate); });
+        }
 
         function exportAllPatientsPDF() { exportRevenuesPDF(); }
         function exportCyclePDF(c) { exportRevenuesPDF(); }
         function exportRenewalsSeparatedByUserPDF() { exportRenewalsPDF(); }
 
         function exportRenewalsPDF() {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Relatório de Renovação e Motivos de Adiantamento - v${CURRENT_VERSION}`, 14, 20); let rows = [];
-            (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).forEach(r => (r.medications || []).forEach(m => { let det = getRenewalDateDetails(m.baseDate, m.cycleDays); rows.push([`${formatDateBR(det.finalDate)} (${det.finalWeekday})`, r.paciente, formatMedFullLabel(m), det.summaryText, r.gestor]); }));
-            doc.autoTable({ startY: 28, head: [["Renovação", "Paciente", "Medicamento / Dose / Posologia", "Motivo do Adiantamento", "Gestor"]], body: rows }); doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Renovação e Motivos de Adiantamento - v${CURRENT_VERSION}`, 14, 20); let rows = [];
+            (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).forEach(r => (r.medications || []).forEach(m => {
+                let det = getRenewalDateDetails(m.baseDate, m.cycleDays);
+                rows.push([`${formatDateBR(det.finalDate)} (${det.finalWeekday})`, r.paciente, formatMedFullLabel(m), det.summaryText, r.gestor]);
+            }));
+            doc.autoTable({ startY: 28, head: [["Renovação", "Paciente", "Medicamento / Dose / Posologia", "Motivo do Adiantamento", "Gestor"]], body: rows });
+            doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
         }
 
         function exportRevenuesPDF() {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Relatório de Receitas e Comorbidades - v${CURRENT_VERSION}`, 14, 20); let rows = (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).map(r => { let cTxt = Array.isArray(r.comorbidades) && r.comorbidades.length > 0 ? ` [${r.comorbidades.join(', ')}]` : ''; return [r.gestor, r.paciente + cTxt, (r.medications || []).map(m => formatMedFullLabel(m)).join(' | ')]; });
-            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente [Comorbidades]", "Medicamentos Ativos (Dose e Posologia)"]], body: rows }); doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório de Receitas e Comorbidades - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).map(r => {
+                let cTxt = Array.isArray(r.comorbidades) && r.comorbidades.length > 0 ? ` [${r.comorbidades.join(', ')}]` : '';
+                return [r.gestor, r.paciente + cTxt, (r.medications || []).map(m => formatMedFullLabel(m)).join(' | ')];
+            });
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente [Comorbidades]", "Medicamentos Ativos (Dose e Posologia)"]], body: rows });
+            doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
         }
 
         function exportPDF(type) {
-            const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20); let sortedItems = [...(db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail))].sort((a, b) => (parseInt(b.ivcf20 || b.value || 0)) - (parseInt(a.ivcf20 || a.value || 0))); let rows = sortedItems.map(i => [i.gestor, i.name, i.ivcf20 !== undefined ? i.ivcf20 : i.value, i.ivsf10 || 0, formatDateBR(i.date), formatDateBR(calculateValidDate(i.date, i.profile || 90))]);
-            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Data Aval.", "Próxima Data"]], body: rows }); doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
+            const { jsPDF } = window.jspdf; let doc = new jsPDF();
+            doc.text(`Relatório Geral IVCF-20 / IVSF-10 - v${CURRENT_VERSION}`, 14, 20);
+            let sortedItems = [...(db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail))].sort((a, b) => (parseInt(b.ivcf20 || b.value || 0)) - (parseInt(a.ivcf20 || a.value || 0)));
+            let rows = sortedItems.map(i => [i.gestor, i.name, i.ivcf20 !== undefined ? i.ivcf20 : i.value, i.ivsf10 || 0, formatDateBR(i.date), formatDateBR(calculateValidDate(i.date, i.profile || 90))]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "IVSF-10", "Data Aval.", "Próxima Data"]], body: rows });
+            doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
         }
 
         window.onload = initDB;
