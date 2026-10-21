@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v21.8 Cloud</title>
+    <title>Gestão Segura ACS Marcelo 90/01 - v21.9 Cloud</title>
     
-    <!-- LIMPADOR IMEDIATO DE CACHE -->
+    <!-- LIMPADOR IMEDIATO DE CACHE DE SERVICE WORKER -->
     <script>
         (function() {
             try {
@@ -48,22 +48,22 @@
     <!-- App Container -->
     <div id="app" class="flex-1 flex flex-col h-full overflow-hidden">
         
-        <!-- LOGIN SCREEN -->
+        <!-- LOGIN SCREEN (APENAS E-MAIL E SENHA) -->
         <div id="auth-screen" class="flex-1 flex items-center justify-center p-4 bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 overflow-y-auto">
             <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 my-auto">
                 <div class="text-center mb-6">
                     <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl mb-3">
-                        <i class="fa-solid fa-shield-cat text-2xl"></i>
+                        <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.8</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v21.9</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.8 Cloud</span> — Acesso Direto Blindado
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 21.9 Cloud</span> — Sincronização Firebase Ativa
                     </p>
-                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
-                        <i class="fa-solid fa-cloud-check"></i>
-                        <span>Sistema Pronto — Aguardando Login</span>
+                    <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800" id="login-cloud-status">
+                        <i class="fa-solid fa-rotate fa-spin"></i>
+                        <span>Carregando dados do Firebase...</span>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v21.8)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v21.9)</span></p>
                 </div>
             </div>
         </div>
@@ -107,11 +107,11 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.8</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v21.9</span>
                             </h2>
-                            <span id="header-cloud-badge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1">
+                            <button type="button" onclick="forceCloudSync()" id="header-cloud-badge" title="Clique para sincronizar agora com o Firebase" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1 cursor-pointer hover:bg-emerald-200 transition-all">
                                 <i class="fa-solid fa-cloud"></i><span>Nuvem Ativa</span>
-                            </span>
+                            </button>
                         </div>
                         <span id="badge-role" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"></span>
                     </div>
@@ -183,7 +183,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 21.8 Cloud</span>
+                            APK <span class="ver-full-label">Versão 21.9 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -465,7 +465,7 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.8 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 21.9 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
                                     Todos os dados são salvos automaticamente na nuvem (`gestao-acs-marcelo`) por Conexão Dupla (HTTPS + Firebase).<br>
@@ -483,7 +483,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.8</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v21.9</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -886,16 +886,15 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 21.8 CLOUD - ENDEREÇO DA NUVEM CORRIGIDO PARA MINÚSCULAS) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 21.9 CLOUD - PARTIDA AUTOMÁTICA E SINCRONIZAÇÃO FIREBASE RESTAURADAS) -->
     <script>
-        const CURRENT_VERSION = "21.8";
+        const CURRENT_VERSION = "21.9";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
         const SECONDARY_DEFAULT_PASS = "0limpic0";
 
-        // URL Oficial CORRIGIDA para o padrão correto Firebase (Tudo em minúsculas)
         const FIREBASE_DB_URL = "https://gestao-acs-marcelo-default-rtdb.firebaseio.com";
         const FIREBASE_REST_ENDPOINT = `${FIREBASE_DB_URL}/gestao_acs_90_db.json`;
 
@@ -930,7 +929,7 @@
         const HOLIDAY_CACHE_BY_YEAR = {};
 
         // =========================================================================
-        // 1. MOTOR DE LOGIN BLINDADO
+        // 1. MOTOR DE LOGIN E INICIALIZAÇÃO COMPLETA (initDB RESTAURADO)
         // =========================================================================
         function showLoginError(msg) {
             let box = document.getElementById('login-error-box');
@@ -960,6 +959,51 @@
             let secMaster = db.users.find(u => String(u.email).trim().toLowerCase() === SECONDARY_MASTER);
             if (!secMaster) db.users.push({ email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" });
             else { secMaster.role = 'admin'; secMaster.status = 'active'; if (!secMaster.password) secMaster.password = SECONDARY_DEFAULT_PASS; }
+        }
+
+        function initHolidayYearSelector() {
+            let sel = document.getElementById('holiday-year-selector');
+            if (!sel) return;
+            let curY = new Date().getFullYear();
+            let html = '';
+            for (let y = curY - 1; y <= curY + 5; y++) {
+                html += `<option value="${y}" ${y === curY ? 'selected' : ''}>${y}</option>`;
+            }
+            sel.innerHTML = html;
+        }
+
+        function initDB() {
+            document.title = `${APP_BASE_NAME} - v${CURRENT_VERSION} Cloud`;
+            document.querySelectorAll('.ver-tag').forEach(el => el.innerText = `v${CURRENT_VERSION}`);
+            document.querySelectorAll('.ver-full-label').forEach(el => el.innerText = `Versão ${CURRENT_VERSION} Cloud`);
+            initHolidayYearSelector();
+
+            // 1. Carrega qualquer dado local salvo no navegador (sem perder nada)
+            let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
+            if (saved) {
+                try {
+                    mergeDatabaseObject(JSON.parse(saved));
+                } catch (e) {
+                    ensureMasterUsers();
+                }
+            } else {
+                ensureMasterUsers();
+            }
+
+            // 2. Inicia imediatamente a conexão com o Firebase
+            connectFirebaseCloud();
+
+            // 3. Restaura sessão ativa se o usuário apenas atualizou a página
+            try {
+                let savedSession = sessionStorage.getItem('acs_active_user');
+                if (savedSession) {
+                    let parsedUser = JSON.parse(savedSession);
+                    if (parsedUser && parsedUser.email) {
+                        currentUser = parsedUser;
+                        initSession();
+                    }
+                }
+            } catch (e) {}
         }
 
         function doSystemLogin() {
@@ -1009,7 +1053,10 @@
                 }
                 updateMasterFilterDropdown(); initHolidayYearSelector();
             } catch (e) {}
-            try { switchTab('evaluations'); } catch(e) {} try { refreshAllViews(); } catch(e) {}
+            try { switchTab('evaluations'); } catch(e) {}
+            try { refreshAllViews(); } catch(e) {}
+            // Garante busca imediata na nuvem também ao entrar na sessão
+            fetchCloudViaRest();
         }
 
         function logout() {
@@ -1022,12 +1069,13 @@
         // =========================================================================
         function updateCloudBadges(status, message) {
             let loginBadge = document.getElementById('login-cloud-status'); let headerBadge = document.getElementById('header-cloud-badge');
+            let countInfo = `${(db.items || []).length} aval. | ${(db.revenues || []).length} rec.`;
             if (status === 'online') {
-                if (loginBadge) { loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700"; loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Banco Online Conectado (Firebase v${CURRENT_VERSION})</span>`; }
-                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1"; headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada (v${CURRENT_VERSION})</span>`; }
+                if (loginBadge) { loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700"; loginBadge.innerHTML = `<i class="fa-solid fa-cloud-check"></i><span>Firebase Conectado (${countInfo})</span>`; }
+                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1 cursor-pointer hover:bg-emerald-200"; headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Conectada (${countInfo})</span>`; }
             } else {
                 if (loginBadge) { loginBadge.className = "mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800"; loginBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local Ativo'}</span>`; }
-                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1"; headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>${message || 'Modo Local'}</span>`; }
+                if (headerBadge) { headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1 cursor-pointer"; headerBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i><span>${message || 'Modo Local'}</span>`; }
             }
         }
 
@@ -1035,13 +1083,31 @@
             try {
                 const response = await fetch(FIREBASE_REST_ENDPOINT, { method: 'GET', cache: 'no-store' });
                 if (response.ok) {
-                    updateCloudBadges('online'); const cloudData = await response.json();
+                    const cloudData = await response.json();
                     if (cloudData && typeof cloudData === 'object') {
-                        mergeDatabaseObject(cloudData); localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
-                        if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); }
+                        let beforeItems = (db.items || []).length;
+                        let beforeRevs = (db.revenues || []).length;
+                        mergeDatabaseObject(cloudData);
+                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+
+                        // Se havia dados locais no navegador que ainda não estavam lá no Firebase, envia a soma para a nuvem
+                        let cloudItemsLen = Array.isArray(cloudData.items) ? cloudData.items.length : Object.keys(cloudData.items || {}).length;
+                        let cloudRevsLen = Array.isArray(cloudData.revenues) ? cloudData.revenues.length : Object.keys(cloudData.revenues || {}).length;
+                        if (db.items.length > cloudItemsLen || db.revenues.length > cloudRevsLen) {
+                            persistDB();
+                        }
+                    } else if ((db.items && db.items.length > 0) || (db.revenues && db.revenues.length > 0)) {
+                        // Se o Firebase estava vazio mas o navegador tinha dados locais, envia para o Firebase
+                        persistDB();
                     }
+                    updateCloudBadges('online');
+                    if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); }
+                } else {
+                    updateCloudBadges('offline', 'Erro HTTP ' + response.status);
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.warn("Aviso REST:", e);
+            }
         }
 
         function connectFirebaseCloud() {
@@ -1054,20 +1120,38 @@
                 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
                 firebaseDB = firebase.database(); dbRef = firebaseDB.ref('gestao_acs_90_db');
                 dbRef.on('value', (snapshot) => {
-                    updateCloudBadges('online'); const cloudData = snapshot.val();
-                    if (cloudData) { normalizeDatabaseObject(cloudData); localStorage.setItem('ivcf_db_v3', JSON.stringify(db)); if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); } }
+                    const cloudData = snapshot.val();
+                    if (cloudData && typeof cloudData === 'object') {
+                        mergeDatabaseObject(cloudData);
+                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+                        updateCloudBadges('online');
+                        if (currentUser) { updateMasterFilterDropdown(); refreshAllViews(); }
+                    }
                 });
             } catch (err) {}
         }
 
         function persistDB() {
-            db.version = CURRENT_VERSION; let cleanCopy = JSON.parse(JSON.stringify(db)); localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
-            fetch(FIREBASE_REST_ENDPOINT, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanCopy) }).then(res => { if (res.ok) updateCloudBadges('online'); }).catch(() => {});
+            db.version = CURRENT_VERSION;
+            ensureMasterUsers();
+            let cleanCopy = JSON.parse(JSON.stringify(db));
+            localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
+
+            fetch(FIREBASE_REST_ENDPOINT, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanCopy) })
+                .then(res => { if (res.ok) updateCloudBadges('online'); })
+                .catch(() => {});
             if (dbRef) dbRef.set(cleanCopy).then(() => updateCloudBadges('online')).catch(() => {});
-            let toast = document.getElementById('save-toast'); if (toast) { toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000); }
+
+            let toast = document.getElementById('save-toast');
+            if (toast) { toast.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2000); }
         }
 
-        function forceCloudSync() { persistDB(); fetchCloudViaRest(); alert(`Sincronização com a nuvem (v${CURRENT_VERSION}) concluída com sucesso!`); }
+        function forceCloudSync() {
+            fetchCloudViaRest().then(() => {
+                persistDB();
+                alert(`Sincronização com o Firebase (v${CURRENT_VERSION}) concluída!\nRegistros ativos: ${(db.items || []).length} avaliações e ${(db.revenues || []).length} receitas.`);
+            });
+        }
 
         // =========================================================================
         // 3. CONTROLE DE IMPRESSÃO / SOLICITAÇÃO (2 DIAS SEGUIDOS)
@@ -1142,8 +1226,8 @@
         // =========================================================================
         function autoGuessComorbidities(meds) {
             let detected = new Set();
-            meds.forEach(m => {
-                if (!m.name) return; let n = String(m.name).toLowerCase();
+            (meds || []).forEach(m => {
+                if (!m || !m.name) return; let n = String(m.name).toLowerCase();
                 if (n.includes('losartana') || n.includes('enalapril') || n.includes('captopril') || n.includes('atenolol') || n.includes('propranolol') || n.includes('anlodipino') || n.includes('hidroclorotiazida') || n.includes('furosemida') || n.includes('espironolactona') || n.includes('carvedilol') || n.includes('nifedipino') || n.includes('cilostazol') || n.includes('amiodarona') || n.includes('clopidogrel') || n.includes('aas') || n.includes('ácido acetil') || n.includes('valsartana') || n.includes('amlodipina')) detected.add('Hipertensão / Cardíaca');
                 else if (n.includes('metformina') || n.includes('gliclazida') || n.includes('glibenclamida') || n.includes('insulina') || n.includes('dapagliflozina') || n.includes('empagliflozina') || n.includes('sitagliptina') || n.includes('vildagliptina') || n.includes('galvus') || n.includes('forxiga') || n.includes('jardiance') || n.includes('glimepirida') || n.includes('diamicron')) detected.add('Diabetes');
                 else if (n.includes('clonazepam') || n.includes('diazepam') || n.includes('alprazolam') || n.includes('bromazepam') || n.includes('fluoxetina') || n.includes('sertralina') || n.includes('amitriptilina') || n.includes('nortriptilina') || n.includes('escitalopram') || n.includes('citalopram') || n.includes('fenobarbital') || n.includes('carbamazepina') || n.includes('valpro') || n.includes('haloperidol') || n.includes('risperidona') || n.includes('quetiapina') || n.includes('biperideno') || n.includes('clorpromazina') || n.includes('levomepromazina') || n.includes('duloxetina') || n.includes('venlafaxina') || n.includes('desvenlafaxina') || n.includes('pregabalina') || n.includes('gabapentina') || n.includes('zolpidem') || n.includes('rivotril') || n.includes('lexapro')) detected.add('Saúde Mental / Neuro');
@@ -1268,7 +1352,7 @@
         }
 
         // =========================================================================
-        // CALENDÁRIO PERPÉTUO E FUNÇÕES DE FORMATAÇÃO
+        // 5. CALENDÁRIO PERPÉTUO E FUNÇÕES DE FORMATAÇÃO
         // =========================================================================
         function addDaysToDate(dateObj, days) { let d = new Date(dateObj.getTime()); d.setDate(d.getDate() + days); return d; }
         function toISODateString(d) { let yyyy = d.getFullYear(); let mm = String(d.getMonth() + 1).padStart(2, '0'); let dd = String(d.getDate()).padStart(2, '0'); return `${yyyy}-${mm}-${dd}`; }
@@ -1341,6 +1425,30 @@
             return { finalDate: finalDateStr, finalWeekday: finalWeekdayName, exactDueDate: exactDueStr, exactWeekday: exactWeekdayName, diffDays: diffDays, reasons: reasonsArray, hadVacationBlock, hadHolidayBlock, summaryText };
         }
 
+        function calculateValidDate(baseDateStr, addDays) { return getRenewalDateDetails(baseDateStr, addDays).finalDate; }
+
+        function isVisibleToCurrentUser(recordUserEmail) {
+            if (!currentUser) return false;
+            let myEmail = String(currentUser.email).trim().toLowerCase(); let recEmail = String(recordUserEmail || MASTER_EMAIL).trim().toLowerCase();
+            if (isMasterAccount(myEmail) || currentUser.role === 'admin') {
+                let filterEl = document.getElementById('master-acs-filter'); let selectedFilter = filterEl ? filterEl.value : 'all';
+                if (selectedFilter === 'all') return true; if (selectedFilter === 'mine') return recEmail === myEmail; return recEmail === selectedFilter.toLowerCase();
+            }
+            return recEmail === myEmail;
+        }
+
+        function updateMasterFilterDropdown() {
+            let box = document.getElementById('master-view-filter-box'); let select = document.getElementById('master-acs-filter');
+            if (!box || !select || !currentUser) return;
+            let myEmail = String(currentUser.email).trim().toLowerCase();
+            if (myEmail === MASTER_EMAIL || myEmail === SECONDARY_MASTER || currentUser.role === 'admin') {
+                box.classList.remove('hidden'); let currentVal = select.value || 'all';
+                let html = `<option value="all">🌐 Todos os ACS (Equipe Completa)</option><option value="mine">👤 Apenas Meus Cadastros (${currentUser.name || currentUser.email})</option>`;
+                (db.users || []).forEach(u => { if (u && u.email && String(u.email).toLowerCase() !== myEmail) html += `<option value="${String(u.email).toLowerCase()}">📋 ACS: ${u.name || u.email} (${u.email})</option>`; });
+                select.innerHTML = html; if ([...select.options].some(o => o.value === currentVal)) select.value = currentVal;
+            } else box.classList.add('hidden');
+        }
+
         function formatDateBR(dateStr) {
             if (!dateStr) return ''; let parts = String(dateStr).split('-'); if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`; return dateStr;
         }
@@ -1350,7 +1458,7 @@
         }
 
         // =========================================================================
-        // DASHBOARD E RENDERIZAÇÃO
+        // 6. DASHBOARD E RENDERIZAÇÃO DAS ABAS
         // =========================================================================
         function refreshAllViews() {
             if (!currentUser) return;
@@ -1367,10 +1475,25 @@
             try { if (tab === 'patients') renderPatients(); if (tab === 'cycles') renderCycles(); if (tab === 'renewals') renderRenewals(); if (tab === 'evaluations') renderItems(); if (tab === 'revenues') renderRevenues(); if (tab === 'history') renderCharts(); if (tab === 'admin') { renderUsers(); renderHolidays(); renderVacationsInputs(); } } catch (e) {}
         }
 
+        function openChangePasswordModal() { document.getElementById('change-password-form').reset(); document.getElementById('change-password-modal').classList.remove('hidden'); }
+        function closeChangePasswordModal() { document.getElementById('change-password-modal').classList.add('hidden'); }
+        function handleChangePassword(e) {
+            e.preventDefault();
+            let currPass = document.getElementById('current-password').value; let newPass = document.getElementById('new-password').value; let confPass = document.getElementById('confirm-new-password').value;
+            if (!currentUser) return;
+            if (currPass !== currentUser.password && !(currentUser.email.toLowerCase() === MASTER_EMAIL && currPass === MASTER_DEFAULT_PASS)) { alert("A senha atual informada está incorreta."); return; }
+            if (newPass !== confPass) { alert("A nova senha e a confirmação não coincidem."); return; }
+            let userInDb = db.users.find(u => u && u.email && String(u.email).toLowerCase() === String(currentUser.email).toLowerCase());
+            if (userInDb) { userInDb.password = newPass; currentUser.password = newPass; persistDB(); closeChangePasswordModal(); alert("Sua senha foi alterada e salva na nuvem com sucesso!"); }
+        }
+
         function handleGlobalSearch() { refreshAllViews(); }
         function getSearchTerm() { let el = document.getElementById('global-search'); return el ? el.value.trim().toLowerCase() : ''; }
         function getCycleSearchTerm() { let el = document.getElementById('cycle-search'); return el ? el.value.trim().toLowerCase() : ''; }
-        function stringsAreSimilar(str1, str2) { let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase(); if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1); }
+        function stringsAreSimilar(str1, str2) {
+            let s1 = (str1 || '').trim().toLowerCase(); let s2 = (str2 || '').trim().toLowerCase();
+            if (!s1 || !s2) return false; return s1 === s2 || s1.includes(s2) || s2.includes(s1);
+        }
 
         function calculateAutoProfileFromIvcf() {
             let val20 = parseInt(document.getElementById('item-ivcf20').value); let val10 = parseInt(document.getElementById('item-ivsf10').value); let evalDateStr = document.getElementById('item-eval-date').value || new Date().toISOString().split('T')[0]; let profileInput = document.getElementById('item-profile'); let displayInput = document.getElementById('item-profile-display');
@@ -1791,7 +1914,7 @@
                 if (rev) {
                     document.getElementById('revenue-id').value = rev.id; document.getElementById('revenue-gestor').value = rev.gestor; document.getElementById('revenue-paciente').value = rev.paciente || ''; document.getElementById('revenue-medico').value = rev.medico || 'Dr. Andrey';
                     if (btnHist) btnHist.classList.remove('hidden');
-                    let comorbs = Array.isArray(rev.comorbidades) ? rev.comorbidades : [];
+                    let comorbs = Array.isArray(rev.comorbidades) && rev.comorbidades.length > 0 ? rev.comorbidades : autoGuessComorbidities(rev.medications || []);
                     let outrasList = [];
                     comorbs.forEach(c => { let cTrim = c.trim(); let cb = document.querySelector(`.comorb-cb[value="${cTrim}"]`); if (cb) cb.checked = true; else outrasList.push(cTrim); });
                     document.getElementById('comorb-outras').value = outrasList.join(', ');
@@ -1868,7 +1991,7 @@
             container.innerHTML = html;
         }
 
-        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); renderHolidays(); }
+        function removeHoliday(idx) { db.holidays.splice(idx, 1); persistDB(); refreshAllViews(); }
 
         function saveVacations() {
             let newVacations = [];
@@ -1968,7 +2091,7 @@
                 let comorbCounts = {};
                 revList.forEach(r => {
                     if (r.status === 'inactive') return;
-                    let cList = Array.isArray(r.comorbidades) && r.comorbidades.length > 0 ? r.comorbidades : [];
+                    let cList = Array.isArray(r.comorbidades) && r.comorbidades.length > 0 ? r.comorbidades : autoGuessComorbidities(r.medications || []);
                     if (cList.length === 0) cList = ['Não Informada'];
                     cList.forEach(c => { let key = c.trim(); if(key) comorbCounts[key] = (comorbCounts[key] || 0) + 1; });
                 });
@@ -1990,9 +2113,6 @@
             }
         }
 
-        // =========================================================================
-        // FUNÇÕES RESTANTES DE RENDERIZAÇÃO
-        // =========================================================================
         function renderUsers() {
             let tbody = document.getElementById('users-table-body');
             if (!tbody) return;
@@ -2119,7 +2239,7 @@
                     persistDB();
                     updateMasterFilterDropdown();
                     refreshAllViews();
-                    alert("Backup MESCLADO com sucesso! As informações do arquivo antigo foram anexadas à nuvem sem apagar os seus cadastros mais recentes.");
+                    alert("Backup MESCLADO com sucesso! As informações foram anexadas e enviadas para o Firebase.");
                 } catch (err) { alert("Erro ao ler arquivo JSON."); }
             };
             reader.readAsText(file);
