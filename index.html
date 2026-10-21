@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestão Segura ACS Marcelo 90/01 - v22.0 Cloud</title>
-    
-    <!-- ESTILO CRÍTICO NATIVO (GARANTE TROCA DE TELA MESMO SE A REDE ATRASAR) -->
-    <style>
-        .hidden { display: none !important; }
-    </style>
+    <title>Gestão Segura ACS Marcelo 90/01 - v22.1 Cloud</title>
 
     <!-- LIMPADOR IMEDIATO DE CACHE ANTIGO -->
     <script>
@@ -32,7 +27,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Bibliotecas com DEFER para NUNCA travar o carregamento ou o botão de Login -->
+    <!-- Bibliotecas Externas -->
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
@@ -59,10 +54,10 @@
                         <i class="fa-solid fa-cloud-bolt text-2xl"></i>
                     </div>
                     <h1 class="text-xl font-bold text-slate-900">
-                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v22.0</span>
+                        Gestão Segura ACS Marcelo 90/01 <span class="ver-tag text-blue-600">v22.1</span>
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
-                        <span class="ver-full-label font-semibold text-slate-700">Versão 22.0 Cloud</span> — Acesso Direto & Leitura Total Firebase
+                        <span class="ver-full-label font-semibold text-slate-700">Versão 22.1 Cloud</span> — Menu Lateral Fixo & Sincronização Firebase
                     </p>
                     <div class="mt-2 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700" id="login-cloud-status">
                         <i class="fa-solid fa-circle-check"></i>
@@ -95,7 +90,7 @@
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-slate-100 text-center">
-                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v22.0)</span></p>
+                    <p class="text-[11px] text-slate-400">Banco na Nuvem: <span class="font-mono text-slate-600">gestao-acs-marcelo (v22.1)</span></p>
                 </div>
             </div>
         </div>
@@ -110,7 +105,7 @@
                     <div>
                         <div class="flex items-center space-x-2">
                             <h2 class="font-bold text-slate-800 text-sm sm:text-base leading-tight">
-                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v22.0</span>
+                                Gestão Segura ACS Marcelo 90/01 — <span class="ver-tag text-blue-600 font-extrabold">v22.1</span>
                             </h2>
                             <button type="button" onclick="forceCloudSync()" id="header-cloud-badge" title="Clique para sincronizar agora com o Firebase" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center space-x-1 cursor-pointer hover:bg-emerald-200 transition-all">
                                 <i class="fa-solid fa-cloud"></i><span>Sincronizar Nuvem</span>
@@ -153,7 +148,8 @@
             </header>
 
             <div class="flex-1 flex overflow-hidden">
-                <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden md:flex p-4">
+                <!-- BARRA LATERAL SEMPRE VISÍVEL (SEM CLASSE HIDDEN) -->
+                <aside class="w-60 sm:w-64 bg-white border-r border-slate-200 flex flex-col justify-between p-4 shrink-0 overflow-y-auto">
                     <div class="space-y-1.5">
                         <button onclick="switchTab('evaluations')" id="tab-btn-evaluations" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-blue-50 text-blue-700 cursor-pointer">
                             <i class="fa-solid fa-clipboard-list w-5"></i><span>IVCF-20 / IVSF-10</span>
@@ -186,7 +182,7 @@
 
                     <div class="pt-4 border-t border-slate-100 text-center">
                         <span class="inline-block px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-mono font-bold">
-                            APK <span class="ver-full-label">Versão 22.0 Cloud</span>
+                            APK <span class="ver-full-label">Versão 22.1 Cloud</span>
                         </span>
                     </div>
                 </aside>
@@ -203,7 +199,7 @@
                                 <div class="flex items-center space-x-2 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
                                     <i class="fa-solid fa-filter text-slate-400 text-xs"></i>
                                     <select id="ivcf-color-filter" onchange="renderItems()" class="bg-transparent text-xs font-semibold text-slate-700 outline-none cursor-pointer">
-                                        <option value="all">Todas as Cores (Maior &rarr; Menor)</option>
+                                        <option value="all" selected>Todas as Cores (Maior &rarr; Menor)</option>
                                         <option value="red">🔴 Apenas Vermelhos (Idoso Frágil &ge; 15)</option>
                                         <option value="yellow">🟡 Apenas Amarelos (Risco 7 a 14)</option>
                                         <option value="green">🟢 Apenas Verdes (Robusto 0 a 6)</option>
@@ -468,10 +464,10 @@
                         <div class="bg-blue-50 border border-blue-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4">
                             <div class="space-y-1">
                                 <h4 class="font-bold text-blue-900 text-base">
-                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 22.0 Cloud</span>)
+                                    <i class="fa-solid fa-cloud mr-2"></i>Banco de Dados Online Firebase (<span class="ver-full-label">Versão 22.1 Cloud</span>)
                                 </h4>
                                 <p class="text-xs text-blue-800 leading-relaxed">
-                                    Todos os dados são lidos tanto da raiz (`/`) quanto de `/gestao_acs_90_db` no Firebase (`gestao-acs-marcelo`).<br>
+                                    Sincronizado diretamente com `gestao_acs_90_db` no Firebase (`gestao-acs-marcelo`).<br>
                                     <b>IMPORTANTE:</b> Ao restaurar um backup antigo (.json), o sistema <b>ANEXA (mescla)</b> os pacientes à nuvem sem apagar os novos!
                                 </p>
                             </div>
@@ -486,7 +482,7 @@
                                     <h4 class="font-bold text-emerald-900 text-base mb-1">Exportar Cópia de Segurança (.json)</h4>
                                     <p class="text-xs text-emerald-700 mb-4">Gera um arquivo local com todos os dados atuais da nuvem já identificado com a versão atual.</p>
                                 </div>
-                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v22.0</span>)</button>
+                                <button onclick="exportBackupJSON()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm cursor-pointer">Baixar Backup (<span class="ver-tag">v22.1</span>)</button>
                             </div>
                             <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl flex flex-col justify-between">
                                 <div>
@@ -889,18 +885,24 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL (VERSÃO 22.0 CLOUD - SEM TRAVAMENTOS E COM LEITURA COMPLETA DO FIREBASE) -->
+    <!-- SCRIPT PRINCIPAL (VERSÃO 22.1 CLOUD - BARRA LATERAL VISÍVEL E CONEXÃO DUPLA FIREBASE) -->
     <script>
-        const CURRENT_VERSION = "22.0";
+        const CURRENT_VERSION = "22.1";
         const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
         const MASTER_EMAIL = "marcelo.doetz@gmail.com";
         const MASTER_DEFAULT_PASS = "R@ul2011";
         const SECONDARY_MASTER = "esf90micro01@gmail.com";
         const SECONDARY_DEFAULT_PASS = "0limpic0";
 
-        const FIREBASE_DB_URL = "https://gestao-acs-marcelo-default-rtdb.firebaseio.com";
-        const FIREBASE_ROOT_ENDPOINT = `${FIREBASE_DB_URL}/.json`;
-        const FIREBASE_NODE_ENDPOINT = `${FIREBASE_DB_URL}/gestao_acs_90_db.json`;
+        // Lista de URLs de sincronização para encontrar os dados independentemente de maiúsculas/minúsculas
+        const FIREBASE_DB_URL = "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com";
+        const FIREBASE_ENDPOINTS = [
+            "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com/gestao_acs_90_db.json",
+            "https://gestao-acs-marcelo-default-rtdb.firebaseio.com/gestao_acs_90_db.json",
+            "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com/.json",
+            "https://gestao-acs-marcelo-default-rtdb.firebaseio.com/.json"
+        ];
+        let activeRestEndpoint = FIREBASE_ENDPOINTS[0];
 
         let db = {
             version: CURRENT_VERSION,
@@ -933,7 +935,7 @@
         const HOLIDAY_CACHE_BY_YEAR = {};
 
         // =========================================================================
-        // 1. MOTOR DE LOGIN IMEDIATO (NUNCA DEPENDE DE SCRIPT EXTERNO PARA ENTRAR)
+        // 1. MOTOR DE LOGIN IMEDIATO
         // =========================================================================
         function showLoginError(msg) {
             let box = document.getElementById('login-error-box');
@@ -978,7 +980,6 @@
                 if (!email) { showLoginError("Por favor, preencha o e-mail de usuário."); return; }
                 if (!pass) { showLoginError("Por favor, digite a sua senha de acesso."); if (passEl) passEl.focus(); return; }
 
-                // Validação direta garantida para os 2 logins Master
                 if (email === MASTER_EMAIL && (pass === MASTER_DEFAULT_PASS || pass.toLowerCase() === MASTER_DEFAULT_PASS.toLowerCase() || pass.toLowerCase() === 'raul2011')) {
                     currentUser = { email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" };
                     if (passEl) passEl.value = '';
@@ -1015,13 +1016,14 @@
         function initSession() {
             try {
                 sessionStorage.setItem('acs_active_user', JSON.stringify(currentUser));
-                let authEl = document.getElementById('auth-screen');
-                let mainEl = document.getElementById('main-screen');
-                if (authEl) { authEl.classList.add('hidden'); authEl.style.display = 'none'; }
-                if (mainEl) { mainEl.classList.remove('hidden'); mainEl.style.display = 'flex'; }
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-screen').classList.remove('hidden');
 
                 document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
                 document.getElementById('user-display-email').innerText = currentUser.email;
+
+                let colorFilterEl = document.getElementById('ivcf-color-filter');
+                if (colorFilterEl) colorFilterEl.value = 'all';
 
                 let badge = document.getElementById('badge-role');
                 let adminTab = document.getElementById('admin-tab-btn');
@@ -1048,14 +1050,12 @@
         function logout() {
             currentUser = null;
             sessionStorage.removeItem('acs_active_user');
-            let authEl = document.getElementById('auth-screen');
-            let mainEl = document.getElementById('main-screen');
-            if (mainEl) { mainEl.classList.add('hidden'); mainEl.style.display = 'none'; }
-            if (authEl) { authEl.classList.remove('hidden'); authEl.style.display = 'flex'; }
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
         }
 
         // =========================================================================
-        // 2. LEITURA COMPLETA DO @CONSOLE.FIREBASE (RAIZ "/" E "/gestao_acs_90_db")
+        // 2. BUSCA MULTICAMINHO NO FIREBASE (TESTA /gestao_acs_90_db E RAIZ)
         // =========================================================================
         function updateCloudBadges(status, message) {
             let loginBadge = document.getElementById('login-cloud-status');
@@ -1078,47 +1078,44 @@
                 }
                 if (headerBadge) {
                     headerBadge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 flex items-center space-x-1 cursor-pointer";
-                    headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Modo Local (' + countInfo + ')'}</span>`;
+                    headerBadge.innerHTML = `<i class="fa-solid fa-cloud"></i><span>${message || 'Sincronizar Nuvem (' + countInfo + ')'}</span>`;
                 }
             }
         }
 
         async function fetchCloudViaRest() {
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-                // Busca toda a árvore da raiz do @console.firebase para encontrar dados tanto na raiz (/) quanto em (/gestao_acs_90_db)
-                const response = await fetch(FIREBASE_ROOT_ENDPOINT, {
-                    method: 'GET',
-                    cache: 'no-store',
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    const rootData = await response.json();
-                    if (rootData && typeof rootData === 'object') {
-                        // 1. Se houver dados dentro da subpasta gestao_acs_90_db, mescla
-                        if (rootData.gestao_acs_90_db && typeof rootData.gestao_acs_90_db === 'object') {
-                            mergeDatabaseObject(rootData.gestao_acs_90_db);
+            let connectedAny = false;
+            for (let i = 0; i < FIREBASE_ENDPOINTS.length; i++) {
+                let url = FIREBASE_ENDPOINTS[i];
+                try {
+                    const response = await fetch(url, { method: 'GET', cache: 'no-store' });
+                    if (response.ok) {
+                        connectedAny = true;
+                        const data = await response.json();
+                        if (data && typeof data === 'object') {
+                            if (data.gestao_acs_90_db && typeof data.gestao_acs_90_db === 'object') {
+                                mergeDatabaseObject(data.gestao_acs_90_db);
+                            }
+                            if (data.items || data.revenues || data.users || data.history) {
+                                mergeDatabaseObject(data);
+                            }
+                            if (url.includes('gestao_acs_90_db.json')) {
+                                activeRestEndpoint = url;
+                            }
                         }
-                        // 2. Se houver dados diretamente na raiz do Firebase (ex: importados pelo @console.firebase), mescla também!
-                        if (rootData.items || rootData.revenues || rootData.users || rootData.history) {
-                            mergeDatabaseObject(rootData);
-                        }
-                        localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
                     }
-                    updateCloudBadges('online');
-                    if (currentUser) {
-                        updateMasterFilterDropdown();
-                        refreshAllViews();
-                    }
-                } else {
-                    updateCloudBadges('offline', 'Pronto para Login');
+                } catch (e) {}
+            }
+
+            if (connectedAny) {
+                localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
+                updateCloudBadges('online');
+                if (currentUser) {
+                    updateMasterFilterDropdown();
+                    refreshAllViews();
                 }
-            } catch (e) {
-                updateCloudBadges('offline', 'Pronto para Login');
+            } else {
+                updateCloudBadges('offline', 'Modo Local');
             }
         }
 
@@ -1126,8 +1123,7 @@
             fetchCloudViaRest();
             try {
                 if (typeof firebase === 'undefined') {
-                    // Se o script defer do Firebase ainda estiver carregando, tenta novamente em 1.5s
-                    setTimeout(connectFirebaseCloud, 1500);
+                    setTimeout(connectFirebaseCloud, 1200);
                     return;
                 }
                 const firebaseConfig = {
@@ -1144,12 +1140,10 @@
                 firebaseDB = firebase.database();
                 dbRef = firebaseDB.ref('gestao_acs_90_db');
 
-                // Escuta a raiz para pegar qualquer dado importado direto no @console.firebase
-                firebaseDB.ref('/').on('value', (snapshot) => {
-                    const rootVal = snapshot.val();
-                    if (rootVal && typeof rootVal === 'object') {
-                        if (rootVal.gestao_acs_90_db) mergeDatabaseObject(rootVal.gestao_acs_90_db);
-                        if (rootVal.items || rootVal.revenues || rootVal.users) mergeDatabaseObject(rootVal);
+                dbRef.on('value', (snapshot) => {
+                    const cloudData = snapshot.val();
+                    if (cloudData && typeof cloudData === 'object') {
+                        mergeDatabaseObject(cloudData);
                         localStorage.setItem('ivcf_db_v3', JSON.stringify(db));
                         updateCloudBadges('online');
                         if (currentUser) {
@@ -1167,7 +1161,7 @@
             let cleanCopy = JSON.parse(JSON.stringify(db));
             localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
 
-            fetch(FIREBASE_NODE_ENDPOINT, {
+            fetch(activeRestEndpoint, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(cleanCopy)
@@ -1185,7 +1179,7 @@
         function forceCloudSync() {
             fetchCloudViaRest().then(() => {
                 persistDB();
-                alert(`Sincronização com o Firebase (v${CURRENT_VERSION}) concluída!\nRegistros carregados: ${(db.items || []).length} avaliações e ${(db.revenues || []).length} receitas.`);
+                alert(`Sincronização com o Firebase (v${CURRENT_VERSION}) concluída!\nRegistros ativos: ${(db.items || []).length} avaliações e ${(db.revenues || []).length} receitas.`);
             });
         }
 
@@ -1206,7 +1200,6 @@
             document.querySelectorAll('.ver-full-label').forEach(el => el.innerText = `Versão ${CURRENT_VERSION} Cloud`);
             initHolidayYearSelector();
 
-            // Verifica todas as chaves locais possíveis no navegador para resgatar qualquer dado local
             ['ivcf_db_v3', 'ivcf_db', 'acs_db'].forEach(key => {
                 let rawLocal = localStorage.getItem(key);
                 if (rawLocal) {
@@ -1216,10 +1209,8 @@
             ensureMasterUsers();
             updateCloudBadges('offline', 'Sistema Pronto — Digite E-mail e Senha');
 
-            // Dispara busca imediata no Firebase sem bloquear a tela
             connectFirebaseCloud();
 
-            // Se já havia sessão aberta nesta aba, entra direto
             try {
                 let savedSession = sessionStorage.getItem('acs_active_user');
                 if (savedSession) {
@@ -2378,7 +2369,6 @@
             doc.save(`relatorio_ivcf_v${CURRENT_VERSION}.pdf`);
         }
 
-        // Inicializa imediatamente sem depender do carregamento de scripts externos lentos
         initDB();
     </script>
 </body>
