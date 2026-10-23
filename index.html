@@ -259,3 +259,423 @@
             </form>
         </div>
     </div>
+<!-- INÍCIO DA PARTE 2 -->
+    <script>
+        const CURRENT_VERSION = "21.8";
+        const APP_BASE_NAME = "Gestão Segura ACS Marcelo 90/01";
+        const MASTER_EMAIL = "marcelo.doetz@gmail.com";
+        const MASTER_DEFAULT_PASS = "R@ul2011";
+        const SECONDARY_MASTER = "esf90micro01@gmail.com";
+        const SECONDARY_DEFAULT_PASS = "0limpic0";
+
+        const FIREBASE_ENDPOINTS = [
+            "https://gestao-acs-Marcelo-default-rtdb.firebaseio.com/gestao_acs_90_db.json",
+            "https://gestao-acs-marcelo-default-rtdb.firebaseio.com/gestao_acs_90_db.json"
+        ];
+        let activeRestEndpoint = FIREBASE_ENDPOINTS[0];
+
+        let db = { version: CURRENT_VERSION, users: [], items: [], revenues: [], history: [], holidays: [], ignoredHolidays: [], vacations: [] };
+        let currentUser = null; 
+        let filter15DaysActive = true;
+        let currentRenewalContext = null;
+        let ivcfSortDirection = 'desc';
+        let duplicateMatchId = null;
+        let shouldUnify = false;
+
+        const WEEKDAYS_SHORT_PT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+        function togglePasswordVisibility(id, btn) { let i = document.getElementById(id); if (i) { i.type = i.type === "password" ? "text" : "password"; btn.querySelector('i').className = i.type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash"; i.focus(); } }
+        function isMasterAccount(email) { let e = String(email || '').trim().toLowerCase(); return e === MASTER_EMAIL || e === SECONDARY_MASTER; }
+        
+        function ensureMasterUsers() {
+            if (!Array.isArray(db.users)) db.users = []; db.users = db.users.filter(u => u && typeof u === 'object' && u.email);
+            if (!db.users.find(u => String(u.email).trim().toLowerCase() === MASTER_EMAIL)) db.users.push({ email: MASTER_EMAIL, name: "ADM Master Marcelo", password: MASTER_DEFAULT_PASS, role: "admin", status: "active" });
+            if (!db.users.find(u => String(u.email).trim().toLowerCase() === SECONDARY_MASTER)) db.users.push({ email: SECONDARY_MASTER, name: "ESF 90 Master", password: SECONDARY_DEFAULT_PASS, role: "admin", status: "active" });
+        }
+
+        function doSystemLogin() {
+            let email = document.getElementById('login-email').value.trim().toLowerCase(); let pass = document.getElementById('login-password').value.trim();
+            if (!email || !pass) { alert("Preencha e-mail e senha."); return; }
+            ensureMasterUsers(); let user = db.users.find(u => u.email.toLowerCase() === email);
+            if (user && pass === String(user.password || '').trim()) { if (user.status === 'inactive') { alert("ACESSO BLOQUEADO."); return; } currentUser = user; initSession(); }
+            else if (user) { alert("Senha incorreta."); } else { alert("E-mail não autorizado."); }
+        }
+
+        function initSession() {
+            sessionStorage.setItem('acs_active_user', JSON.stringify(currentUser));
+            document.getElementById('auth-screen').classList.add('hidden'); document.getElementById('main-screen').classList.remove('hidden');
+            document.getElementById('user-display-name').innerText = currentUser.name || currentUser.email;
+            let badge = document.getElementById('badge-role'); 
+            if (isMasterAccount(currentUser.email) || currentUser.role === 'admin') { badge.innerText = "ADM Master"; badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700"; document.getElementById('master-view-filter-box').classList.remove('hidden'); document.getElementById('admin-tab-btn').classList.remove('hidden'); }
+            else { badge.innerText = "ACS"; badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700"; document.getElementById('master-view-filter-box').classList.add('hidden'); document.getElementById('admin-tab-btn').classList.add('hidden'); }
+            switchTab('renewals'); fetchCloudViaRest();
+        }
+
+        function logout() { currentUser = null; sessionStorage.removeItem('acs_active_user'); document.getElementById('main-screen').classList.add('hidden'); document.getElementById('auth-screen').classList.remove('hidden'); }
+
+        async function fetchCloudViaRest() {
+            let connected = false;
+            for (let url of FIREBASE_ENDPOINTS) {
+                try {
+                    let res = await fetch(url, { method: 'GET', cache: 'no-store' });
+                    if (res.ok) { let data = await res.json(); if (data) { mergeDatabaseObject(data.gestao_acs_90_db || data); activeRestEndpoint = url; connected = true; break; } }
+                } catch(e) {}
+            }
+            if (connected) { document.getElementById('header-cloud-badge').innerHTML = `<i class="fa-solid fa-cloud"></i><span>Nuvem Online</span>`; if (currentUser) refreshAllViews(); }
+        }
+
+        function persistDB() {
+            db.version = CURRENT_VERSION; let cleanCopy = JSON.parse(JSON.stringify(db)); localStorage.setItem('ivcf_db_v3', JSON.stringify(cleanCopy));
+            fetch(activeRestEndpoint, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanCopy) }).catch(()=>{});
+            let t = document.getElementById('save-toast'); if(t) { t.classList.remove('translate-y-20', 'opacity-0'); setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 2000); }
+        }
+
+        function forceCloudSync() { persistDB(); fetchCloudViaRest(); alert("Sincronizado na Nuvem!"); }
+
+        function mergeDatabaseObject(imp) {
+            if (!imp || typeof imp !== 'object') return;
+            let iUsers = Array.isArray(imp.users) ? imp.users : Object.values(imp.users || {}); iUsers.forEach(iu => { if (iu && iu.email && !db.users.find(u => u.email.toLowerCase() === iu.email.toLowerCase())) db.users.push(iu); });
+            let iItems = Array.isArray(imp.items) ? imp.items : Object.values(imp.items || {}); iItems.forEach(ii => { if (ii && !db.items.find(i => i.id === ii.id)) { ii.userEmail = ii.userEmail || MASTER_EMAIL; db.items.push(ii); } });
+            let iRevs = Array.isArray(imp.revenues) ? imp.revenues : Object.values(imp.revenues || {}); iRevs.forEach(ir => {
+                if (ir && !db.revenues.find(r => r.id === ir.id)) { ir.userEmail = ir.userEmail || MASTER_EMAIL; ir.medications = Array.isArray(ir.medications) ? ir.medications : Object.values(ir.medications || {}); db.revenues.push(ir); }
+                else if(ir) { let ext = db.revenues.find(r => r.id === ir.id); let nM = Array.isArray(ir.medications) ? ir.medications : Object.values(ir.medications || {}); if(nM.length > 0) { ext.medications = ext.medications || []; ext.medications.push(...nM); } }
+            });
+            cleanExistingDuplicates();
+        }
+
+        function cleanExistingDuplicates() {
+            if (!db.revenues) return; let uMap = new Map(); let cList = [];
+            db.revenues.forEach(rev => {
+                let key = String(rev.userEmail || MASTER_EMAIL).trim().toLowerCase() + '|' + String(rev.paciente || '').trim().toLowerCase();
+                if (uMap.has(key)) { let p = uMap.get(key); if (Array.isArray(rev.medications)) p.medications.push(...rev.medications.filter(m => m && m.name)); archiveOldIdenticalMedications(p); } 
+                else { archiveOldIdenticalMedications(rev); uMap.set(key, rev); cList.push(rev); }
+            });
+            db.revenues = cList;
+        }
+
+        function archiveOldIdenticalMedications(rev) {
+            if (!rev) return; rev.medications = rev.medications || []; rev.medHistory = rev.medHistory || [];
+            let lat = new Map();
+            rev.medications.forEach(med => {
+                if (!med || !med.name) return; let key = String(med.name).trim().toLowerCase();
+                if (!lat.has(key)) lat.set(key, med);
+                else {
+                    let ext = lat.get(key); let tE = new Date((ext.baseDate || '2000-01-01') + 'T00:00:00').getTime(); let tN = new Date((med.baseDate || '2000-01-01') + 'T00:00:00').getTime();
+                    if (tN >= tE) { rev.medHistory.push({ ...ext, archivedAt: med.baseDate || new Date().toISOString().split('T')[0] }); lat.set(key, med); } 
+                    else rev.medHistory.push({ ...med, archivedAt: ext.baseDate || new Date().toISOString().split('T')[0] });
+                }
+            });
+            rev.medications = Array.from(lat.values());
+        }
+
+        function initDB() {
+            let saved = localStorage.getItem('ivcf_db_v3') || localStorage.getItem('ivcf_db');
+            if (saved) { try { let p = JSON.parse(saved); mergeDatabaseObject(p); } catch (e) {} }
+            ensureMasterUsers(); fetchCloudViaRest();
+            try { let s = sessionStorage.getItem('acs_active_user'); if (s) { let p = JSON.parse(s); if (p && p.email) { currentUser = p; initSession(); } } } catch (e) {}
+        }
+
+        function toISODateString(d) { return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
+        function formatDateBR(dateStr) { if (!dateStr) return ''; let p = String(dateStr).split('-'); if (p.length === 3) return `${p[2]}/${p[1]}/${p[0]}`; return dateStr; }
+        
+        function getRenewalDateDetails(baseDateStr, addDays) {
+            let baseObj = baseDateStr ? new Date(baseDateStr + 'T00:00:00') : new Date(); if (isNaN(baseObj.getTime())) baseObj = new Date();
+            let target = new Date(baseObj.getTime()); target.setDate(target.getDate() + parseInt(addDays || 30));
+            // Evitar fins de semana
+            while (target.getDay() === 0 || target.getDay() === 6) target.setDate(target.getDate() - 1);
+            return { finalDate: toISODateString(target), finalWeekday: WEEKDAYS_SHORT_PT[target.getDay()] };
+        }
+        function calculateValidDate(baseDateStr, addDays) { return getRenewalDateDetails(baseDateStr, addDays).finalDate; }
+
+        function isVisibleToCurrentUser(recordUserEmail) {
+            if (!currentUser) return false; let myE = String(currentUser.email).trim().toLowerCase(); let rE = String(recordUserEmail || MASTER_EMAIL).trim().toLowerCase();
+            if (isMasterAccount(myE) || currentUser.role === 'admin') { let sel = document.getElementById('master-acs-filter'); let f = sel ? sel.value : 'all'; if (f === 'all') return true; if (f === 'mine') return rE === myE; return rE === f.toLowerCase(); }
+            return rE === myE;
+        }
+
+        function refreshAllViews() { if (!currentUser) return; try { renderItems(); renderRevenues(); renderPatients(); renderCycles(); renderRenewals(); renderCharts(); renderUsers(); } catch (e) {} }
+
+        function switchTab(tab) {
+            ['evaluations', 'revenues', 'patients', 'cycles', 'renewals', 'history', 'reports', 'backup', 'admin'].forEach(t => { let el = document.getElementById(`tab-${t}`); if (el) el.classList.add('hidden'); });
+            let target = document.getElementById(`tab-${tab}`); if (target) target.classList.remove('hidden');
+            refreshAllViews();
+        }
+
+        function getSearchTerm() { let el = document.getElementById('global-search'); return el ? el.value.trim().toLowerCase() : ''; }
+        function handleGlobalSearch() { refreshAllViews(); }
+        function getCycleSearchTerm() { let el = document.getElementById('cycle-search'); return el ? el.value.trim().toLowerCase() : ''; }
+
+        // =========================================================================
+        // ABA DE RENOVAÇÃO INTELIGENTE (LIMPEZA AUTOMÁTICA E JANELA DE CICLOS)
+        // =========================================================================
+        function toggle15DaysFilter() {
+            filter15DaysActive = !filter15DaysActive;
+            let btn = document.getElementById('btn-filter-15d'); let label = document.getElementById('label-filter-15d');
+            if (filter15DaysActive) { 
+                btn.className = "bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all flex items-center space-x-1.5 cursor-pointer"; 
+                label.innerText = "Foco: Atrasos e Próx 15 Dias"; 
+            } else { 
+                btn.className = "bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all flex items-center space-x-1.5 cursor-pointer"; 
+                label.innerText = "Mostrar Toda a Agenda Futura"; 
+            }
+            renderRenewals();
+        }
+
+        function renderRenewals() {
+            let tbody = document.getElementById('renewals-table-body'); let empty = document.getElementById('empty-renewal-state');
+            if (!tbody || !currentUser) return; tbody.innerHTML = '';
+            
+            let term = getSearchTerm(); 
+            let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail)); 
+            let groupsMap = {};
+
+            let todayObj = new Date(); todayObj.setHours(0,0,0,0); let todayStr = toISODateString(todayObj);
+            let limitObj = new Date(); limitObj.setDate(limitObj.getDate() + 15); let todayLimitStr = toISODateString(limitObj);
+
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                rev.medications.forEach((med, mIdx) => {
+                    let details = getRenewalDateDetails(med.baseDate, med.cycleDays); let nextDate = details.finalDate; let groupKey = rev.id + '_' + nextDate;
+                    if (!groupsMap[groupKey]) { groupsMap[groupKey] = { revObj: rev, revId: rev.id, paciente: rev.paciente, gestor: rev.gestor, nextDate: nextDate, finalWeekday: details.finalWeekday, medications: [] }; }
+                    groupsMap[groupKey].medications.push({ name: med.name, dose: med.dose || '', cycleDays: med.cycleDays, baseDate: med.baseDate });
+                });
+            });
+
+            let groupsList = Object.values(groupsMap);
+            
+            // APLICAÇÃO DA LIMPEZA DE TELA DOS 15 DIAS
+            if (filter15DaysActive) { groupsList = groupsList.filter(g => g.nextDate <= todayLimitStr); }
+            if (term) { groupsList = groupsList.filter(g => (g.paciente || '').toLowerCase().includes(term) || g.medications.some(m => (m.name || '').toLowerCase().includes(term))); }
+            groupsList.sort((a, b) => new Date(a.nextDate) - new Date(b.nextDate));
+
+            if (groupsList.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+
+            groupsList.forEach(g => {
+                let isOverdue = g.nextDate < todayStr;
+                let dateColor = isOverdue ? "text-red-700 bg-red-50 border-red-200" : "text-emerald-700 bg-emerald-50 border-emerald-200";
+                let medsHtml = g.medications.map(m => `<div class="bg-white p-2 rounded-lg border border-slate-200 my-1 truncate">• <b>${m.name}</b> ${m.dose ? `(${m.dose})` : ''} <span class="text-[11px] text-slate-500 font-bold">(${m.cycleDays} dias)</span></div>`).join('');
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 border-b ${isOverdue ? 'bg-red-50/30' : ''}">
+                        <td class="p-4 text-center"><input type="checkbox" class="renewal-checkbox w-4 h-4 cursor-pointer" data-revid="${g.revId}" data-nextdate="${g.nextDate}"></td>
+                        <td class="p-4 align-top"><div class="font-mono font-bold text-sm px-2 py-1 rounded-lg border ${dateColor} inline-block">${formatDateBR(g.nextDate)} ${isOverdue ? '⚠️ Atrasada' : ''}</div></td>
+                        <td class="p-4 align-top"><div class="font-bold text-slate-800">${g.paciente || ''}</div></td>
+                        <td class="p-4 text-xs text-slate-700 align-top">${medsHtml}</td>
+                        <td class="p-4 text-center space-y-1.5 align-top">
+                            <button onclick='renewGroupMedications("${g.revId}", "${g.nextDate}")' class="w-full px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-all shadow-sm"><i class="fa-solid fa-check-double mr-1"></i>Renovar Grupo</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function renewGroupMedications(revId, targetDate) {
+            let rev = db.revenues.find(r => r.id === revId); if (!rev || !rev.medications) return;
+            currentRenewalContext = { revId, targetDate };
+            let container = document.getElementById('renew-group-meds-container'); container.innerHTML = '';
+            
+            rev.medications.forEach((med, idx) => {
+                if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) {
+                    container.innerHTML += `<div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200 mb-2 gap-2"><div class="flex-1 font-bold text-sm text-slate-800">${med.name} ${med.dose||''}</div><div class="flex items-center space-x-2 shrink-0"><span class="text-xs text-slate-600 font-semibold hidden sm:inline">Novo Ciclo:</span><input type="number" id="renew-med-cycle-${idx}" value="${med.cycleDays}" class="w-16 px-2 py-1.5 border border-slate-300 rounded-lg text-sm font-bold text-emerald-700 text-center outline-none bg-white"> <span class="text-[10px] text-slate-500">dias</span></div></div>`;
+                }
+            });
+            document.getElementById('renew-group-patient-name').innerText = `Paciente: ${rev.paciente}`;
+            document.getElementById('renew-group-modal').classList.remove('hidden');
+        }
+
+        function saveGroupRenewal(e) {
+            e.preventDefault(); if (!currentRenewalContext) return; let ctx = currentRenewalContext; let rev = db.revenues.find(r => r.id === ctx.revId); if (!rev) return;
+            let todayStr = toISODateString(new Date()); if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+            
+            rev.medications.forEach((med, idx) => {
+                if (calculateValidDate(med.baseDate, med.cycleDays) === ctx.targetDate) {
+                    let inputEl = document.getElementById(`renew-med-cycle-${idx}`);
+                    if (inputEl) {
+                        let newDays = parseInt(inputEl.value);
+                        if (!isNaN(newDays) && newDays > 0) { 
+                            rev.medHistory.push({ ...med, archivedAt: todayStr }); 
+                            med.cycleDays = newDays; 
+                            med.baseDate = todayStr; 
+                        }
+                    }
+                }
+            });
+            document.getElementById('renew-group-modal').classList.add('hidden'); currentRenewalContext = null;
+            persistDB(); refreshAllViews();
+        }
+
+        function toggleSelectAllRenewals(masterCheckbox) { document.querySelectorAll('.renewal-checkbox').forEach(cb => cb.checked = masterCheckbox.checked); }
+        function renewSelectedGroups() {
+            let checkedBoxes = document.querySelectorAll('.renewal-checkbox:checked'); if (checkedBoxes.length === 0) { alert("Selecione um grupo."); return; }
+            let newDays = parseInt(prompt("Novo período (dias) para os grupos selecionados:", "30")); if (isNaN(newDays) || newDays <= 0) return;
+            let todayStr = toISODateString(new Date());
+            checkedBoxes.forEach(cb => {
+                let rev = db.revenues.find(r => r.id === cb.getAttribute('data-revid')); let targetDate = cb.getAttribute('data-nextdate');
+                if (rev && rev.medications) {
+                    if (!Array.isArray(rev.medHistory)) rev.medHistory = [];
+                    rev.medications.forEach(med => {
+                        if (calculateValidDate(med.baseDate, med.cycleDays) === targetDate) { rev.medHistory.push({ ...med, archivedAt: todayStr }); med.cycleDays = newDays; med.baseDate = todayStr; }
+                    });
+                }
+            });
+            persistDB(); refreshAllViews(); alert("Grupos renovados com sucesso!");
+        }
+
+        // =========================================================================
+        // AVALIAÇÕES IVCF-20 / IVSF-10
+        // =========================================================================
+        function renderItems() {
+            let tbody = document.getElementById('items-table-body'); let empty = document.getElementById('empty-state');
+            if (!tbody || !currentUser) return; tbody.innerHTML = '';
+            let term = getSearchTerm(); let colorFilter = document.getElementById('ivcf-color-filter') ? document.getElementById('ivcf-color-filter').value : 'all';
+            let list = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+            if (term) list = list.filter(i => (i.name || '').toLowerCase().includes(term) || (i.gestor || '').toLowerCase().includes(term));
+            
+            if (colorFilter !== 'all') {
+                list = list.filter(i => {
+                    let s20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0;
+                    if (colorFilter === 'red') return s20 >= 15; if (colorFilter === 'yellow') return s20 >= 7 && s20 <= 14; if (colorFilter === 'green') return s20 <= 6; return true;
+                });
+            }
+
+            list.sort((a, b) => {
+                let a20 = parseInt(a.ivcf20 !== undefined ? a.ivcf20 : a.value) || 0; let b20 = parseInt(b.ivcf20 !== undefined ? b.ivcf20 : b.value) || 0;
+                if (a20 !== b20) return ivcfSortDirection === 'desc' ? (b20 - a20) : (a20 - b20);
+                return ivcfSortDirection === 'desc' ? (parseInt(b.ivsf10 || 0) - parseInt(a.ivsf10 || 0)) : (parseInt(a.ivsf10 || 0) - parseInt(b.ivsf10 || 0));
+            });
+
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+            list.forEach(i => {
+                let s20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0; let s10 = parseInt(i.ivsf10 || 0);
+                let badge = s20 >= 15 ? "bg-red-600 text-white" : (s20 >= 7 ? "bg-yellow-400 text-black" : "bg-emerald-600 text-white");
+                tbody.innerHTML += `<tr class="hover:bg-slate-50 border-b"><td class="p-4">${i.gestor || ''}</td><td class="p-4 font-bold text-slate-800">${i.name || ''}</td><td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-bold ${badge}">${s20}</span></td><td class="p-4 font-bold">${s10}</td><td class="p-4">${formatDateBR(i.date)}</td><td class="p-4 text-blue-700 font-bold">${formatDateBR(calculateValidDate(i.date, i.profile || 90))}</td><td class="p-4 text-center"><button onclick="deleteItem('${i.id}')" class="px-2 py-1 bg-red-100 text-red-600 rounded"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+            });
+        }
+
+        function toggleIvcfSortOrder() { ivcfSortDirection = ivcfSortDirection === 'desc' ? 'asc' : 'desc'; renderItems(); }
+        function openItemModal() { document.getElementById('item-modal').classList.remove('hidden'); document.getElementById('item-form').reset(); document.getElementById('item-eval-date').value = new Date().toISOString().split('T')[0]; if(!isMasterAccount(currentUser.email)) document.getElementById('item-gestor').value = currentUser.name || ''; }
+        function closeItemModal() { document.getElementById('item-modal').classList.add('hidden'); }
+        function saveItem(e) {
+            e.preventDefault();
+            let gestor = document.getElementById('item-gestor').value.trim(); let name = document.getElementById('item-name').value.trim();
+            let evalDate = document.getElementById('item-eval-date').value; let ivcf20 = parseInt(document.getElementById('item-ivcf20').value) || 0; let ivsf10 = parseInt(document.getElementById('item-ivsf10').value) || 0;
+            let profile = (ivcf20 >= 15 || ivsf10 >= 10) ? 90 : ((ivcf20 >= 7 || ivsf10 >= 5) ? 180 : 360);
+            db.items.push({ id: Date.now().toString(), userEmail: currentUser.email, gestor, name, ivcf20, ivsf10, value: ivcf20, profile, date: evalDate, nextDate: calculateValidDate(evalDate, profile) });
+            persistDB(); closeItemModal(); refreshAllViews();
+        }
+        function deleteItem(id) { if (confirm("Excluir?")) { db.items = db.items.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        // =========================================================================
+        // RECEITAS, PACIENTES E CICLOS
+        // =========================================================================
+        function renderRevenues() {
+            let tbody = document.getElementById('revenues-table-body'); let empty = document.getElementById('empty-revenue-state');
+            if (!tbody || !currentUser) return; tbody.innerHTML = '';
+            let term = getSearchTerm(); let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+            if (term) list = list.filter(rev => (rev.paciente || '').toLowerCase().includes(term) || (rev.medications && rev.medications.some(m => (m.name || '').toLowerCase().includes(term))));
+            if (list.length === 0) { empty.classList.remove('hidden'); return; }
+            empty.classList.add('hidden');
+            list.forEach(i => {
+                let medsHtml = (i.medications || []).map(m => `<div class="truncate">• ${m.name} <span class="text-xs text-slate-500">(${m.cycleDays}d)</span></div>`).join('');
+                tbody.innerHTML += `<tr class="hover:bg-slate-50 border-b"><td class="p-4">${i.gestor || ''}</td><td class="p-4 font-bold text-slate-800">${i.paciente || ''}</td><td class="p-4">${i.medico || ''}</td><td class="p-4 text-xs">${medsHtml}</td><td class="p-4 text-center"><button onclick="deleteRevenue('${i.id}')" class="px-2 py-1 bg-red-100 text-red-600 rounded"><i class="fa-solid fa-trash"></i></button></td></tr>`;
+            });
+        }
+
+        function openRevenueModal() { document.getElementById('revenue-modal').classList.remove('hidden'); document.getElementById('revenue-form').reset(); document.getElementById('medication-rows-container').innerHTML=''; if(!isMasterAccount(currentUser.email)) document.getElementById('revenue-gestor').value = currentUser.name || ''; addMedicationRow(); }
+        function closeRevenueModal() { document.getElementById('revenue-modal').classList.add('hidden'); }
+        function addMedicationRow() {
+            let id = 'med_' + Date.now(); let today = new Date().toISOString().split('T')[0];
+            document.getElementById('medication-rows-container').insertAdjacentHTML('beforeend', `<div id="${id}" class="bg-slate-50 p-3 rounded-xl border flex flex-wrap gap-2 items-end"><div class="flex-1 min-w-[120px]"><label class="text-[10px] font-bold">Medicamento</label><input type="text" name="med_name" required class="w-full px-2 py-1.5 border rounded text-sm"></div><div class="w-20"><label class="text-[10px] font-bold">Ciclo</label><input type="number" name="med_cycle" value="30" class="w-full px-2 py-1.5 border rounded text-sm"></div><div class="w-32"><label class="text-[10px] font-bold">Data</label><input type="date" name="med_date" required value="${today}" class="w-full px-2 py-1.5 border rounded text-sm"></div><div><button type="button" onclick="document.getElementById('${id}').remove()" class="px-2 py-1.5 bg-red-100 text-red-600 rounded"><i class="fa-solid fa-trash"></i></button></div></div>`);
+        }
+        function saveRevenue(e) {
+            e.preventDefault();
+            let gestor = document.getElementById('revenue-gestor').value.trim(); let paciente = document.getElementById('revenue-paciente').value.trim(); let medico = document.getElementById('revenue-medico').value.trim();
+            let medications = [];
+            document.querySelectorAll('#medication-rows-container > div').forEach(row => {
+                let name = row.querySelector('input[name="med_name"]').value.trim(); let cycleDays = parseInt(row.querySelector('input[name="med_cycle"]').value) || 30; let baseDate = row.querySelector('input[name="med_date"]').value;
+                if (name && baseDate) medications.push({ name, cycleDays, baseDate });
+            });
+            if (medications.length === 0) return;
+            let newRev = { id: Date.now().toString(), userEmail: currentUser.email, gestor, paciente, medico, status: 'active', medications, medHistory: [] };
+            db.revenues.push(newRev); persistDB(); closeRevenueModal(); refreshAllViews();
+        }
+        function deleteRevenue(id) { if (confirm("Excluir receita?")) { db.revenues = db.revenues.filter(i => i.id !== id); persistDB(); refreshAllViews(); } }
+
+        function renderPatients() {
+            let tbody = document.getElementById('patients-table-body'); if (!tbody || !currentUser) return; tbody.innerHTML = '';
+            let list = [...(db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail))];
+            list.sort((a, b) => (a.paciente || '').localeCompare(b.paciente || ''));
+            list.forEach(rev => {
+                let statusBadge = rev.status === 'inactive' ? `<span class="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-bold">Inativo</span>` : `<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 text-xs font-bold">Ativo</span>`;
+                let medsHtml = (rev.medications || []).map(m => `<div>• <b>${m.name}</b> (${m.cycleDays}d) - <span class="text-xs text-indigo-600 font-bold">Venc: ${formatDateBR(calculateValidDate(m.baseDate, m.cycleDays))}</span></div>`).join('');
+                tbody.innerHTML += `<tr class="border-b"><td class="p-4 font-bold">${rev.paciente}</td><td class="p-4">${rev.gestor}</td><td class="p-4 text-xs">${medsHtml}</td><td class="p-4">${statusBadge}</td><td class="p-4 text-center"><button onclick="togglePatientStatus('${rev.id}')" class="px-2 py-1 bg-amber-100 text-amber-800 rounded text-xs font-bold">${rev.status === 'inactive' ? 'Ativar' : 'Inativar'}</button></td></tr>`;
+            });
+        }
+        function togglePatientStatus(id) { let rev = db.revenues.find(i => i.id === id); if (rev) { rev.status = rev.status === 'inactive' ? 'active' : 'inactive'; persistDB(); refreshAllViews(); } }
+
+        function renderCycles() {
+            let c30 = document.getElementById('cycle-list-30'), c60 = document.getElementById('cycle-list-60'), c90 = document.getElementById('cycle-list-90'), c180 = document.getElementById('cycle-list-180'), cOut = document.getElementById('cycle-list-outros');
+            if (!c30 || !currentUser) return;
+            c30.innerHTML = ''; c60.innerHTML = ''; c90.innerHTML = ''; c180.innerHTML = ''; cOut.innerHTML = '';
+            let term = getCycleSearchTerm(); let list = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+            list.forEach(rev => {
+                if (rev.status === 'inactive' || !rev.medications) return;
+                let cyclesPresent = new Set(rev.medications.map(m => String(m.cycleDays)));
+                cyclesPresent.forEach(cycle => {
+                    let medsInCycle = rev.medications.filter(m => String(m.cycleDays) === cycle);
+                    if (!term || (rev.paciente || '').toLowerCase().includes(term) || medsInCycle.some(m => (m.name || '').toLowerCase().includes(term))) {
+                        let card = `<div class="bg-slate-50 p-2 rounded border my-1"><p class="font-bold text-slate-800">${rev.paciente}</p><p class="text-[10px] text-slate-500">Meds: ${medsInCycle.length}</p></div>`;
+                        if (cycle === '30') c30.innerHTML += card; else if (cycle === '60') c60.innerHTML += card; else if (cycle === '90') c90.innerHTML += card; else if (cycle === '180') c180.innerHTML += card; else cOut.innerHTML += card;
+                    }
+                });
+            });
+        }
+
+        // =========================================================================
+        // GRÁFICOS E PDF
+        // =========================================================================
+        function renderCharts() {
+            if (typeof Chart === 'undefined' || !currentUser) return;
+            let revList = (db.revenues || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+            let itemsList = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail));
+
+            let ctx1 = document.getElementById('scoreChart');
+            if (ctx1) {
+                let rc = { 'Alto Risco': 0, 'Médio Risco': 0, 'Baixo Risco': 0 };
+                itemsList.forEach(i => { let v20 = parseInt(i.ivcf20 !== undefined ? i.ivcf20 : i.value) || 0; if(v20 >= 15) rc['Alto Risco']++; else if(v20 >= 7) rc['Médio Risco']++; else rc['Baixo Risco']++; });
+                new Chart(ctx1, { type: 'bar', data: { labels: Object.keys(rc), datasets: [{ label: 'Pacientes', data: Object.values(rc), backgroundColor: ['#dc2626', '#eab308', '#10b981'] }] }, options: { responsive: true, maintainAspectRatio: false } });
+            }
+            let ctx2 = document.getElementById('revenueChart');
+            if (ctx2) {
+                let c = { '30d': 0, '60d': 0, '90d': 0, '180d': 0, 'Outros': 0 };
+                revList.forEach(r => (r.medications || []).forEach(m => { if (m.cycleDays == 30) c['30d']++; else if (m.cycleDays == 60) c['60d']++; else if (m.cycleDays == 90) c['90d']++; else if (m.cycleDays == 180) c['180d']++; else c['Outros']++; }));
+                new Chart(ctx2, { type: 'bar', data: { labels: Object.keys(c), datasets: [{ label: 'Meds', data: Object.values(c), backgroundColor: '#3b82f6' }] }, options: { responsive: true, maintainAspectRatio: false } });
+            }
+        }
+
+        function exportRenewalsPDF() {
+            if (!window.jspdf) return; const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Renovações Pendentes - v${CURRENT_VERSION}`, 14, 20);
+            let rows = [];
+            (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).forEach(r => (r.medications || []).forEach(m => { rows.push([formatDateBR(calculateValidDate(m.baseDate, m.cycleDays)), r.paciente, m.name, r.gestor]); }));
+            doc.autoTable({ startY: 28, head: [["Renovação", "Paciente", "Medicamento", "Gestor"]], body: rows }); doc.save(`renovacoes_v${CURRENT_VERSION}.pdf`);
+        }
+        function exportAllPatientsPDF() { exportRevenuesPDF(); }
+        function exportCyclePDF(c) { exportRevenuesPDF(); }
+        function exportRevenuesPDF() {
+            if (!window.jspdf) return; const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Receitas - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.revenues || []).filter(r => isVisibleToCurrentUser(r.userEmail)).map(r => [r.gestor, r.paciente, (r.medications || []).map(m => m.name).join(', ')]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "Medicamentos"]], body: rows }); doc.save(`receitas_v${CURRENT_VERSION}.pdf`);
+        }
+        function exportPDF(type) {
+            if (!window.jspdf) return; const { jsPDF } = window.jspdf; let doc = new jsPDF(); doc.text(`Avaliações IVCF-20 - v${CURRENT_VERSION}`, 14, 20);
+            let rows = (db.items || []).filter(i => isVisibleToCurrentUser(i.userEmail)).map(i => [i.gestor, i.name, i.ivcf20 !== undefined ? i.ivcf20 : i.value, formatDateBR(i.date)]);
+            doc.autoTable({ startY: 28, head: [["Gestor", "Paciente", "IVCF-20", "Data"]], body: rows }); doc.save(`ivcf_v${CURRENT_VERSION}.pdf`);
+        }
+        function exportBackupJSON() { let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2)); let a = document.createElement('a'); a.href = dataStr; a.download = `backup_ACS_v${CURRENT_VERSION}.json`; document.body.appendChild(a); a.click(); a.remove(); }
+        function importBackupJSON(e) { let file = e.target.files[0]; if (!file) return; let reader = new FileReader(); reader.onload = function(evt) { try { mergeDatabaseObject(JSON.parse(evt.target.result)); persistDB(); refreshAllViews(); alert("Backup Mesclado!"); } catch (err) { alert("Erro ao ler JSON."); } }; reader.readAsText(file); }
+
+        initDB();
+    </script>
+</body>
+</html>
